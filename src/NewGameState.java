@@ -124,6 +124,12 @@ public class NewGameState implements IState{
                         break;
                     case (2):
                         // Start Your Game
+                        if (gameStateMachine.isState("StartGame")) {
+                            gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
+                        } else {
+                            gameStateMachine.Add("StartGame", new StartGameState(gameStateMachine.getFramework()));
+                            gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
+                        }
                         break;
                     case (3):
                         if (gameStateMachine.isState("MainMenu")) {

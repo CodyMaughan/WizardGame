@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,10 +28,14 @@ public class TileMap {
     protected int mapTileHeight;
     protected int tilesetCount;
     protected TileSet[] tilesets;
-    protected int[] backgroundLayer;
-    protected int[] foregroundLayer;
-    protected int[] collectiblesLayer;
-    protected int[] topLayer;
+    protected ArrayList<Integer> firstGid;
+    protected int[] backgroundLayerMap;
+    protected ArrayList<boolean[]> backgroundRotations;
+    protected int[] foregroundLayerMap;
+    protected int[] collectiblesLayerMap;
+    protected int[] topLayerMap;
+    protected BufferedImage bottomLayer;
+    protected BufferedImage topLayer;
 
     public TileMap(int windowWidth, int windowHeight, String tmxFilePath) {
         this.windowWidth = windowWidth;
@@ -62,6 +67,7 @@ public class TileMap {
             // Iterates through the list of tilesets
             tilesetCount = nList.getLength();
             tilesets = new TileSet[tilesetCount];
+            firstGid = new ArrayList<>();
             for (int temp = 0; temp < tilesetCount; temp++) {
                 // Grabs the current tilesets node
                 Node nNode = nList.item(temp);
@@ -69,21 +75,28 @@ public class TileMap {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     // Gets the element of the node
                     Element eElement = (Element) nNode;
-                    // Gets each of the attributes of the tileset
-                    System.out.println("firstgid : " + eElement.getAttribute("firstgid"));
+                    // We keep track of the first gid for each corresponding tileset
+                    firstGid.add(temp, Integer.valueOf(eElement.getAttribute("firstgid")));
                     // Gets the image source element of the tilemap
                     Node imageNode = eElement.getElementsByTagName("image").item(0);
                     Element imageElement = (Element) imageNode;
                     System.out.println("image source: " + imageElement.getAttribute("source"));
+                    String stringPath = imageElement.getAttribute("source");
+                    stringPath = stringPath.substring(2, stringPath.length());
+                    stringPath = "/resources" + stringPath;
+                    System.out.println(stringPath);
+
+                    // Gets each of the attributes of the tileset and creates a new TileSet with them
                     tilesets[temp] = new TileSet(eElement.getAttribute("name"), Integer.parseInt(eElement.getAttribute("tilewidth")),
                         Integer.parseInt(eElement.getAttribute("tileheight")), Integer.parseInt(eElement.getAttribute("tilecount")),
-                            imageElement.getAttribute("source"));
+                            stringPath);
 
                 }
             }
 
             // Gets us a list of the layer elements used for the map
             nList = doc.getElementsByTagName("layer");
+
             for (int i = 0; i < nList.getLength(); i++) {
                 // Grabs the current layer node
                 Element eElement =(Element)nList.item(i);
@@ -92,29 +105,45 @@ public class TileMap {
                 int tileDataLength = tileData.getLength();
                 Element tileElement = null;
                 // Populates each of the layers with the gid information
+                long gid = 0L;
                 switch (eElement.getAttribute("name")) {
                     case ("Background"):
-                        backgroundLayer = new int[tileDataLength];
+                        backgroundLayerMap = new int[tileDataLength];
+                        backgroundRotations = new ArrayList<>();
                         for (int j = 0; j < (tileDataLength); j++) {
-                            backgroundLayer[j] = Integer.parseInt(tileElement.getAttribute("gid"));
-                            boolean test = (backgroundLayer[j] & (1 << 31)) !=0;
-                            if (test) {
-                                System.out.println("Flipped Horizontal");
-                            } else {
-                                System.out.println("Not Flipped Horizontal");
+                            tileElement = (Element)tileData.item(j);
+                            gid = Long.parseLong(tileElement.getAttribute("gid"));
+                            boolean[] rotations = new boolean[3];
+                            if ((gid & (1 << 31)) !=0) { // Checks Horizontal Flipping
+                                rotations[0] = true;
+                                gid = gid - (long)Math.pow(2, 31);
                             }
+                            if ((gid & (1 << 30)) !=0) { // Checks Vertical Flipping
+                                rotations[1] = true;
+                                gid = gid - (long)Math.pow(2, 30);
+                            }
+                            if ((gid & (1 << 29)) !=0) { // Checks Diagonal Flipping
+                                rotations[2] = true;
+                                gid = gid - (long)Math.pow(2, 29);
+                            }
+                            if (gid < 0 || gid > 140) {
+                                System.out.println(gid);
+                                System.out.println("Index: " + j);
+                            }
+                            backgroundLayerMap[j] = (int)gid;
+                            backgroundRotations.add(rotations);
                         }
                         break;
                     case ("Foreground"):
-                        foregroundLayer = new int[tileDataLength];
+                        foregroundLayerMap = new int[tileDataLength];
                         for (int j = 0; j < (tileDataLength); j++) {
-                            foregroundLayer[j] = Integer.parseInt(tileElement.getAttribute("gid"));
+                            tileElement = (Element)tileData.item(j);
                         }
                         break;
                     case ("Top"):
-                        topLayer = new int[tileDataLength];
+                        topLayerMap = new int[tileDataLength];
                         for (int j = 0; j < (tileDataLength); j++) {
-                            topLayer[j] = Integer.parseInt(tileElement.getAttribute("gid"));
+                            tileElement = (Element)tileData.item(j);
                         }
                         break;
                 }
@@ -122,31 +151,42 @@ public class TileMap {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public BufferedImage[] SpliceImage(BufferedImage image, int tileWidth, int tileHeight) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-        int tileCols = width/tileWidth;
-        int tileRows = height/tileHeight;
-        BufferedImage[] tileArray = new BufferedImage[tileCols*tileRows];
-        int count = 0;
-        for (int col = 0; col < tileCols; col++) {
-            for (int row = 0; row < tileRows; row++) {
-                tileArray[count] = new BufferedImage(tileWidth, tileHeight, image.getType());
-                Graphics2D gr = tileArray[count++].createGraphics();
-                gr.drawImage(image, 0, 0, tileWidth, tileHeight, tileWidth * col, tileHeight * row, tileWidth * col + tileWidth, tileHeight * col + tileHeight, null);
-                gr.dispose();
-            }
-        }
-        return tileArray;
+        System.out.println("Finished Loading Tile Data");
     }
 
     public void update() {
 
     };
-    public void draw() {
 
+    public void draw(Graphics2D g2d) {
+        int tileCounter = 0;
+        int gid = 0;
+        for (int i = 0; i < mapTileHeight; i++) {
+            for (int j = 0; j < mapTileWidth; j++) {
+                gid = backgroundLayerMap[tileCounter]; // Get the stored gid
+                g2d.drawImage(getTileSet(gid).getTile(gid - firstGid.get(getTileSetIndex(gid)) + 1), // Get the Tile
+                        j*tileWidth, i*tileHeight, (j + 1)*tileWidth, (i + 1)*tileHeight, null); // Draw the Tile
+                tileCounter += 1;
+            }
+        }
     };
+
+    private TileSet getTileSet(int gid) {
+        int i = 0;
+        while (gid >= firstGid.get(i)) {
+            i += 1;
+        }
+        i -= 1;
+        return tilesets[i];
+    }
+
+    private int getTileSetIndex(int gid) {
+        int i = 0;
+        while (gid >= firstGid.get(i)) {
+            i += 1;
+        }
+        i -= 1;
+        return i;
+    }
 
 }
