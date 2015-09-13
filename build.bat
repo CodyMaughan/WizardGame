@@ -8,7 +8,7 @@ chdir /d %olddir%
 rem compile the code to create the .class files
 javac %1.java
 rem create the JAR file
-jar -cvfe %2.jar %1 %1.class %4\*.class
+jar -cvfe %2.jar %1 *.class resources
 rem get the current date and time
 @for /f "tokens=2 delims==" %%a in ('wmic OS Get localdatetime /value') do set "dt=%%a"
 @set "YY=%dt:~2,2%" & set "YYYY=%dt:~0,4%" & set "MM=%dt:~4,2%" & set "DD=%dt:~6,2%"

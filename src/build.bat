@@ -5,7 +5,7 @@ cd %3\historicalBuilds
 forfiles /S /D -2 /c "cmd /c rd /s /q @path"
 rem go to the main repository directory
 cd %4
-git pull -1 origin master
+git pull -q origin master
 rem go back to the original directory
 chdir /d %olddir%
 rem compile the code to create the .class files
