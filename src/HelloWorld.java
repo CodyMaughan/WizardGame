@@ -5,6 +5,7 @@
 import javax.swing.JButton;
 import java.awt.GraphicsEnvironment;
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,5 +26,8 @@ public class HelloWorld {
         //{
         //    System.out.println(fonts[i]);
         //}
+        String filePath = "\\C:\\Users\\Cody\\IdeaProjects\\WizardGame\\WizardGame\\src\\resources\\tmxfiles\\rotationTests.tmx";
+        System.out.println(filePath);
+        ReadXMLFile.readTMXFile(filePath);
     }
 }

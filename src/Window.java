@@ -8,7 +8,8 @@ import javax.swing.SwingUtilities;
  * Revised by Cody Maughan
  */
 
-public class Window extends JFrame{
+public class
+        Window extends JFrame{
         
     public Window()
     {
