@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -41,14 +42,24 @@ public class TileSet {
         int tileRows = height/tileHeight;
         BufferedImage[] tileArray = new BufferedImage[tileCols*tileRows];
         int count = 0;
-        for (int col = 0; col < tileCols; col++) {
-            for (int row = 0; row < tileRows; row++) {
+        for (int row = 0; row < tileRows; row++) {
+            for (int col = 0; col < tileCols; col++) {
                 tileArray[count] = new BufferedImage(tileWidth, tileHeight, image.getType());
                 Graphics2D gr = tileArray[count++].createGraphics();
-                gr.drawImage(image, 0, 0, tileWidth, tileHeight, tileWidth * col, tileHeight * row, tileWidth * col + tileWidth, tileHeight * col + tileHeight, null);
+                gr.drawImage(image, 0, 0, tileWidth, tileHeight, tileWidth * col, tileHeight * row, tileWidth * col + tileWidth, tileHeight * row + tileHeight, null);
                 gr.dispose();
             }
         }
+
+        // This code is a test to see if the tiles are being spliced correctly
+        for (int i = 0; i < tileArray.length; i++) {
+            try {
+                ImageIO.write(tileArray[i], "jpg", new File("img" + i + ".jpg"));
+            } catch (IOException ex) {
+
+            }
+        }
+
         return tileArray;
     }
 
