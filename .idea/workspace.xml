@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/StartGameState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/HelloWorld.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/HelloWorld.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/MainMenuState.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/MainMenuState.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/NewGameState.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/NewGameState.class" />
@@ -11,10 +10,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/Window$1.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/Window$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/Window.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/Window.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/WizardGame.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/WizardGame.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HelloWorld.java" afterPath="$PROJECT_DIR$/src/HelloWorld.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NewGameState.java" afterPath="$PROJECT_DIR$/src/NewGameState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TileMap.java" afterPath="$PROJECT_DIR$/src/TileMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TileSet.java" afterPath="$PROJECT_DIR$/src/TileSet.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestRecovery.iws" />
@@ -466,7 +461,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442113123681</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="TileMap, TileSet, TestMap, and ReadXML all new classes, not connected to main game">
+      <created>1442121593043</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1442121593043</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
