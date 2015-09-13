@@ -28,11 +28,6 @@ public class HelloWorld {
         //}
         String filePath = "\\C:\\Users\\Cody\\IdeaProjects\\WizardGame\\WizardGame\\src\\resources\\tmxfiles\\rotationTests.tmx";
         System.out.println(filePath);
-        //ReadXMLFile.readTMXFile(filePath);
-        System.out.println(Math.pow(2, 31));
-        System.out.println((long)Math.pow(2, 31));
-        long gid = 2684354578L;
-        gid = gid - (long)Math.pow(2, 31);
-        System.out.println(gid);
+        ReadXMLFile.readTMXFile(filePath);
     }
 }

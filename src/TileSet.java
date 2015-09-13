@@ -52,13 +52,13 @@ public class TileSet {
         }
 
         // This code is a test to see if the tiles are being spliced correctly
-        for (int i = 0; i < tileArray.length; i++) {
-            try {
-                ImageIO.write(tileArray[i], "jpg", new File("img" + i + ".jpg"));
-            } catch (IOException ex) {
-
-            }
-        }
+        //for (int i = 0; i < tileArray.length; i++) {
+        //    try {
+        //        ImageIO.write(tileArray[i], "jpg", new File("img" + i + ".jpg"));
+        //    } catch (IOException ex) {
+        //
+        //    }
+        //}
 
         return tileArray;
     }

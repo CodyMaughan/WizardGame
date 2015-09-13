@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -164,8 +166,10 @@ public class TileMap {
         for (int i = 0; i < mapTileHeight; i++) {
             for (int j = 0; j < mapTileWidth; j++) {
                 gid = backgroundLayerMap[tileCounter]; // Get the stored gid
-                g2d.drawImage(getTileSet(gid).getTile(gid - firstGid.get(getTileSetIndex(gid)) + 1), // Get the Tile
-                        j*tileWidth, i*tileHeight, (j + 1)*tileWidth, (i + 1)*tileHeight, null); // Draw the Tile
+                // Rotate/Flip the drawing if necessary
+                BufferedImage temp = transformTile(getTileSet(gid).getTile(gid - firstGid.get(getTileSetIndex(gid))),
+                        backgroundRotations.get(tileCounter)); // Get the Tile
+                g2d.drawImage(temp, j*tileWidth, i*tileHeight, tileWidth, tileHeight, null);// Draw the Tile
                 tileCounter += 1;
             }
         }
@@ -175,18 +179,95 @@ public class TileMap {
         int i = 0;
         while (gid >= firstGid.get(i)) {
             i += 1;
+            if (i == tilesets.length) {
+                break;
+            }
         }
         i -= 1;
-        return tilesets[i];
+        if (i == -1) {
+            return null;
+        } else {
+            return tilesets[i];
+        }
     }
 
     private int getTileSetIndex(int gid) {
         int i = 0;
         while (gid >= firstGid.get(i)) {
             i += 1;
+            if (i == tilesets.length) {
+                break;
+            }
         }
         i -= 1;
         return i;
+    }
+
+    private BufferedImage transformTile(BufferedImage image, boolean[] tmxRotations) {
+        AffineTransform tx = null;
+        AffineTransformOp op = null;
+        if (tmxRotations[0]) {
+            if (tmxRotations[1]) {
+                if (tmxRotations[2]) {
+                    // Rotated 270 degrees clockwise,
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(270));
+                    // Then flipped horizontally
+                    tx.scale(-1, 1);
+                    tx.translate(0, 0);
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    // Rotated 180 degrees
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(180));
+                    tx.translate(-image.getWidth(null), -image.getHeight());
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                }
+            } else {
+                if (tmxRotations[2]) {
+                    // Rotated 90 degrees clockwise
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(90));
+                    tx.translate(0, -image.getHeight());
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    // Flipped Horizontally (x direction)
+                    tx = AffineTransform.getScaleInstance(-1, 1);
+                    tx.translate(-image.getWidth(null), 0);
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                }
+            }
+        } else {
+            if (tmxRotations[1]) {
+                if (tmxRotations[2]) {
+                    // Rotated 270 degrees clockwise
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(270));
+                    tx.translate(-image.getWidth(), 0);
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    // Flipped Vertically
+                    tx = AffineTransform.getScaleInstance(1, -1);
+                    tx.translate(0, -image.getHeight(null));
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                }
+            } else {
+                if (tmxRotations[2]) {
+                    // Rotated 90 degress clockwise
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(90));
+                    // Then flipped horizontally
+                    tx.scale(-1, 1);
+                    tx.translate(-image.getWidth(), -image.getHeight());
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    //Do Nothing
+                }
+            }
+        }
+        return image;
     }
 
 }
