@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Created by Cody on 9/10/2015.
  */
-public class Button {
+public class MenuButton {
 
     private int width; // width of the button
     private int height; // height of the button
@@ -18,7 +18,7 @@ public class Button {
     private int textBufferLeft; // distance between the side of the button and the text in the horizontal direction
     private int textBufferBottom; // distance between the side of the button and the text in the vertical direction
 
-    public Button(String text, int posX, int posY, Font font, Graphics2D g2d, int bufferX, int bufferY) {
+    public MenuButton(String text, int posX, int posY, Font font, Graphics2D g2d, int bufferX, int bufferY) {
         this.text = text;
         this.x = posX;
         this.y = posY;

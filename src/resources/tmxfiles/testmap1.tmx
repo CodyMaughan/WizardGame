@@ -15,7 +15,7 @@
  <tileset firstgid="139" name="littleshrooms_0" tilewidth="32" tileheight="32" tilecount="1">
   <image source="../images/tileset/littleshrooms_0.png" width="32" height="40"/>
  </tileset>
- <layer name="Background" width="28" height="24" visible="0">
+ <layer name="Background" width="28" height="24">
   <data>
    <tile gid="28"/>
    <tile gid="9"/>
@@ -691,7 +691,7 @@
    <tile gid="2684354562"/>
   </data>
  </layer>
- <layer name="Foreground" width="28" height="24" visible="0">
+ <layer name="Foreground" width="28" height="24">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1367,7 +1367,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Collectibles" width="28" height="24" visible="0">
+ <layer name="Collectibles" width="28" height="24">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>

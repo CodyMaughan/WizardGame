@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  * Revised by Cody Maughan
  */
 
-public abstract class Canvas extends JPanel implements KeyListener, MouseListener {
+public abstract class MyCanvas extends JPanel implements KeyListener, MouseListener {
     
     // Keyboard states - Here are stored states for keyboard keys
     // The 525 rows are all of the different keys
@@ -31,7 +31,7 @@ public abstract class Canvas extends JPanel implements KeyListener, MouseListene
     private static boolean[] mouseState = new boolean[3];
         
     
-    public Canvas()
+    public MyCanvas()
     {
         // We use double buffer to draw on the screen.
         this.setDoubleBuffered(true);

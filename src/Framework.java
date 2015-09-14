@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
  * Revised by Cody Maughan
  */
 
-public class Framework extends Canvas {
+public class Framework extends MyCanvas {
     
     /**
      * Width of the frame.

@@ -16,9 +16,9 @@ public class NewGameState implements IState{
     public static int frameHeight; // window height
     private int scrollerBuffer; // distance the scroller is placed from the widest menu option
     private BufferedImage backgroundImg; // bacground image
-    private Button nameButton; // the name button
-    private Button startButton; // the start button
-    private Button mainmenuButton; // the main menu button
+    private MenuButton nameMenuButton; // the name button
+    private MenuButton startMenuButton; // the start button
+    private MenuButton mainmenuMenuButton; // the main menu button
     private MenuPointer scroller; // the menu scroller
     private TypingText wizardName; // the wizard naming typing text
     private boolean inNamingMode;
@@ -41,21 +41,21 @@ public class NewGameState implements IState{
         }
 
         Font buttonFont = new Font("Arial", Font.BOLD, 20); //Font used for the buttons
-        // Create the Name Button
-        nameButton = new Button("Name Your Wizard", 0, 250, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
-        nameButton.setPosition(frameWidth / 2 - nameButton.getWidth() / 2, 250);
-        // Create the Start Button
-        startButton = new Button("Start Your Adventure", 0, 320, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
-        startButton.setPosition(frameWidth / 2 - startButton.getWidth() / 2, 320); //Center the Button Horizontally
-        // Create the Back to Main Menu Button
-        mainmenuButton = new Button("Back to Main Menu", 0, 390, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
-        mainmenuButton.setPosition(frameWidth / 2 - mainmenuButton.getWidth() / 2, 390); //Center the Button Horizontally
+        // Create the Name MenuButton
+        nameMenuButton = new MenuButton("Name Your Wizard", 0, 250, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
+        nameMenuButton.setPosition(frameWidth / 2 - nameMenuButton.getWidth() / 2, 250);
+        // Create the Start MenuButton
+        startMenuButton = new MenuButton("Start Your Adventure", 0, 320, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
+        startMenuButton.setPosition(frameWidth / 2 - startMenuButton.getWidth() / 2, 320); //Center the MenuButton Horizontally
+        // Create the Back to Main Menu MenuButton
+        mainmenuMenuButton = new MenuButton("Back to Main Menu", 0, 390, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
+        mainmenuMenuButton.setPosition(frameWidth / 2 - mainmenuMenuButton.getWidth() / 2, 390); //Center the MenuButton Horizontally
 
         // This code is used to determine the widest button and it's width
         int[] widths = new int[3];
-        widths[0] = nameButton.getWidth();
-        widths[1] = startButton.getWidth();
-        widths[2] = mainmenuButton.getWidth();
+        widths[0] = nameMenuButton.getWidth();
+        widths[1] = startMenuButton.getWidth();
+        widths[2] = mainmenuMenuButton.getWidth();
         int maxWidth = widths[0];
         for (int i = 1; i < 3; i++) {
             if (widths[i] > maxWidth) {
@@ -75,8 +75,8 @@ public class NewGameState implements IState{
         }
         // Create the Menu Scroller
         scroller = new MenuPointer(scrollerImage, 0, 0, 70, 3, 1);
-        // Set the scroller to the left of the New Game Button
-        scroller.setPosition(frameWidth/2 - maxWidth/2 - scrollerBuffer - scroller.getWidth(), nameButton.getY());
+        // Set the scroller to the left of the New Game MenuButton
+        scroller.setPosition(frameWidth/2 - maxWidth/2 - scrollerBuffer - scroller.getWidth(), nameMenuButton.getY());
         // Initialize the wizard name string
         wizardName = new TypingText("My Wizard's Name: ", "", 0, 160, new Font("Arial", Font.PLAIN, 40), Color.BLACK, (Graphics2D)framework.getGraphics());
         wizardName.setPosition(frameWidth/2 - wizardName.getWidth()/2, 160);
@@ -87,7 +87,7 @@ public class NewGameState implements IState{
     @Override
     public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
         // Handle Input from the Keyboard
-        if (inNamingMode) { // If the user has clicked the Name Button and is naming the hero
+        if (inNamingMode) { // If the user has clicked the Name MenuButton and is naming the hero
             nameTime += elapsedTime;
             if (keyboardstate[KeyEvent.VK_ENTER][1]) {
                 inNamingMode = false; // Pressing Enter Exits Naming Mode
@@ -190,9 +190,9 @@ public class NewGameState implements IState{
     public void Draw(Graphics2D g2d) {
         g2d.drawImage(backgroundImg, 0, 0, frameWidth, frameHeight, null); // Draw the Background Image
         wizardName.draw(g2d);
-        nameButton.draw(g2d); // Draw the Name Button
-        startButton.draw(g2d); // Draw the New Game Button
-        mainmenuButton.draw(g2d); // Draw the Load Game Button
+        nameMenuButton.draw(g2d); // Draw the Name MenuButton
+        startMenuButton.draw(g2d); // Draw the New Game MenuButton
+        mainmenuMenuButton.draw(g2d); // Draw the Load Game MenuButton
         if (!inNamingMode) {
             scroller.draw(g2d); // Draw the Scroller if not in naming mode
         }

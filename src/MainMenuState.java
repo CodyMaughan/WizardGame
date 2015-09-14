@@ -1,5 +1,4 @@
 import javax.imageio.ImageIO;
-import javax.naming.AuthenticationException;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -18,10 +17,10 @@ public class MainMenuState implements IState {
     public static int frameHeight; // window height
     private int scrollerBuffer; // distance the scroller is placed from the widest menu option
     private BufferedImage backgroundImg; // image used for the background
-    private Button newgameButton; // the new game button
-    private Button loadgameButton; // the load game button
-    private Button optionsButton; // the options button
-    private Button exitButton; // the exit button
+    private MenuButton newgameMenuButton; // the new game button
+    private MenuButton loadgameMenuButton; // the load game button
+    private MenuButton optionsMenuButton; // the options button
+    private MenuButton exitMenuButton; // the exit button
     private MenuPointer scroller; // the menu scroller
 
     public MainMenuState(Framework framework) {
@@ -32,6 +31,7 @@ public class MainMenuState implements IState {
         // Load the Background Image
         try {
             URL moonLanderMenuImgUrl = this.getClass().getResource("/resources/images/menu.jpg");
+            System.out.println(this.getClass());
             System.out.println(moonLanderMenuImgUrl);
             System.out.println(moonLanderMenuImgUrl.getPath());
             System.out.println(moonLanderMenuImgUrl.getFile());
@@ -42,25 +42,25 @@ public class MainMenuState implements IState {
         }
 
         Font buttonFont = new Font("Arial", Font.BOLD, 15); //Font used for the buttons
-        // Create the New Game Button
-        newgameButton = new Button("New Game", 0, 300, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
-        newgameButton.setPosition(frameWidth / 2 - newgameButton.getWidth() / 2, 300);//Center the button
-        // Create the Load Game Button
-        loadgameButton = new Button("Load Game", 0, 360, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
-        loadgameButton.setPosition(frameWidth / 2 - loadgameButton.getWidth() / 2, 360);//Center the button
-        // Create the Options Button
-        optionsButton = new Button("Options", 0, 420, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
-        optionsButton.setPosition(frameWidth / 2 - optionsButton.getWidth() / 2, 420);//Center the button
-        // Create the Exit Button
-        exitButton = new Button("Exit Game", 0, 480, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
-        exitButton.setPosition(frameWidth / 2 - exitButton.getWidth() / 2, 480);//Center the button
+        // Create the New Game MenuButton
+        newgameMenuButton = new MenuButton("New Game", 0, 300, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
+        newgameMenuButton.setPosition(frameWidth / 2 - newgameMenuButton.getWidth() / 2, 300);//Center the button
+        // Create the Load Game MenuButton
+        loadgameMenuButton = new MenuButton("Load Game", 0, 360, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
+        loadgameMenuButton.setPosition(frameWidth / 2 - loadgameMenuButton.getWidth() / 2, 360);//Center the button
+        // Create the Options MenuButton
+        optionsMenuButton = new MenuButton("Options", 0, 420, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
+        optionsMenuButton.setPosition(frameWidth / 2 - optionsMenuButton.getWidth() / 2, 420);//Center the button
+        // Create the Exit MenuButton
+        exitMenuButton = new MenuButton("Exit Game", 0, 480, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
+        exitMenuButton.setPosition(frameWidth / 2 - exitMenuButton.getWidth() / 2, 480);//Center the button
 
         // This code is used to determine the widest button and it's width
         int[] widths = new int[4];
-        widths[0] = newgameButton.getWidth();
-        widths[1] = loadgameButton.getWidth();
-        widths[2] = optionsButton.getWidth();
-        widths[3] = exitButton.getWidth();
+        widths[0] = newgameMenuButton.getWidth();
+        widths[1] = loadgameMenuButton.getWidth();
+        widths[2] = optionsMenuButton.getWidth();
+        widths[3] = exitMenuButton.getWidth();
         int maxWidth = widths[0];
         for (int i = 1; i < 4; i++) {
             if (widths[i] > maxWidth) {
@@ -80,8 +80,8 @@ public class MainMenuState implements IState {
         }
         // Create the Menu Scroller
         scroller = new MenuPointer(scrollerImage, 0, 0, 60, 4, 1);
-        // Set the scroller to the left of the New Game Button
-        scroller.setPosition(frameWidth/2 - maxWidth/2 - scrollerBuffer - scroller.getWidth(), newgameButton.getY());
+        // Set the scroller to the left of the New Game MenuButton
+        scroller.setPosition(frameWidth/2 - maxWidth/2 - scrollerBuffer - scroller.getWidth(), newgameMenuButton.getY());
         BufferedImage tileTest = null;
         try {
             tileTest = ImageIO.read(this.getClass().getResource("/resources/images/tilemap1.png"));
@@ -157,10 +157,10 @@ public class MainMenuState implements IState {
     @Override
     public void Draw(Graphics2D g2d) {
         g2d.drawImage(backgroundImg, 0, 0, frameWidth, frameHeight, null); // Draw the Background Image
-        newgameButton.draw(g2d); // Draw the New Game Button
-        loadgameButton.draw(g2d); // Draw the Load Game Button
-        optionsButton.draw(g2d); // Draw the Options Button
-        exitButton.draw(g2d); // Draw the Exit Button
+        newgameMenuButton.draw(g2d); // Draw the New Game MenuButton
+        loadgameMenuButton.draw(g2d); // Draw the Load Game MenuButton
+        optionsMenuButton.draw(g2d); // Draw the Options MenuButton
+        exitMenuButton.draw(g2d); // Draw the Exit MenuButton
         scroller.draw(g2d); // Draw the Scroller
     }
 

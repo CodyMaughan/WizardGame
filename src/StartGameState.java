@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 /**
  * Created by Cody on 9/12/2015.
@@ -7,10 +8,13 @@ import java.awt.image.BufferedImage;
 public class StartGameState implements IState {
 
     private TileMap map;
-    private final String mapPath = "\\C:\\Users\\Cody\\IdeaProjects\\WizardGame\\WizardGame\\src\\resources\\tmxfiles\\testmap1.tmx";
+    private String mapPath;
     private MainCharacter character;
 
     public StartGameState(Framework framework, String wizardName, BufferedImage characterImage) {
+        //mapPath = "\\C:\\Users\\Cody\\IdeaProjects\\WizardGame\\WizardGame\\src\\resources\\tmxfiles\\testmap1.tmx";
+        URL temp = this.getClass().getResource("/resources/tmxfiles/testmap1.tmx");
+        mapPath = temp.getPath();
         map = new TileMap(framework.getWidth(), framework.getHeight(), mapPath);
         character = new MainCharacter(wizardName, characterImage, map.getMainSpawnX(0), map.getMainSpawnY(0),
                 characterImage.getWidth()/3, characterImage.getHeight()/4);
