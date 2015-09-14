@@ -75,6 +75,10 @@ public class TypingText {
         return y;
     }
 
+    public String getTypingText() {
+        return String.valueOf(dynamicText);
+    }
+
     public void setPosition(int posX, int posY) {
         x = posX;
         y = posY;

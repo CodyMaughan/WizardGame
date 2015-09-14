@@ -17,8 +17,7 @@ public class MenuPointer {
     public float scrollTimer; // The amount of time the pointer has been scrolling in one direction
     public int scrollDirection; // The direction the pointer is currently scrolling
 
-    public
-    final float TIMER_MAX = 1000000000L;
+    public final float TIMER_MAX = 600000L;
 
     public MenuPointer(BufferedImage image, int posX, int posY, int menuSpacing, int menuCount, int count) {
         this.image = image;

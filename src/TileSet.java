@@ -1,5 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,33 +15,41 @@ import java.util.logging.Logger;
 public class TileSet {
 
     public String name;
+    public int imageWidth;
+    public int imageHeight;
     public int tileWidth;
     public int tileHeight;
     public int tileCount;
     protected String imageSource;
     public BufferedImage[] tiles;
+    public int firstgid;
+    public int tileCols;
+    public int tileRows;
 
-    public TileSet(String name, int tileWidth, int tileHeight, int tileCount, String imageSource) {
+    public TileSet(String name, int firstgid, int tileWidth, int tileHeight, int tileCount, String imageSource) {
         this.name = name;
+        this.firstgid = firstgid;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.tileCount = tileCount;
         this.imageSource = imageSource;
-        BufferedImage sourceImage = null;
+        BufferedImage image = null;
         try {
-            sourceImage = ImageIO.read(this.getClass().getResource(imageSource));
+            image = ImageIO.read(this.getClass().getResource(imageSource));
         }
         catch (IOException ex) {
             Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tiles = SpliceImage(sourceImage, tileWidth, tileHeight);
+        imageWidth = image.getWidth();
+        imageHeight = image.getHeight();
+        tileCols = imageWidth/tileWidth;
+        tileRows = imageHeight/tileHeight;
+        tiles = SpliceImage(image, tileWidth, tileHeight);
     }
 
     private BufferedImage[] SpliceImage(BufferedImage image, int tileWidth, int tileHeight) {
         int width = image.getWidth();
         int height = image.getHeight();
-        int tileCols = width/tileWidth;
-        int tileRows = height/tileHeight;
         BufferedImage[] tileArray = new BufferedImage[tileCols*tileRows];
         int count = 0;
         for (int row = 0; row < tileRows; row++) {
@@ -50,21 +60,89 @@ public class TileSet {
                 gr.dispose();
             }
         }
-
-        // This code is a test to see if the tiles are being spliced correctly
-        //for (int i = 0; i < tileArray.length; i++) {
-        //    try {
-        //        ImageIO.write(tileArray[i], "jpg", new File("img" + i + ".jpg"));
-        //    } catch (IOException ex) {
-        //
-        //    }
-        //}
-
         return tileArray;
+    }
+
+    public void drawTile(Graphics2D g2d, int gid, AffineTransform afx) {
+        gid = gid - firstgid;
+        int row = Math.floorDiv(gid, tileCols);
+        int col = gid - row*tileCols;
+        g2d.drawImage(tiles[gid], afx, null);
+    }
+
+    private BufferedImage transformTile(BufferedImage image, boolean[] tmxRotations) {
+        AffineTransform tx = null;
+        AffineTransformOp op = null;
+        if (tmxRotations[0]) {
+            if (tmxRotations[1]) {
+                if (tmxRotations[2]) {
+                    // Rotated 270 degrees clockwise,
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(90));
+                    // Then flipped horizontally
+                    tx.scale(-1, 1);
+                    tx.translate(-image.getWidth(), -image.getHeight());
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    // Rotated 180 degrees
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(180));
+                    tx.translate(-image.getWidth(null), -image.getHeight());
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                }
+            } else {
+                if (tmxRotations[2]) {
+                    // Rotated 90 degrees clockwise
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(90));
+                    tx.translate(0, -image.getHeight());
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    // Flipped Horizontally (x direction)
+                    tx = AffineTransform.getScaleInstance(-1, 1);
+                    tx.translate(-image.getWidth(null), 0);
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                }
+            }
+        } else {
+            if (tmxRotations[1]) {
+                if (tmxRotations[2]) {
+                    // Rotated 270 degrees clockwise
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(270));
+                    tx.translate(-image.getWidth(), 0);
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    // Flipped Vertically
+                    tx = AffineTransform.getScaleInstance(1, -1);
+                    tx.translate(0, -image.getHeight(null));
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                }
+            } else {
+                if (tmxRotations[2]) {
+                    // Rotated 90 degress clockwise
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(270));
+                    // Then flipped horizontally
+                    tx.scale(-1, 1);
+                    tx.translate(0, 0);
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    //Do Nothing
+                }
+            }
+        }
+        return image;
     }
 
     public BufferedImage getTile(int id) {
         return tiles[id];
+    }
+
+    public int getFirstGid() {
+        return firstgid;
     }
 
 
