@@ -12,7 +12,7 @@ public class StartGameState implements IState {
 
     public StartGameState(Framework framework, String wizardName, BufferedImage characterImage) {
         map = new TileMap(framework.getWidth(), framework.getHeight(), mapPath);
-        character = new MainCharacter(wizardName, characterImage, 0, 0,
+        character = new MainCharacter(wizardName, characterImage, map.getMainSpawnX(0), map.getMainSpawnY(0),
                 characterImage.getWidth()/3, characterImage.getHeight()/4);
     }
 

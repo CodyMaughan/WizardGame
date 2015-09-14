@@ -49,6 +49,7 @@ public class TileMap {
     protected Map<Integer, boolean[]> topRotations; // A mapping of the tile location to rotation data used for the top layer
     protected ArrayList<Rectangle>  collisionBoxes; // A list of all the collisionBoxes for the map
     protected int playerMoveDistance; // A set distance from the edges of the window where the map begins to move with the player.
+    protected int[][] mainSpawnPoints;
 
 
     public TileMap(int windowWidth, int windowHeight, String tmxFilePath) {
@@ -222,8 +223,9 @@ public class TileMap {
                 int objectDataLength = objectData.getLength();
                 Element objectElement = null;
                 switch (eElement.getAttribute("name")) {
-                    case ("Collison"):
+                    case ("Collision"):
                         // Gets all the collision boxes on the map
+                        collisionBoxes = new ArrayList<>();
                         int rectX = 0;
                         int rectY = 0;
                         int rectWidth = 0;
@@ -237,9 +239,15 @@ public class TileMap {
                             collisionBoxes.add(new Rectangle(rectX, rectY, rectHeight, rectWidth));
                         }
                         break;
-                    // Other objects to be added
+                    // Main Spawn Point 1
+                    case("MainCharacterSpawn1"):
+                        objectElement = (Element)objectData.item(0);
+                        mainSpawnPoints = new int[1][2];
+                        mainSpawnPoints[0][0] = Integer.parseInt(objectElement.getAttribute("x"));
+                        mainSpawnPoints[0][1] = Integer.parseInt(objectElement.getAttribute("y"));
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -289,8 +297,59 @@ public class TileMap {
             }
             character.y = (windowHeight - character.characterHeight - playerMoveDistance) + correction;
         }
-
+        character.collisionBox.setLocation(character.x + character.characterWidth/4, character.y + character.characterHeight/2);
     };
+
+    public void resolveCollisions(MainCharacter character) {
+        // WARNING, WARNING, WARNING!!!!!!!!
+        // The if statements here may be inefficient. Consider recoding them.
+        for (Rectangle rect : collisionBoxes) {
+            rect.translate(-xOffset, -yOffset);
+            int distance = 0;
+            if (rect.intersects(character.collisionBox)) {
+                // Collided traveling to the right
+                if (character.collisionBox.x + character.collisionBox.width > rect.x &&
+                        character.collisionBox.x + character.collisionBox.width - character.vX <= rect.x) {
+                    distance = character.collisionBox.x + character.collisionBox.width - rect.x;
+                    character.translate(-distance, 0);
+                    //character.setPosition(rect.x - character.collisionBox.width, 0);
+                }
+                // Collided traveling to the left
+                else if (character.collisionBox.x < rect.x + rect.width &&
+                        character.collisionBox.x - character.vX >= rect.x + rect.width) {
+                    //character.setPosition(rect.x + rect.width, 0);
+                    distance = (rect.x + rect.width) - character.collisionBox.x;
+                    character.translate(distance, 0);
+                }
+                // Collided traveling down
+                if (character.collisionBox.y + character.collisionBox.height > rect.y &&
+                        character.collisionBox.y + character.collisionBox.height - character.vY <= rect.y) {
+                    //character.setPosition(0, rect.y - character.collisionBox.height);
+                    distance = character.collisionBox.y + character.collisionBox.height - rect.y;
+                    character.translate(0, -distance);
+                }
+                // Collided traveling up
+                else if (character.collisionBox.y < rect.y + rect.height &&
+                        character.collisionBox.y - character.vY >= rect.y + rect.height) {
+                    //character.setPosition(0, rect.y + rect.height);
+                    distance = (rect.y + rect.height) - character.collisionBox.y;
+                    character.translate(0, distance);
+                }
+            }
+            rect.translate(xOffset, yOffset);
+        }
+        // Resolve collisions with the edge of the map
+        if (character.x < 0) {
+            character.setPosition(0, character.y);
+        } else if (character.x + character.characterWidth > windowWidth) {
+            character.setPosition(windowWidth - character.characterWidth, character.y);
+        }
+        if (character.y < 0) {
+            character.setPosition(character.x, 0);
+        } else if (character.y + character.characterHeight > windowHeight) {
+            character.setPosition(character.x, windowHeight - character.characterHeight);
+        }
+    }
 
     public void drawBottomLayer(Graphics2D g2d) {
         // Determine which tiles need to be drawn based on the offsets
@@ -357,10 +416,12 @@ public class TileMap {
                     row*tileHeight - yOffset);
             getTileSet(gid).drawTile(g2d, gid, afx);
         }
-    }
-
-    public void resolveCollisions(MainCharacter character) {
-
+        // This code draws the map collisionBoxes, it is for testing purposes only
+        for (Rectangle rect : collisionBoxes) {
+            rect.translate(-xOffset, -yOffset);
+            g2d.draw(rect);
+            rect.translate(xOffset, yOffset);
+        }
     }
 
     private TileSet getTileSet(int gid) {
@@ -431,5 +492,13 @@ public class TileMap {
             }
         }
         return tx;
+    }
+
+    public int getMainSpawnX(int id) {
+        return mainSpawnPoints[id][0];
+    }
+
+    public int getMainSpawnY(int id) {
+        return mainSpawnPoints[id][1];
     }
 }

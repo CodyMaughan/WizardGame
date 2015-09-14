@@ -10,17 +10,20 @@ public class MainCharacter implements DrawableObject {
     public static String characterName;
     public static int x;
     public static int y;
+    public static int vX;
+    public static int vY;
     public static int characterWidth;
     public static int characterHeight;
+    public static Rectangle collisionBox;
     public static BufferedImage image;
     private static int imageWidth;
     private static int imageHeight;
     public static int direction; // Down = 0, Left = 1, Right = 2, Up = 3
     private static int animationFrame;
     private static int maxAnimationFrames;
-    private final int moveSpeed = 10;
+    private final int moveSpeed = 8;
     private static long walkingTimer;
-    private final long animationTime = 150000L;
+    private final long animationTime = 250000L;
 
     public MainCharacter(String name, BufferedImage image, int posX, int posY, int characterWidth, int characterHeight){
 
@@ -36,19 +39,22 @@ public class MainCharacter implements DrawableObject {
         direction = 0;
         maxAnimationFrames = imageWidth/characterWidth;
         walkingTimer = 0;
-
+        collisionBox = new Rectangle(posX + characterWidth/2, posY + characterHeight/2, characterWidth/2, characterHeight/2);
+        vX = 0;
+        vY = 0;
     }
 
     @Override
     public void draw(Graphics2D g2d) {
         g2d.drawImage(image, x, y, x + characterWidth, y + characterHeight, characterWidth*animationFrame,
                 characterHeight*direction, (animationFrame + 1)*characterWidth, (direction + 1)*characterHeight, null);
+        g2d.draw(collisionBox);
     }
 
     @Override
     public void update(float elapsedTime, boolean[][] keyboardstate) {
-        double vX = 0;
-        double vY = 0;
+        vX = 0;
+        vY = 0;
         // Determine The Direction to Move the Character base on KeyboardState
         // The order here is important, as it prioritizes the Up/Down Character animation over Right/Left
         if (keyboardstate[KeyEvent.VK_A][0]) {// Move Left
@@ -70,8 +76,8 @@ public class MainCharacter implements DrawableObject {
         // Make the velocity vector a unit vector and then multiply by the moveSpeed
         if (vX != 0 || vY != 0) {
             if (Math.abs(vX) == 1 && Math.abs(vY) == 1) {
-                vX = moveSpeed*(vX)*(1/Math.sqrt(2));
-                vY = moveSpeed*(vY)*(1/Math.sqrt(2));
+                vX = vX*moveSpeed*7/10;
+                vY = vY*moveSpeed*7/10;
             } else {
                 vX = vX*moveSpeed;
                 vY = vY*moveSpeed;
@@ -89,7 +95,18 @@ public class MainCharacter implements DrawableObject {
             walkingTimer = 0;
         }
         // Move the character with the velocity vector
-        x += vX;
-        y += vY;
+        this.translate(vX, vY);
+    }
+
+    public void translate(int dx, int dy) {
+        x += dx;
+        y += dy;
+        collisionBox.translate(dx, dy);
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+        collisionBox.setLocation(x + characterWidth/4, y + characterHeight/2);
     }
 }
