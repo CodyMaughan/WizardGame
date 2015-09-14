@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -59,16 +60,6 @@ public class TileSet {
                 gr.dispose();
             }
         }
-
-        // This code is a test to see if the tiles are being spliced correctly
-        //for (int i = 0; i < tileArray.length; i++) {
-        //    try {
-        //        ImageIO.write(tileArray[i], "jpg", new File("img" + i + ".jpg"));
-        //    } catch (IOException ex) {
-        //
-        //    }
-        //}
-
         return tileArray;
     }
 
@@ -77,6 +68,73 @@ public class TileSet {
         int row = Math.floorDiv(gid, tileCols);
         int col = gid - row*tileCols;
         g2d.drawImage(tiles[gid], afx, null);
+    }
+
+    private BufferedImage transformTile(BufferedImage image, boolean[] tmxRotations) {
+        AffineTransform tx = null;
+        AffineTransformOp op = null;
+        if (tmxRotations[0]) {
+            if (tmxRotations[1]) {
+                if (tmxRotations[2]) {
+                    // Rotated 270 degrees clockwise,
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(90));
+                    // Then flipped horizontally
+                    tx.scale(-1, 1);
+                    tx.translate(-image.getWidth(), -image.getHeight());
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    // Rotated 180 degrees
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(180));
+                    tx.translate(-image.getWidth(null), -image.getHeight());
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                }
+            } else {
+                if (tmxRotations[2]) {
+                    // Rotated 90 degrees clockwise
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(90));
+                    tx.translate(0, -image.getHeight());
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    // Flipped Horizontally (x direction)
+                    tx = AffineTransform.getScaleInstance(-1, 1);
+                    tx.translate(-image.getWidth(null), 0);
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                }
+            }
+        } else {
+            if (tmxRotations[1]) {
+                if (tmxRotations[2]) {
+                    // Rotated 270 degrees clockwise
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(270));
+                    tx.translate(-image.getWidth(), 0);
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    // Flipped Vertically
+                    tx = AffineTransform.getScaleInstance(1, -1);
+                    tx.translate(0, -image.getHeight(null));
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                }
+            } else {
+                if (tmxRotations[2]) {
+                    // Rotated 90 degress clockwise
+                    tx = AffineTransform.getRotateInstance(Math.toRadians(270));
+                    // Then flipped horizontally
+                    tx.scale(-1, 1);
+                    tx.translate(0, 0);
+                    op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                } else {
+                    //Do Nothing
+                }
+            }
+        }
+        return image;
     }
 
     public BufferedImage getTile(int id) {

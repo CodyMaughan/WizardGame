@@ -20,7 +20,11 @@ public class StartGameState implements IState {
     public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
         // Update the main character position and animation
         character.update(elapsedTime, keyboardstate);
+        // Move the map if necessary
+        map.moveMap(character);
         // Handle collision detections
+        // Collision Detection of character and map
+        map.resolveCollisions(character);
     }
 
     @Override
