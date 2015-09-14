@@ -67,8 +67,7 @@ public class NewGameState implements IState{
         // Initialize the BufferedImage variable that will be used to create the scroller
         BufferedImage scrollerImage = null;
         // Load the Scroller Image
-        try
-        {
+        try {
             scrollerImage = ImageIO.read(this.getClass().getResource("/resources/images/pointerFinger.png"));
         }
         catch (IOException ex) {
@@ -127,7 +126,14 @@ public class NewGameState implements IState{
                         if (gameStateMachine.isState("StartGame")) {
                             gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
                         } else {
-                            gameStateMachine.Add("StartGame", new StartGameState(gameStateMachine.getFramework()));
+                            BufferedImage chosenImage = null;
+                            try {
+                                chosenImage = ImageIO.read(this.getClass().getResource("/resources/images/Character1.png"));
+                            }
+                            catch (IOException ex) {
+                                Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            gameStateMachine.Add("StartGame", new StartGameState(gameStateMachine.getFramework(), wizardName.getTypingText(), chosenImage));
                             gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
                         }
                         break;

@@ -92,6 +92,7 @@ public class Framework extends Canvas {
     private void Update() {
         long elapsedTime = System.nanoTime() - lastTime;
         gameTime += elapsedTime;
+        elapsedTime = elapsedTime/1000; //change the time to microseconds instead of nanoseconds
         gameStateMachine.Update(elapsedTime, keyboardState); // Update the game state through the State Machine
         // Here we are going to change the meaning of the key released booleans.
         // The changes made here will register it as single time occurrences (when the key went up).
