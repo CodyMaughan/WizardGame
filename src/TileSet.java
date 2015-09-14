@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,33 +14,41 @@ import java.util.logging.Logger;
 public class TileSet {
 
     public String name;
+    public int imageWidth;
+    public int imageHeight;
     public int tileWidth;
     public int tileHeight;
     public int tileCount;
     protected String imageSource;
     public BufferedImage[] tiles;
+    public int firstgid;
+    public int tileCols;
+    public int tileRows;
 
-    public TileSet(String name, int tileWidth, int tileHeight, int tileCount, String imageSource) {
+    public TileSet(String name, int firstgid, int tileWidth, int tileHeight, int tileCount, String imageSource) {
         this.name = name;
+        this.firstgid = firstgid;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.tileCount = tileCount;
         this.imageSource = imageSource;
-        BufferedImage sourceImage = null;
+        BufferedImage image = null;
         try {
-            sourceImage = ImageIO.read(this.getClass().getResource(imageSource));
+            image = ImageIO.read(this.getClass().getResource(imageSource));
         }
         catch (IOException ex) {
             Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tiles = SpliceImage(sourceImage, tileWidth, tileHeight);
+        imageWidth = image.getWidth();
+        imageHeight = image.getHeight();
+        tileCols = imageWidth/tileWidth;
+        tileRows = imageHeight/tileHeight;
+        tiles = SpliceImage(image, tileWidth, tileHeight);
     }
 
     private BufferedImage[] SpliceImage(BufferedImage image, int tileWidth, int tileHeight) {
         int width = image.getWidth();
         int height = image.getHeight();
-        int tileCols = width/tileWidth;
-        int tileRows = height/tileHeight;
         BufferedImage[] tileArray = new BufferedImage[tileCols*tileRows];
         int count = 0;
         for (int row = 0; row < tileRows; row++) {
@@ -63,8 +72,19 @@ public class TileSet {
         return tileArray;
     }
 
+    public void drawTile(Graphics2D g2d, int gid, AffineTransform afx) {
+        gid = gid - firstgid;
+        int row = Math.floorDiv(gid, tileCols);
+        int col = gid - row*tileCols;
+        g2d.drawImage(tiles[gid], afx, null);
+    }
+
     public BufferedImage getTile(int id) {
         return tiles[id];
+    }
+
+    public int getFirstGid() {
+        return firstgid;
     }
 
 

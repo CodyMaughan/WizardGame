@@ -19,7 +19,8 @@ public class StartGameState implements IState {
 
     @Override
     public void Draw(Graphics2D g2d) {
-        map.draw(g2d);
+        map.drawBottomLayer(g2d);
+        map.drawTopLayer(g2d);
     }
 
     @Override
