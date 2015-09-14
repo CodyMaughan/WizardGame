@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -13,11 +15,11 @@ public class StartGameState implements IState {
 
     public StartGameState(Framework framework, String wizardName, BufferedImage characterImage) {
         //mapPath = "\\C:\\Users\\Cody\\IdeaProjects\\WizardGame\\WizardGame\\src\\resources\\tmxfiles\\testmap1.tmx";
-        URL temp = this.getClass().getResource("/resources/tmxfiles/testmap1.tmx");
-        mapPath = temp.getPath();
+        mapPath = "/resources/tmxfiles/testmap1.tmx";
+
         map = new TileMap(framework.getWidth(), framework.getHeight(), mapPath);
         character = new MainCharacter(wizardName, characterImage, map.getMainSpawnX(0), map.getMainSpawnY(0),
-                characterImage.getWidth()/3, characterImage.getHeight()/4);
+                characterImage.getWidth() / 3, characterImage.getHeight() / 4);
     }
 
     @Override

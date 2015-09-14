@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +70,8 @@ public class TileMap {
 
     private void readtmxFile(String filePath) {
         try {
-            File fXmlFile = new File(filePath);
+            System.out.println(filePath);
+            File fXmlFile = new FileUtility().GetFile(filePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
