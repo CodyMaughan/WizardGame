@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="Added the main character class with animation and movement!!!!!&#10;No collision detection yet.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/MainMenuState.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/MainMenuState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/MenuPointer.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/MenuPointer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/TileMap.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/TileMap.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StartGameState.java" afterPath="$PROJECT_DIR$/src/StartGameState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TileMap.java" afterPath="$PROJECT_DIR$/src/TileMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TileSet.java" afterPath="$PROJECT_DIR$/src/TileSet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="" />
     <ignored path="TestRecovery.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -533,7 +524,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442196928522</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="For some reason I can't upload the images that I've added to the project but I'll try to figure it out.">
+      <created>1442211535654</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1442211535654</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -607,7 +604,8 @@
     <MESSAGE value="The Background Game Map is Fully Functional" />
     <MESSAGE value="Check out the new tile map!!!! On the new game screen choose the start your adventure option to see the map load!" />
     <MESSAGE value="Added the main character class with animation and movement!!!!!&#10;No collision detection yet." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the main character class with animation and movement!!!!!&#10;No collision detection yet." />
+    <MESSAGE value="For some reason I can't upload the images that I've added to the project but I'll try to figure it out." />
+    <option name="LAST_COMMIT_MESSAGE" value="For some reason I can't upload the images that I've added to the project but I'll try to figure it out." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
