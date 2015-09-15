@@ -31,10 +31,6 @@ public class MainMenuState implements IState {
         // Load the Background Image
         try {
             URL moonLanderMenuImgUrl = this.getClass().getResource("/resources/images/menu.jpg");
-            System.out.println(this.getClass());
-            System.out.println(moonLanderMenuImgUrl);
-            System.out.println(moonLanderMenuImgUrl.getPath());
-            System.out.println(moonLanderMenuImgUrl.getFile());
             backgroundImg = ImageIO.read(moonLanderMenuImgUrl);
         }
         catch (IOException ex) {

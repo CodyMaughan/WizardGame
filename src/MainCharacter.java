@@ -98,15 +98,15 @@ public class MainCharacter implements DrawableObject {
         this.translate(vX, vY);
     }
 
-    public void translate(int dx, int dy) {
+    public static void translate(int dx, int dy) {
         x += dx;
         y += dy;
         collisionBox.translate(dx, dy);
     }
 
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public static void setPosition(int posX, int posY) {
+        x = posX;
+        y = posY;
         collisionBox.setLocation(x + characterWidth/4, y + characterHeight/2);
     }
 }
