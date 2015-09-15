@@ -78,17 +78,6 @@ public class MainMenuState implements IState {
         scroller = new MenuPointer(scrollerImage, 0, 0, 60, 4, 1);
         // Set the scroller to the left of the New Game MenuButton
         scroller.setPosition(frameWidth/2 - maxWidth/2 - scrollerBuffer - scroller.getWidth(), newgameMenuButton.getY());
-        BufferedImage tileTest = null;
-        try {
-            tileTest = ImageIO.read(this.getClass().getResource("/resources/images/tilemap1.png"));
-        }
-        catch (IOException ex) {
-            Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        int testWidth = tileTest.getWidth();
-        int testHeight = tileTest.getHeight();
-        //TileMap test = new TestMap(tileTest, testWidth/3, testHeight/5);
-        //test.toString();
     }
 
 

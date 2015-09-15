@@ -72,14 +72,14 @@ public class MenuPointer {
     }
 
     public void scrollDown() {
-        count += 1; // Moves down the menu options by one (increases current count by one)
+        count += 1; // Moves down the menu options by one (increases current countX by one)
         if (count > menuCount) {
             count = 1; // If the pointer goes past the last menu option it moves to the first option
         }
     }
 
     public void scrollUp() {
-        count -= 1; // Moves up the menu options by one (decreases current count by one)
+        count -= 1; // Moves up the menu options by one (decreases current countX by one)
         if (count < 1) {
             count = menuCount; // If the pointer goes past the first menu option it moves to the last option
         }

@@ -17,6 +17,8 @@ public class MenuButton {
     private Font font; // font of the button text
     private int textBufferLeft; // distance between the side of the button and the text in the horizontal direction
     private int textBufferBottom; // distance between the side of the button and the text in the vertical direction
+    private int textWidth;
+    private int textHeight;
 
     public MenuButton(String text, int posX, int posY, Font font, Graphics2D g2d, int bufferX, int bufferY) {
         this.text = text;
@@ -86,7 +88,7 @@ public class MenuButton {
         g2d.fillRoundRect(x, y, width, height, textBufferLeft, textBufferBottom); // Draws the button box (roundrect)
         g2d.setColor(textColor); // Sets color to text color
         g2d.setFont(font); // Sets the font of the text
-        g2d.drawString(text, x + textBufferLeft, y + height/2 + textBufferBottom); // Draws the button text
+        g2d.drawString(text, x + (width - textWidth)/2, y + height - 3*textBufferBottom/4 - (height - textHeight)/2); // Draws the button text
     }
 
     public int[] fitRect2Text(Graphics2D g2d) {
@@ -104,6 +106,8 @@ public class MenuButton {
         // Determines width and height of only the text
         width = (int)(font.getStringBounds(text,g2d.getFontRenderContext()).getWidth());
         height = (int)(font.getStringBounds(text,g2d.getFontRenderContext()).getHeight());
+        textWidth = width;
+        textHeight = height;
         // Adds the buffer settings to the width and height
         width += 2*bufferX;
         height += 2*bufferY;
