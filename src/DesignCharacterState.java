@@ -32,6 +32,7 @@ public class DesignCharacterState implements IState {
     private String name;
     private Font buttonFont;
     private int maxButtonWidth;
+    private Font messageFont;
 
     private final int characterCount = 6;
     private final int characterAnimationFrames = 3;
@@ -39,6 +40,7 @@ public class DesignCharacterState implements IState {
     private final int drawScale = 1;
     private final int maxCol = 4;
     private final String title = "Character Selection";
+    private final String confirmationMessage = "Choose this Character?";
 
     public DesignCharacterState(Framework framework, String name) {
         windowWidth = framework.getWidth();
@@ -103,6 +105,7 @@ public class DesignCharacterState implements IState {
         scroller2.setWidth(scroller2.getHeight());
         scrollerBuffer = (yesButton.getX() - (windowWidth - width)/2 - scroller2.getWidth())/2;
         scroller2.setPosition((windowWidth - width)/2 + scrollerBuffer, yesButton.getY());
+        messageFont = buttonFont;
     }
 
     @Override
@@ -179,19 +182,15 @@ public class DesignCharacterState implements IState {
             if(keyboardstate[KeyEvent.VK_ENTER][1]) {
                 switch(scroller2.getCountX()) {
                     case(1):
-                        if (gameStateMachine.isState("StartGame")) {
-                            gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
-                        } else {
-                            BufferedImage chosenImage = null;
-                            try {
-                                chosenImage = ImageIO.read(this.getClass().getResource("/resources/images/Character" + String.valueOf(characterChoice) + ".png"));
-                            }
-                            catch (IOException ex) {
-                                Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            gameStateMachine.Add("StartGame", new StartGameState(gameStateMachine.getFramework(), name, chosenImage));
-                            gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
+                        BufferedImage chosenImage = null;
+                        try {
+                            chosenImage = ImageIO.read(this.getClass().getResource("/resources/images/Character" + String.valueOf(characterChoice) + ".png"));
                         }
+                        catch (IOException ex) {
+                            Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        gameStateMachine.Add("StartGame", new StartGameState(gameStateMachine.getFramework(), name, chosenImage));
+                        gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
                         break;
                     case(2):
                         designState = 0;
@@ -244,6 +243,8 @@ public class DesignCharacterState implements IState {
     public void Draw(Graphics2D g2d) {
         g2d.setColor(Color.WHITE);
         g2d.fillRoundRect((windowWidth - width) / 2, (windowHeight - height) / 2, width, height, spacing / 2, spacing / 2);
+        int width1 = 0;
+        int height1 = 0;
         if (designState == 0) {
             scroller.draw(g2d);
         } else if (designState == 1) {
@@ -255,6 +256,11 @@ public class DesignCharacterState implements IState {
             noButton.draw(g2d);
             cancelButton.draw(g2d);
             scroller2.draw(g2d);
+            g2d.setFont(messageFont);
+            g2d.setColor(Color.BLACK);
+            width1 = (int)(messageFont.getStringBounds(confirmationMessage,g2d.getFontRenderContext()).getWidth());
+            height1 = (int)(messageFont.getStringBounds(confirmationMessage,g2d.getFontRenderContext()).getHeight());
+            g2d.drawString(confirmationMessage, (windowWidth - width1) / 2, yesButton.getY() - (spacing - height1)/2);
         }
         int row = 0;
         int col = 0;
@@ -270,8 +276,8 @@ public class DesignCharacterState implements IState {
         }
         g2d.setColor(Color.BLACK);
         g2d.setFont(titleFont);
-        int width1 = (int)(titleFont.getStringBounds(title,g2d.getFontRenderContext()).getWidth());
-        int height1 = (int)(titleFont.getStringBounds(title,g2d.getFontRenderContext()).getHeight());
+        width1 = (int)(titleFont.getStringBounds(title,g2d.getFontRenderContext()).getWidth());
+        height1 = (int)(titleFont.getStringBounds(title,g2d.getFontRenderContext()).getHeight());
         g2d.drawString(title, (windowWidth - width1) / 2, (windowHeight - height + spacing - height1) / 2 + spacing);
     }
 
