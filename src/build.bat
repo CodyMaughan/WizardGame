@@ -8,6 +8,8 @@ cd %4
 git pull -q origin master
 rem go back to the original directory
 chdir /d %olddir%
+rem delete the .class files
+del *.class
 rem compile the code to create the .class files
 javac %1.java
 rem create the JAR file
