@@ -1,7 +1,5 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -9,17 +7,19 @@ import java.net.URL;
  */
 public class StartGameState implements IState {
 
-    private TileMap map;
-    private String mapPath;
-    private MainCharacter character;
+    protected static TileMap map;
+    protected static String mapPath;
+    protected static MainCharacter character;
+    protected static TileMap nextMap;
 
     public StartGameState(Framework framework, String wizardName, BufferedImage characterImage) {
         //mapPath = "\\C:\\Users\\Cody\\IdeaProjects\\WizardGame\\WizardGame\\src\\resources\\tmxfiles\\testmap1.tmx";
-        mapPath = "/resources/tmxfiles/testmap1.tmx";
-
-        map = new TileMap(framework.getWidth(), framework.getHeight(), mapPath);
-        character = new MainCharacter(wizardName, characterImage, map.getMainSpawnX(0), map.getMainSpawnY(0),
-                characterImage.getWidth() / 3, characterImage.getHeight() / 4);
+        URL temp = this.getClass().getResource("/resources/tmxfiles/testmap1.tmx");
+        mapPath = temp.getPath();
+        map = new TileMap(framework.getWidth(), framework.getHeight(), mapPath, null);
+        character = new MainCharacter(wizardName, characterImage, map.getMainSpawnX(), map.getMainSpawnY(),
+                characterImage.getWidth()/3, characterImage.getHeight()/4);
+        nextMap = null;
     }
 
     @Override
@@ -30,7 +30,11 @@ public class StartGameState implements IState {
         map.moveMap(character);
         // Handle collision detections
         // Collision Detection of character and map
+        // NOTE: Due to the way the map change function works, THIS NEEDS TO BE THE LAST UPDATED FUNCTION
         map.resolveCollisions(character);
+        if (nextMap != null) {
+            map = nextMap;
+        }
     }
 
     @Override
@@ -49,4 +53,11 @@ public class StartGameState implements IState {
     public void OnExit() {
 
     }
+
+    public static void changeMap(MapConnection connection) {
+        mapPath = connection.getMapPath();
+        nextMap = new TileMap(map.windowWidth, map.windowHeight, mapPath, connection);
+        character.setPosition(nextMap.getMainSpawnX(), nextMap.getMainSpawnY());
+        System.out.println("x = " + character.x + ",  y = " + character.y);
+    };
 }

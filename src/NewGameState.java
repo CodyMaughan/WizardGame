@@ -123,19 +123,8 @@ public class NewGameState implements IState{
                         break;
                     case (2):
                         // Start Your Game
-                        if (gameStateMachine.isState("StartGame")) {
-                            gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
-                        } else {
-                            BufferedImage chosenImage = null;
-                            try {
-                                chosenImage = ImageIO.read(this.getClass().getResource("/resources/images/Character1.png"));
-                            }
-                            catch (IOException ex) {
-                                Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            gameStateMachine.Add("StartGame", new StartGameState(gameStateMachine.getFramework(), wizardName.getTypingText(), chosenImage));
-                            gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
-                        }
+                            gameStateMachine.Add("DesignCharacter", new DesignCharacterState(gameStateMachine.getFramework(), wizardName.getTypingText()));
+                            gameStateMachine.Change("DesignCharacter", gameStateMachine.getFramework());
                         break;
                     case (3):
                         if (gameStateMachine.isState("MainMenu")) {

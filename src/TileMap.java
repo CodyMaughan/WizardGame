@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +25,7 @@ import java.util.logging.Logger;
  */
 public class TileMap {
 
+    protected String name; // The name of the map
     protected int windowWidth; // The width of the game window
     protected int windowHeight; // The height of the game window
     protected int windowTileWidth; // The width of the game window in tiles
@@ -50,12 +51,18 @@ public class TileMap {
     protected Map<Integer, boolean[]> topRotations; // A mapping of the tile location to rotation data used for the top layer
     protected ArrayList<Rectangle>  collisionBoxes; // A list of all the collisionBoxes for the map
     protected int playerMoveDistance; // A set distance from the edges of the window where the map begins to move with the player.
-    protected int[][] mainSpawnPoints;
+    protected int[] mainSpawnPoint; // A list of the main spawn points |||| NOTE: (This object is subject to being replaced by mapConnections)
+    protected ArrayList<MapConnection> mapConnections; // A map of the object boxes that indicate map connections to the corresponding map file path
 
 
-    public TileMap(int windowWidth, int windowHeight, String tmxFilePath) {
+    public TileMap(int windowWidth, int windowHeight, String tmxFilePath, MapConnection connection) {
+        int charID1 = tmxFilePath.indexOf("/resources/tmxfiles/");
+        int charID2 = tmxFilePath.indexOf(".tmx");
+        this.name = tmxFilePath.substring(charID1 + 20, charID2);
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
+        mapConnections = new ArrayList<>();
+        mainSpawnPoint = new int[2];
         readtmxFile(tmxFilePath);
         windowTileWidth = (int)Math.ceil((double)windowWidth/tileHeight);
         windowTileHeight = (int)Math.ceil((double)windowHeight/tileHeight);
@@ -66,12 +73,39 @@ public class TileMap {
         maxXTileOffset = Math.floorDiv(maxXOffset,tileWidth);
         maxYTileOffset = Math.floorDiv(maxYOffset,tileHeight);
         playerMoveDistance = tileWidth*6; // Once the player hits 6 Tiles from the edge the map will start to move instead of the character
+        if (connection != null) {
+            for (MapConnection temp: mapConnections) {
+                if (temp.getMapNew().equals(connection.getMapOld())) {
+                    if (temp.getName().equals(connection.getName())) {
+                        // This code may not work (for example, spawning part of the character offscreen)
+                        // I'm hoping any issues will be dealt with by the end-of-map collision detection
+                        mainSpawnPoint[0] = (int) (temp.getRect().getX() + temp.getRect().getWidth()/2);
+                        mainSpawnPoint[1] = (int) (temp.getRect().getY() + temp.getRect().getHeight()/2);
+                        // This initializes the map offset if  the character spawns on a part of the map that would be offscreen
+                        if (mainSpawnPoint[0] + MainCharacter.characterWidth + playerMoveDistance > windowWidth) {
+                            xOffset = MainCharacter.characterWidth + mainSpawnPoint[0] + playerMoveDistance - windowWidth;
+                            if (xOffset > maxXOffset) {
+                                xOffset = maxXOffset;
+                            }
+                            mainSpawnPoint[0] -= xOffset;
+                        }
+                        if (mainSpawnPoint[1] + MainCharacter.characterHeight + playerMoveDistance > windowHeight) {
+                            yOffset = MainCharacter.characterHeight + mainSpawnPoint[1] + playerMoveDistance - windowHeight;
+                            if (yOffset > maxYOffset) {
+                                yOffset = maxYOffset;
+                            }
+                            mainSpawnPoint[1] -= yOffset;
+                        }
+                        System.out.println("SpawnX: " + mainSpawnPoint[0] + ", SpawnY: " + mainSpawnPoint[1]);
+                    }
+                }
+            }
+        }
     }
 
     private void readtmxFile(String filePath) {
         try {
-            System.out.println(filePath);
-            File fXmlFile = new FileUtility().GetFile(filePath);
+            File fXmlFile = new File(filePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
@@ -224,7 +258,13 @@ public class TileMap {
                 NodeList objectData = eElement.getElementsByTagName("object");
                 int objectDataLength = objectData.getLength();
                 Element objectElement = null;
-                switch (eElement.getAttribute("name")) {
+                String parsedName = eElement.getAttribute("name");
+                String connection = "";
+                if (parsedName.contains("_")) {
+                    connection = parsedName.substring(parsedName.indexOf("_") + 1);
+                    parsedName = parsedName.substring(0, parsedName.indexOf("_"));
+                }
+                switch (parsedName) {
                     case ("Collision"):
                         // Gets all the collision boxes on the map
                         collisionBoxes = new ArrayList<>();
@@ -244,9 +284,20 @@ public class TileMap {
                     // Main Spawn Point 1
                     case("MainCharacterSpawn1"):
                         objectElement = (Element)objectData.item(0);
-                        mainSpawnPoints = new int[1][2];
-                        mainSpawnPoints[0][0] = Integer.parseInt(objectElement.getAttribute("x"));
-                        mainSpawnPoints[0][1] = Integer.parseInt(objectElement.getAttribute("y"));
+                        mainSpawnPoint[0] = Integer.parseInt(objectElement.getAttribute("x"));
+                        mainSpawnPoint[1] = Integer.parseInt(objectElement.getAttribute("y"));
+                        break;
+                    case("Connection"):
+                        for (int j = 0; j < objectDataLength; j++) {
+                            objectElement = (Element) objectData.item(j);
+                            String connectionName = objectElement.getAttribute("name");
+                            Rectangle rect = new Rectangle(Integer.parseInt(objectElement.getAttribute("x")), Integer.parseInt(objectElement.getAttribute("y")),
+                                    Integer.parseInt(objectElement.getAttribute("width")), Integer.parseInt(objectElement.getAttribute("height")));
+                            String mapPath = this.getClass().getResource("/resources/tmxfiles/" + connection + ".tmx").getPath();
+                            String direction = objectElement.getAttribute("type");
+                            mapConnections.add(new MapConnection(this.name, connection, connectionName, rect, mapPath, direction));
+                        }
+                        break;
                 }
             }
 
@@ -351,6 +402,63 @@ public class TileMap {
         } else if (character.y + character.characterHeight > windowHeight) {
             character.setPosition(character.x, windowHeight - character.characterHeight);
         }
+        // Resolve collisions with mapConnections
+        for (MapConnection connection : mapConnections) {
+            Rectangle rect = connection.getRect();
+            rect.translate(-xOffset, -yOffset);
+            if (rect.intersects(character.collisionBox)) {
+                String mapOld = connection.getMapOld();
+                String mapNew = connection.getMapNew();
+                String connectionName = connection.getName();
+                String direction = connection.getDirection();
+                String mapPath = connection.getMapPath();
+                boolean worked = false;
+                int xCorrection = 0;
+                int yCorrection = 0;
+                if (direction.equals("Any")) {
+                    // The connection type is Any, so you move to the map
+                    StartGameState.changeMap(connection);
+                    xCorrection = -character.characterWidth/2;
+                    yCorrection = -character.characterHeight/2;
+                    worked = true;
+                } else if (direction.equals("Down") && character.direction == 0) {
+                    // The connection type is down and player is moving down, so you move to the map
+                    StartGameState.changeMap(connection);
+                    xCorrection = -character.characterWidth/2;
+                    yCorrection = -character.characterHeight/2;
+                    worked = true;
+                } else if (direction.equals("Left") && character.direction == 1) {
+                    // The connection type is left and player is moving left, so you move to the map
+                    StartGameState.changeMap(connection);
+                    xCorrection = 0;
+                    yCorrection = -character.characterHeight/2;
+                    worked = true;
+                } else if (direction.equals("Right") && character.direction == 2) {
+                    // The connection type is right and player is moving right, so you move to the map
+                    StartGameState.changeMap(connection);
+                    xCorrection = 0;
+                    yCorrection = -character.characterHeight/2;
+                    worked = true;
+                } else if (direction.equals("Up") && character.direction == 3) {
+                    // The connection type is up and player is moving up, so you move to the map
+                    StartGameState.changeMap(connection);
+                    xCorrection = -character.characterWidth/2;
+                    yCorrection = -character.characterHeight;
+                    worked = true;
+                }
+                // The corrections are used to center the character in the spawn box
+                // And also to account for which direction they entered the spawn box in
+                // (Their back should be towards the edge of the spawn box)
+                // This sets the map offset if necessary and corrects the character position with that offset
+                // NOTE: The character's position now corresponds to the next map. THE CHARACTER SHOULD NOT BE MOVED UNTIL THE NEXT UPDATE!
+                if (worked) {
+                    System.out.println(mapOld + " to " + mapNew + " using " + connectionName + " by traveling " + direction);
+                    System.out.println("CharacterX: " + character.x + ", CharacterY: " + character.y);
+                    character.translate(xCorrection, yCorrection);
+                }
+            }
+            rect.translate(xOffset, yOffset);
+        }
     }
 
     public void drawBottomLayer(Graphics2D g2d) {
@@ -420,6 +528,15 @@ public class TileMap {
         }
         // This code draws the map collisionBoxes, it is for testing purposes only
         for (Rectangle rect : collisionBoxes) {
+            rect.translate(-xOffset, -yOffset);
+            g2d.draw(rect);
+            rect.translate(xOffset, yOffset);
+        }
+
+        // This code draws map connection boxes, it is for testing purposes only
+        g2d.setColor(Color.YELLOW);
+        for (MapConnection mapConnection: mapConnections) {
+            Rectangle rect = mapConnection.getRect();
             rect.translate(-xOffset, -yOffset);
             g2d.draw(rect);
             rect.translate(xOffset, yOffset);
@@ -496,11 +613,11 @@ public class TileMap {
         return tx;
     }
 
-    public int getMainSpawnX(int id) {
-        return mainSpawnPoints[id][0];
+    public int getMainSpawnX() {
+        return mainSpawnPoint[0];
     }
 
-    public int getMainSpawnY(int id) {
-        return mainSpawnPoints[id][1];
+    public int getMainSpawnY() {
+        return mainSpawnPoint[1];
     }
 }

@@ -21,9 +21,10 @@ public class MainCharacter implements DrawableObject {
     public static int direction; // Down = 0, Left = 1, Right = 2, Up = 3
     private static int animationFrame;
     private static int maxAnimationFrames;
-    private final int moveSpeed = 8;
     private static long walkingTimer;
+
     private final long animationTime = 250000L;
+    private final int moveSpeed = 8;
 
     public MainCharacter(String name, BufferedImage image, int posX, int posY, int characterWidth, int characterHeight){
 
@@ -98,15 +99,15 @@ public class MainCharacter implements DrawableObject {
         this.translate(vX, vY);
     }
 
-    public void translate(int dx, int dy) {
+    public static void translate(int dx, int dy) {
         x += dx;
         y += dy;
         collisionBox.translate(dx, dy);
     }
 
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public static void setPosition(int posX, int posY) {
+        x = posX;
+        y = posY;
         collisionBox.setLocation(x + characterWidth/4, y + characterHeight/2);
     }
 }

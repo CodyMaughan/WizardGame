@@ -48,16 +48,15 @@ public class TileSet {
     }
 
     private BufferedImage[] SpliceImage(BufferedImage image, int tileWidth, int tileHeight) {
-        int width = image.getWidth();
-        int height = image.getHeight();
         BufferedImage[] tileArray = new BufferedImage[tileCols*tileRows];
         int count = 0;
         for (int row = 0; row < tileRows; row++) {
             for (int col = 0; col < tileCols; col++) {
                 tileArray[count] = new BufferedImage(tileWidth, tileHeight, image.getType());
-                Graphics2D gr = tileArray[count++].createGraphics();
+                Graphics2D gr = tileArray[count].createGraphics();
                 gr.drawImage(image, 0, 0, tileWidth, tileHeight, tileWidth * col, tileHeight * row, tileWidth * col + tileWidth, tileHeight * row + tileHeight, null);
                 gr.dispose();
+                count++;
             }
         }
         return tileArray;
