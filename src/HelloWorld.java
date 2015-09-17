@@ -2,6 +2,8 @@
  * Created by Cody on 9/9/2015.
  */
 
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
 import javax.swing.JButton;
 import java.awt.GraphicsEnvironment;
 import java.lang.reflect.Array;
@@ -26,8 +28,9 @@ public class HelloWorld {
         //{
         //    System.out.println(fonts[i]);
         //}
-        String filePath = "\\C:\\Users\\Cody\\IdeaProjects\\WizardGame\\WizardGame\\src\\resources\\tmxfiles\\rotationTests.tmx";
-        System.out.println(filePath);
-        ReadXMLFile.readTMXFile(filePath);
+        AudioFileFormat.Type[] list = AudioSystem.getAudioFileTypes();
+        for (int i = 0; i < list.length; i++) {
+            System.out.println(list[i]);
+        }
     }
 }

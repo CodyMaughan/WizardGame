@@ -20,6 +20,8 @@ public class StartGameState implements IState {
         character = new MainCharacter(wizardName, characterImage, map.getMainSpawnX(), map.getMainSpawnY(),
                 characterImage.getWidth()/3, characterImage.getHeight()/4);
         nextMap = null;
+        SoundManager.getInstance().add("Woodland",
+                new Sound(this.getClass().getResource("/resources/sounds/Woodland_Fantasy_0.wav"), 0));
     }
 
     @Override
@@ -46,7 +48,7 @@ public class StartGameState implements IState {
 
     @Override
     public void OnEnter(Framework framework) {
-
+        SoundManager.loopSound("Woodland");
     }
 
     @Override

@@ -117,6 +117,7 @@ public class MenuScroller2D {
                 countY = 1; // If the pointer goes past the last menu option it moves to the first option
             }
         }
+        SoundManager.restartSound("Scroll_1");
     }
 
     public void scrollUp() {
@@ -130,6 +131,7 @@ public class MenuScroller2D {
                 countY = menuCountY; // If the pointer goes past the first menu option it moves to the last option
             }
         }
+        SoundManager.restartSound("Scroll_1");
     }
 
     public void scrollRight() {
@@ -143,6 +145,7 @@ public class MenuScroller2D {
                 countX = 1; // If the pointer goes past the last menu option it moves to the first option
             }
         }
+        SoundManager.restartSound("Scroll_1");
     }
 
     public void scrollLeft() {
@@ -156,6 +159,7 @@ public class MenuScroller2D {
                 countX = menuCountX; // If the pointer goes past the first menu option it moves to the last option
             }
         }
+        SoundManager.restartSound("Scroll_1");
     }
 
 

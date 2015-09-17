@@ -76,6 +76,7 @@ public class MenuPointer {
         if (count > menuCount) {
             count = 1; // If the pointer goes past the last menu option it moves to the first option
         }
+        SoundManager.restartSound("Scroll_1");
     }
 
     public void scrollUp() {
@@ -83,5 +84,6 @@ public class MenuPointer {
         if (count < 1) {
             count = menuCount; // If the pointer goes past the first menu option it moves to the last option
         }
+        SoundManager.restartSound("Scroll_1");
     }
 }

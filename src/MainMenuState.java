@@ -77,7 +77,11 @@ public class MainMenuState implements IState {
         // Create the Menu Scroller
         scroller = new MenuPointer(scrollerImage, 0, 0, 60, 4, 1);
         // Set the scroller to the left of the New Game MenuButton
-        scroller.setPosition(frameWidth/2 - maxWidth/2 - scrollerBuffer - scroller.getWidth(), newgameMenuButton.getY());
+        scroller.setPosition(frameWidth / 2 - maxWidth / 2 - scrollerBuffer - scroller.getWidth(), newgameMenuButton.getY());
+        SoundManager.getInstance().add("MainMenuMusic",
+                new Sound(this.getClass().getResource("/resources/sounds/SoliloquyNewEraVersion.wav"), 0));
+        SoundManager.getInstance().add("Scroll_1",
+                new Sound(this.getClass().getResource("/resources/sounds/menu_scroll_1.wav"), -5.0f));
     }
 
 
@@ -92,6 +96,10 @@ public class MainMenuState implements IState {
                     break;
                 case (2):
                     //Load Game
+                    gameStateMachine.Add("BattleState", new BattleState(gameStateMachine.getFramework()));
+                    gameStateMachine.Change("BattleState", gameStateMachine.getFramework());
+                    SoundManager.getInstance().stopSound("MainMenuMusic");
+                    SoundManager.remove("MainMenuMusic");
                     break;
                 case (3):
                     //Options
@@ -151,7 +159,7 @@ public class MainMenuState implements IState {
 
     @Override
     public void OnEnter(Framework framework) {
-
+        SoundManager.loopSound("MainMenuMusic");
     }
 
     @Override
