@@ -159,7 +159,7 @@ public class MainMenuState implements IState {
 
     @Override
     public void OnEnter(Framework framework) {
-        //SoundManager.loopSound("MainMenuMusic");
+        SoundManager.loopSound("MainMenuMusic");
     }
 
     @Override
