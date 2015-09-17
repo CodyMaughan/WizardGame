@@ -190,6 +190,8 @@ public class DesignCharacterState implements IState {
                             Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         gameStateMachine.Add("StartGame", new StartGameState(gameStateMachine.getFramework(), name, chosenImage));
+                        SoundManager.getInstance().stopSound("MainMenuMusic");
+                        SoundManager.remove("MainMenuMusic");
                         gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
                         break;
                     case(2):
