@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sound.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/SoundManager.java" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\tileset\example.tmx" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DesignCharacterState.java" afterPath="$PROJECT_DIR$/src/DesignCharacterState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Framework.java" afterPath="$PROJECT_DIR$/src/Framework.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HelloWorld.java" afterPath="$PROJECT_DIR$/src/HelloWorld.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainMenuState.java" afterPath="$PROJECT_DIR$/src/MainMenuState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MenuPointer.java" afterPath="$PROJECT_DIR$/src/MenuPointer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MenuScroller2D.java" afterPath="$PROJECT_DIR$/src/MenuScroller2D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StartGameState.java" afterPath="$PROJECT_DIR$/src/StartGameState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/testmap1.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/testmap1.tmx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/sounds/SoliloquyNewEraVersion.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/sounds/Woodland_Fantasy_0.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/sounds/menu_scroll_1.wav" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/MainMenuState.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/MainMenuState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/MenuPointer.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/MenuPointer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestRecovery.iws" />
@@ -624,12 +619,18 @@
       <option name="project" value="LOCAL" />
       <updated>1442460932895</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Added a Sound Manager and Sound Class. There is currently a menu scroller sound and background music for the menu selections and the in-game mode. A selection sound needs to be added.">
+      <created>1442476754182</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1442476754182</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="20" width="1346" height="688" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -642,7 +643,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32413793" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19398496" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19398496" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931036" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -704,7 +705,8 @@
     <MESSAGE value="The game now has two maps and supports transfer between maps. Yellow boxes that are being drawn represent the map entrance/exit points." />
     <MESSAGE value="The Game now has a character selection screen, as well as being able to change from map to map." />
     <MESSAGE value="Added the Battle State as well as a replacement image for one that didn't upload properly before" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the Battle State as well as a replacement image for one that didn't upload properly before" />
+    <MESSAGE value="Added a Sound Manager and Sound Class. There is currently a menu scroller sound and background music for the menu selections and the in-game mode. A selection sound needs to be added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a Sound Manager and Sound Class. There is currently a menu scroller sound and background music for the menu selections and the in-game mode. A selection sound needs to be added." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
