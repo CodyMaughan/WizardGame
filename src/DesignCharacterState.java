@@ -51,7 +51,7 @@ public class DesignCharacterState implements IState {
         for (int i = 0; i < characterCount; i++) {
             BufferedImage source = null;
             try {
-                source = ImageIO.read(this.getClass().getResource("/resources/images/character" + String.valueOf(i) + ".png"));
+                source = ImageIO.read(this.getClass().getResource("/resources/images/Character" + String.valueOf(i) + ".png"));
             }
             catch (IOException ex) {
                 Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);

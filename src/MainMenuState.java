@@ -92,6 +92,8 @@ public class MainMenuState implements IState {
                     break;
                 case (2):
                     //Load Game
+                    gameStateMachine.Add("BattleState", new BattleState(gameStateMachine.getFramework()));
+                    gameStateMachine.Change("BattleState", gameStateMachine.getFramework());
                     break;
                 case (3):
                     //Options
