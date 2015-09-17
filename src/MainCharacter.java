@@ -1,11 +1,13 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Cody on 9/13/2015.
  */
-public class MainCharacter implements DrawableObject {
+public class MainCharacter {
 
     public static String characterName;
     public static int x;
@@ -22,6 +24,7 @@ public class MainCharacter implements DrawableObject {
     private static int animationFrame;
     private static int maxAnimationFrames;
     private static long walkingTimer;
+    private static Map<String, Item> items;
 
     private final long animationTime = 250000L;
     private final int moveSpeed = 8;
@@ -43,16 +46,15 @@ public class MainCharacter implements DrawableObject {
         collisionBox = new Rectangle(posX + characterWidth/2, posY + characterHeight/2, characterWidth/2, characterHeight/2);
         vX = 0;
         vY = 0;
+        items = new HashMap<>();
     }
 
-    @Override
     public void draw(Graphics2D g2d) {
         g2d.drawImage(image, x, y, x + characterWidth, y + characterHeight, characterWidth*animationFrame,
                 characterHeight*direction, (animationFrame + 1)*characterWidth, (direction + 1)*characterHeight, null);
         g2d.draw(collisionBox);
     }
 
-    @Override
     public void update(float elapsedTime, boolean[][] keyboardstate) {
         vX = 0;
         vY = 0;
@@ -110,4 +112,13 @@ public class MainCharacter implements DrawableObject {
         y = posY;
         collisionBox.setLocation(x + characterWidth/4, y + characterHeight/2);
     }
+
+    public static void addItem(String name, Item item){
+        items.put(name, item);
+    }
+
+    public static void useItem(String name) {
+        items.get(name).use();
+    }
+
 }

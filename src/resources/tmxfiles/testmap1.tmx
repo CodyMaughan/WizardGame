@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="24" tilewidth="32" tileheight="32" nextobjectid="50">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="24" tilewidth="32" tileheight="32" nextobjectid="51">
  <tileset firstgid="1" name="Clowny Grass" tilewidth="32" tileheight="32" tilecount="72">
   <image source="../images/tileset/grass-tiles-2-small.png" width="384" height="192"/>
  </tileset>
@@ -2739,14 +2739,14 @@
   <object id="36" name="Connection1" type="Down" x="598" y="760" width="106" height="8"/>
  </objectgroup>
  <objectgroup name="Removables">
-  <object id="41" type="Interact_Facing" gid="2147483786" x="128" y="224" width="32" height="32"/>
-  <object id="42" type="Interact_Facing" gid="2147483786" x="160" y="256" width="32" height="32"/>
-  <object id="43" type="Interact_Facing" gid="2147483786" x="96" y="288" width="32" height="32"/>
-  <object id="44" type="Interact_Facing" gid="2147483786" x="64" y="160" width="32" height="32"/>
-  <object id="45" type="Interact_Facing" gid="2147483786" x="192" y="352" width="32" height="32"/>
-  <object id="46" type="Interact_Facing" gid="2147483786" x="128" y="352" width="32" height="32"/>
-  <object id="47" type="Interact_On" gid="139" x="800" y="480" width="32" height="32"/>
-  <object id="48" type="Interact_On" gid="139" x="832" y="416" width="32" height="32"/>
-  <object id="49" type="Interact_On" gid="139" x="736" y="352" width="32" height="32"/>
+  <object id="41" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="128" y="224" width="32" height="32"/>
+  <object id="42" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="160" y="256" width="32" height="32"/>
+  <object id="43" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="96" y="288" width="32" height="32"/>
+  <object id="44" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="64" y="160" width="32" height="32"/>
+  <object id="45" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="192" y="352" width="32" height="32"/>
+  <object id="46" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="128" y="352" width="32" height="32"/>
+  <object id="47" name="Item_Mushroom" type="Interact_On" gid="2147483787" x="800" y="480" width="32" height="32"/>
+  <object id="48" name="Item_Mushroom" type="Interact_On" gid="2147483787" x="832" y="416" width="32" height="32"/>
+  <object id="49" name="Item_Mushroom" type="Interact_On" gid="2147483787" x="736" y="352" width="32" height="32"/>
  </objectgroup>
 </map>
