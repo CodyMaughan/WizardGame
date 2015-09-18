@@ -58,6 +58,8 @@ public class RemovableObject {
         isRemoved = true;
         if (removableType.equals("Item")) {
             character.addItem(removableName, new Item(removableName));
+        } else if (removableType.equals("Equipment")) {
+            character.addEquipment(removableName, new Equipment(removableName));
         }
     }
 

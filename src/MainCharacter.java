@@ -25,6 +25,9 @@ public class MainCharacter {
     private static int maxAnimationFrames;
     private static long walkingTimer;
     private static Map<String, Item> items;
+    private static Map<String, Equipment> equipment;
+    private static String travelState;
+    private static boolean canSwim;
 
     private final long animationTime = 250000L;
     private final int moveSpeed = 8;
@@ -47,6 +50,9 @@ public class MainCharacter {
         vX = 0;
         vY = 0;
         items = new HashMap<>();
+        equipment = new HashMap<>();
+        canSwim = false;
+        travelState = "Walk";
     }
 
     public void draw(Graphics2D g2d) {
@@ -110,7 +116,7 @@ public class MainCharacter {
     public static void setPosition(int posX, int posY) {
         x = posX;
         y = posY;
-        collisionBox.setLocation(x + characterWidth/4, y + characterHeight/2);
+        collisionBox.setLocation(x + characterWidth / 4, y + characterHeight / 2);
     }
 
     public static void addItem(String name, Item item){
@@ -121,4 +127,16 @@ public class MainCharacter {
         items.get(name).use();
     }
 
+    public static void addEquipment(String name, Equipment object) {
+        equipment.put(name, object);
+    }
+
+
+    public static boolean canSwim() {
+        return canSwim;
+    }
+
+    public void changeTravelMethod(String method) {
+        this.travelState = method;
+    }
 }

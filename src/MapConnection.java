@@ -10,15 +10,18 @@ public class MapConnection {
     private String connectionName;
     private Rectangle rect;
     private String mapPath;
-    private String direction;
+    private String exitDirection;
+    private String entranceDirection;
 
-    public MapConnection(String mapOld, String mapNew, String connectionName, Rectangle rect, String mapPath, String direction) {
+    public MapConnection(String mapOld, String mapNew, String connectionName, Rectangle rect, String mapPath,
+                         String exitDir, String entranceDir) {
         this.mapOld = mapOld;
         this.mapNew = mapNew;
         this.connectionName = connectionName;
         this.rect = rect;
         this.mapPath = mapPath;
-        this.direction = direction;
+        this.exitDirection = exitDir;
+        this.entranceDirection = entranceDir;
     }
 
     public String getMapOld() {
@@ -41,8 +44,10 @@ public class MapConnection {
         return mapPath;
     }
 
-    public String getDirection() {
-        return direction;
+    public String getExitDirection() {
+        return exitDirection;
     }
+
+    public String getEntranceDirection() {return entranceDirection; }
 
 }
