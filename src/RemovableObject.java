@@ -71,6 +71,10 @@ public class RemovableObject {
         return actionType;
     }
 
+    public String getRemovableType() { return removableType; }
+
+    public String getRemovableName() { return removableName; }
+
     public Rectangle getRect(){
         return rect;
     }

@@ -76,6 +76,7 @@ public class Framework extends MyCanvas {
     {
         SoundManager.getInstance();
         MapManager.getInstance();
+        DialogManager.getInstance(this);
         gameStateMachine = new StateMachine(this);
         gameStateMachine.Add("MainMenu", new MainMenuState(this));
         gameStateMachine.Change("MainMenu", this);
@@ -175,7 +176,7 @@ public class Framework extends MyCanvas {
             gameStateMachine.Draw(g2d);
         }
     }
-    
+
     /**
      * Returns the position of the mouse pointer in game frame/window.
      * If mouse position is null than this method return 0,0 coordinate.

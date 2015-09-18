@@ -2060,6 +2060,6 @@
   <object id="18" name="Connection1" type="Up_Up" x="160" y="32" width="138" height="8"/>
  </objectgroup>
  <objectgroup name="Removables">
-  <object id="20" name="Equipment_Novice Robes" type="Interact_Facing" gid="180" x="32" y="64" width="32" height="32"/>
+  <object id="20" name="Equipment_Novice Robes Chest" type="Interact_Facing" gid="180" x="32" y="64" width="32" height="32"/>
  </objectgroup>
 </map>
