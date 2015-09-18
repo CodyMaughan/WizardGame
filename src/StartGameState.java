@@ -32,8 +32,9 @@ public class StartGameState implements IState {
         map.moveMap(character);
         // Handle collision detections
         // Collision Detection of character and map
-        // NOTE: Due to the way the map change function works, THIS NEEDS TO BE THE LAST UPDATED FUNCTION
+        // NOTE: Due to the way the map change function works, resolveInteraction NEEDS TO BE THE LAST COMMAND
         map.resolveCollisions(character);
+        map.resolveInteraction(character, keyboardstate);
         if (nextMap != null) {
             map = nextMap;
         }
@@ -58,6 +59,7 @@ public class StartGameState implements IState {
 
     public static void changeMap(MapConnection connection) {
         mapPath = connection.getMapPath();
+        MapManager.addMapData(map);
         nextMap = new TileMap(map.windowWidth, map.windowHeight, mapPath, connection);
         character.setPosition(nextMap.getMainSpawnX(), nextMap.getMainSpawnY());
         System.out.println("x = " + character.x + ",  y = " + character.y);

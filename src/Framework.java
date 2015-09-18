@@ -75,6 +75,7 @@ public class Framework extends MyCanvas {
     private void Initialize()
     {
         SoundManager.getInstance();
+        MapManager.getInstance();
         gameStateMachine = new StateMachine(this);
         gameStateMachine.Add("MainMenu", new MainMenuState(this));
         gameStateMachine.Change("MainMenu", this);

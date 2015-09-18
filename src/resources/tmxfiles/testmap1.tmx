@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="24" tilewidth="32" tileheight="32" nextobjectid="50">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="24" tilewidth="32" tileheight="32" nextobjectid="58">
  <tileset firstgid="1" name="Clowny Grass" tilewidth="32" tileheight="32" tilecount="72">
   <image source="../images/tileset/grass-tiles-2-small.png" width="384" height="192"/>
  </tileset>
@@ -14,6 +14,9 @@
  </tileset>
  <tileset firstgid="139" name="littleshrooms_0" tilewidth="32" tileheight="32" tilecount="1">
   <image source="../images/tileset/littleshrooms_0.png" width="32" height="40"/>
+ </tileset>
+ <tileset firstgid="140" name="cave_32bit" tilewidth="32" tileheight="32" tilecount="336">
+  <image source="../images/tileset/cave_32bit.png" width="512" height="672"/>
  </tileset>
  <layer name="Background" width="28" height="24">
   <data>
@@ -40,11 +43,11 @@
    <tile gid="1"/>
    <tile gid="2"/>
    <tile gid="55"/>
-   <tile gid="3221225502"/>
-   <tile gid="2684354630"/>
-   <tile gid="2684354618"/>
-   <tile gid="2684354630"/>
-   <tile gid="2684354618"/>
+   <tile gid="185"/>
+   <tile gid="186"/>
+   <tile gid="185"/>
+   <tile gid="186"/>
+   <tile gid="185"/>
    <tile gid="40"/>
    <tile gid="7"/>
    <tile gid="9"/>
@@ -710,6 +713,13 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="216"/>
+   <tile gid="217"/>
+   <tile gid="143"/>
+   <tile gid="144"/>
+   <tile gid="145"/>
+   <tile gid="218"/>
+   <tile gid="219"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -731,20 +741,13 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="232"/>
+   <tile gid="233"/>
+   <tile gid="159"/>
+   <tile gid="160"/>
+   <tile gid="161"/>
+   <tile gid="234"/>
+   <tile gid="235"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -766,13 +769,13 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="248"/>
+   <tile gid="249"/>
+   <tile gid="175"/>
+   <tile gid="176"/>
+   <tile gid="177"/>
+   <tile gid="250"/>
+   <tile gid="251"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2731,22 +2734,30 @@
   <object id="26" x="96" y="352" width="32" height="32"/>
   <object id="27" x="64" y="128" width="32" height="32"/>
   <object id="28" x="288" y="64" width="32" height="32"/>
+  <object id="52" x="543" y="0" width="20" height="96"/>
+  <object id="53" x="544" y="77" width="71" height="19"/>
+  <object id="54" x="700" y="75" width="68" height="20"/>
+  <object id="56" x="752" y="16" width="16" height="58"/>
+  <object id="57" x="761" y="11" width="135" height="21"/>
  </objectgroup>
  <objectgroup name="MainCharacterSpawn1">
   <object id="33" x="96" y="32" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Connection_testmap2">
-  <object id="36" name="Connection1" type="Down" x="598" y="760" width="106" height="8"/>
+  <object id="36" name="Connection1" type="Down_Down" x="598" y="760" width="106" height="8"/>
+ </objectgroup>
+ <objectgroup name="Connection_cavemap1">
+  <object id="51" name="Connection1" type="Up_Down" x="616" y="81" width="83" height="14"/>
  </objectgroup>
  <objectgroup name="Removables">
-  <object id="41" type="Interact_Facing" gid="2147483786" x="128" y="224" width="32" height="32"/>
-  <object id="42" type="Interact_Facing" gid="2147483786" x="160" y="256" width="32" height="32"/>
-  <object id="43" type="Interact_Facing" gid="2147483786" x="96" y="288" width="32" height="32"/>
-  <object id="44" type="Interact_Facing" gid="2147483786" x="64" y="160" width="32" height="32"/>
-  <object id="45" type="Interact_Facing" gid="2147483786" x="192" y="352" width="32" height="32"/>
-  <object id="46" type="Interact_Facing" gid="2147483786" x="128" y="352" width="32" height="32"/>
-  <object id="47" type="Interact_On" gid="139" x="800" y="480" width="32" height="32"/>
-  <object id="48" type="Interact_On" gid="139" x="832" y="416" width="32" height="32"/>
-  <object id="49" type="Interact_On" gid="139" x="736" y="352" width="32" height="32"/>
+  <object id="41" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="128" y="224" width="32" height="32"/>
+  <object id="42" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="160" y="256" width="32" height="32"/>
+  <object id="43" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="96" y="288" width="32" height="32"/>
+  <object id="44" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="64" y="160" width="32" height="32"/>
+  <object id="45" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="192" y="352" width="32" height="32"/>
+  <object id="46" name="Item_Berries" type="Interact_Facing" gid="2147483786" x="128" y="352" width="32" height="32"/>
+  <object id="47" name="Item_Mushroom" type="Interact_On" gid="2147483787" x="800" y="480" width="32" height="32"/>
+  <object id="48" name="Item_Mushroom" type="Interact_On" gid="2147483787" x="832" y="416" width="32" height="32"/>
+  <object id="49" name="Item_Mushroom" type="Interact_On" gid="2147483787" x="736" y="352" width="32" height="32"/>
  </objectgroup>
 </map>

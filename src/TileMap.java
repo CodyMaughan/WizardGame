@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -53,7 +54,8 @@ public class TileMap {
     protected int playerMoveDistance; // A set distance from the edges of the window where the map begins to move with the player.
     protected int[] mainSpawnPoint; // A list of the main spawn points |||| NOTE: (This object is subject to being replaced by mapConnections)
     protected ArrayList<MapConnection> mapConnections; // A map of the object boxes that indicate map connections to the corresponding map file path
-
+    protected ArrayList<RemovableObject> mapRemovables;
+    protected ArrayList<TerrainChange> mapTerrainChanges;
 
     public TileMap(int windowWidth, int windowHeight, String tmxFilePath, MapConnection connection) {
         int charID1 = tmxFilePath.indexOf("/resources/tmxfiles/");
@@ -63,6 +65,8 @@ public class TileMap {
         this.windowHeight = windowHeight;
         mapConnections = new ArrayList<>();
         mainSpawnPoint = new int[2];
+        mapRemovables = new ArrayList<>();
+        mapTerrainChanges = new ArrayList<>();
         readtmxFile(tmxFilePath);
         windowTileWidth = (int)Math.ceil((double)windowWidth/tileHeight);
         windowTileHeight = (int)Math.ceil((double)windowHeight/tileHeight);
@@ -73,7 +77,7 @@ public class TileMap {
         maxXTileOffset = Math.floorDiv(maxXOffset,tileWidth);
         maxYTileOffset = Math.floorDiv(maxYOffset,tileHeight);
         playerMoveDistance = tileWidth*6; // Once the player hits 6 Tiles from the edge the map will start to move instead of the character
-        if (connection != null) {
+        if (connection != null) { // Checks if we came to this map by a connection or just a spawn/respawn
             for (MapConnection temp: mapConnections) {
                 if (temp.getMapNew().equals(connection.getMapOld())) {
                     if (temp.getName().equals(connection.getName())) {
@@ -101,14 +105,17 @@ public class TileMap {
                 }
             }
         }
+        if (MapManager.getMapData(this.name) != null) {
+            MapManager.getMapData(this.name).restoreMapData(this);
+        }
     }
 
     private void readtmxFile(String filePath) {
         try {
-            File fXmlFile = new File(filePath);
+            File tmxFile = new File(filePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            Document doc = dBuilder.parse(tmxFile);
 
             //optional, but recommended
             //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
@@ -182,10 +189,6 @@ public class TileMap {
                                 rotations[2] = true;
                                 gid = gid - (long)Math.pow(2, 29);
                             }
-                            if (gid < 0 || gid > 140) {
-                                System.out.println(gid);
-                                System.out.println("Index: " + j);
-                            }
                             backgroundLayerMap[j] = (int)gid;
                             backgroundRotations.add(rotations);
                         }
@@ -209,10 +212,6 @@ public class TileMap {
                                 if ((gid & (1 << 29)) != 0) { // Checks Diagonal Flipping
                                     rotations[2] = true;
                                     gid = gid - (long) Math.pow(2, 29);
-                                }
-                                if (gid < 0 || gid > 140) {
-                                    System.out.println(gid);
-                                    System.out.println("Index: " + j);
                                 }
                                 foregroundLayer.put(j, (int)gid);
                                 foregroundRotations.put(j, rotations);
@@ -238,10 +237,6 @@ public class TileMap {
                                 if ((gid & (1 << 29)) != 0) { // Checks Diagonal Flipping
                                     rotations[2] = true;
                                     gid = gid - (long) Math.pow(2, 29);
-                                }
-                                if (gid < 0 || gid > 140) {
-                                    System.out.println(gid);
-                                    System.out.println("Index: " + j);
                                 }
                                 topLayer.put(j, (int)gid);
                                 topRotations.put(j, rotations);
@@ -295,7 +290,58 @@ public class TileMap {
                                     Integer.parseInt(objectElement.getAttribute("width")), Integer.parseInt(objectElement.getAttribute("height")));
                             String mapPath = this.getClass().getResource("/resources/tmxfiles/" + connection + ".tmx").getPath();
                             String direction = objectElement.getAttribute("type");
-                            mapConnections.add(new MapConnection(this.name, connection, connectionName, rect, mapPath, direction));
+                            String direction2 = direction.substring(direction.indexOf("_") + 1);
+                            direction = direction.substring(0, direction.indexOf("_"));
+                            mapConnections.add(new MapConnection(this.name, connection, connectionName, rect, mapPath,
+                                    direction, direction2));
+                        }
+                        break;
+                    case("Removables"):
+                        for (int j = 0; j < objectDataLength; j++) {
+                            objectElement = (Element) objectData.item(j);
+                            String temp1 = objectElement.getAttribute("name");
+                            int _id = temp1.indexOf("_");
+                            String removableType = temp1.substring(0, _id);
+                            String removableName = temp1.substring(_id + 1);
+                            String temp2 = objectElement.getAttribute("type");
+                            _id = temp2.indexOf("_");
+                            String actionName = temp2.substring(0, _id);
+                            String actionType = temp2.substring(_id + 1);
+                            Rectangle rect = new Rectangle(Integer.parseInt(objectElement.getAttribute("x")), Integer.parseInt(objectElement.getAttribute("y")),
+                                    Integer.parseInt(objectElement.getAttribute("width")), Integer.parseInt(objectElement.getAttribute("height")));
+                            rect.translate(0, -rect.height); // For some reason object tiles are set by their bottom left corner
+                            long gid = Long.parseLong(objectElement.getAttribute("gid"));
+                            boolean[] rotations = new boolean[3];
+                            if ((gid & (1 << 31)) != 0) { // Checks Horizontal Flipping
+                                rotations[0] = true;
+                                gid = gid - (long) Math.pow(2, 31);
+                            }
+                            if ((gid & (1 << 30)) != 0) { // Checks Vertical Flipping
+                                rotations[1] = true;
+                                gid = gid - (long) Math.pow(2, 30);
+                            }
+                            if ((gid & (1 << 29)) != 0) { // Checks Diagonal Flipping
+                                rotations[2] = true;
+                                gid = gid - (long) Math.pow(2, 29);
+                            }
+                            mapRemovables.add(new RemovableObject(removableType, removableName, actionName, actionType,
+                                    (int)gid, rotations, rect));
+                        }
+                        break;
+                    case ("TerrainChange"):
+                        for (int j = 0; j < objectDataLength; j++) {
+                            objectElement = (Element) objectData.item(j);
+                            String temp1 = objectElement.getAttribute("name");
+                            int _id = temp1.indexOf("_");
+                            String method1 = temp1.substring(0, _id);
+                            String method2 = temp1.substring(_id + 1);
+                            String temp2 = objectElement.getAttribute("type");
+                            _id = temp2.indexOf("_");
+                            String side1 = temp2.substring(0, _id);
+                            String side2 = temp2.substring(_id + 1);
+                            Rectangle rect = new Rectangle(Integer.parseInt(objectElement.getAttribute("x")), Integer.parseInt(objectElement.getAttribute("y")),
+                                    Integer.parseInt(objectElement.getAttribute("width")), Integer.parseInt(objectElement.getAttribute("height")));
+                            mapTerrainChanges.add(new TerrainChange(rect, method1, method2, side1, side2));
                         }
                         break;
                 }
@@ -353,56 +399,42 @@ public class TileMap {
         character.collisionBox.setLocation(character.x + character.characterWidth/4, character.y + character.characterHeight/2);
     };
 
-    public void resolveCollisions(MainCharacter character) {
-        // WARNING, WARNING, WARNING!!!!!!!!
-        // The if statements here may be inefficient. Consider recoding them.
-        for (Rectangle rect : collisionBoxes) {
-            rect.translate(-xOffset, -yOffset);
-            int distance = 0;
-            if (rect.intersects(character.collisionBox)) {
-                // Collided traveling to the right
-                if (character.collisionBox.x + character.collisionBox.width > rect.x &&
-                        character.collisionBox.x + character.collisionBox.width - character.vX <= rect.x) {
-                    distance = character.collisionBox.x + character.collisionBox.width - rect.x;
-                    character.translate(-distance, 0);
-                    //character.setPosition(rect.x - character.collisionBox.width, 0);
+    public void resolveInteraction(MainCharacter character, boolean[][] keyboardstate) {
+        // Deals with interactions between character and removable objects
+        if (keyboardstate[KeyEvent.VK_SPACE][1]) { // If the space bar is pressed
+            for (RemovableObject object : mapRemovables) {
+                Rectangle actionRect = object.getActionRect();
+                actionRect.translate(-xOffset, -yOffset);
+                if (actionRect.intersects(character.collisionBox)) {
+                    if (object.getActionName().equals("Interact")) {
+                        if (object.getActionType().equals("Facing")) {
+                            Rectangle rect = object.getRect();
+                            rect.translate(-xOffset, -yOffset);
+                            // Now check if it is interactable
+                            if (character.direction == 0 && character.collisionBox.y + character.collisionBox.height <= rect.y) {
+                                // Facing Down
+                                object.remove(character);
+                            } else if (character.direction == 1 && character.collisionBox.x >= rect.x + rect.width) {
+                                // Facing Left
+                                object.remove(character);
+                            } else if (character.direction == 2 && character.collisionBox.x + character.collisionBox.width <= rect.x) {
+                                // Facing Right
+                                object.remove(character);
+                            } else if (character.direction == 3 && character.collisionBox.y >= rect.y + rect.height) {
+                                // Facing Up
+                                object.remove(character);
+                            }
+                            rect.translate(xOffset, yOffset);
+                        } else if (object.getActionType().equals("On")) {
+                            object.remove(character);
+                        }
+                    }
                 }
-                // Collided traveling to the left
-                else if (character.collisionBox.x < rect.x + rect.width &&
-                        character.collisionBox.x - character.vX >= rect.x + rect.width) {
-                    //character.setPosition(rect.x + rect.width, 0);
-                    distance = (rect.x + rect.width) - character.collisionBox.x;
-                    character.translate(distance, 0);
-                }
-                // Collided traveling down
-                if (character.collisionBox.y + character.collisionBox.height > rect.y &&
-                        character.collisionBox.y + character.collisionBox.height - character.vY <= rect.y) {
-                    //character.setPosition(0, rect.y - character.collisionBox.height);
-                    distance = character.collisionBox.y + character.collisionBox.height - rect.y;
-                    character.translate(0, -distance);
-                }
-                // Collided traveling up
-                else if (character.collisionBox.y < rect.y + rect.height &&
-                        character.collisionBox.y - character.vY >= rect.y + rect.height) {
-                    //character.setPosition(0, rect.y + rect.height);
-                    distance = (rect.y + rect.height) - character.collisionBox.y;
-                    character.translate(0, distance);
-                }
+                actionRect.translate(xOffset, yOffset);
             }
-            rect.translate(xOffset, yOffset);
         }
-        // Resolve collisions with the edge of the map
-        if (character.x < 0) {
-            character.setPosition(0, character.y);
-        } else if (character.x + character.characterWidth > windowWidth) {
-            character.setPosition(windowWidth - character.characterWidth, character.y);
-        }
-        if (character.y < 0) {
-            character.setPosition(character.x, 0);
-        } else if (character.y + character.characterHeight > windowHeight) {
-            character.setPosition(character.x, windowHeight - character.characterHeight);
-        }
-        // Resolve collisions with mapConnections
+
+        // Resolve interactions with mapConnections
         for (MapConnection connection : mapConnections) {
             Rectangle rect = connection.getRect();
             rect.translate(-xOffset, -yOffset);
@@ -410,7 +442,7 @@ public class TileMap {
                 String mapOld = connection.getMapOld();
                 String mapNew = connection.getMapNew();
                 String connectionName = connection.getName();
-                String direction = connection.getDirection();
+                String direction = connection.getExitDirection();
                 String mapPath = connection.getMapPath();
                 boolean worked = false;
                 int xCorrection = 0;
@@ -424,26 +456,18 @@ public class TileMap {
                 } else if (direction.equals("Down") && character.direction == 0) {
                     // The connection type is down and player is moving down, so you move to the map
                     StartGameState.changeMap(connection);
-                    xCorrection = -character.characterWidth/2;
-                    yCorrection = -character.characterHeight/2;
                     worked = true;
                 } else if (direction.equals("Left") && character.direction == 1) {
                     // The connection type is left and player is moving left, so you move to the map
                     StartGameState.changeMap(connection);
-                    xCorrection = 0;
-                    yCorrection = -character.characterHeight/2;
                     worked = true;
                 } else if (direction.equals("Right") && character.direction == 2) {
                     // The connection type is right and player is moving right, so you move to the map
                     StartGameState.changeMap(connection);
-                    xCorrection = 0;
-                    yCorrection = -character.characterHeight/2;
                     worked = true;
                 } else if (direction.equals("Up") && character.direction == 3) {
                     // The connection type is up and player is moving up, so you move to the map
                     StartGameState.changeMap(connection);
-                    xCorrection = -character.characterWidth/2;
-                    yCorrection = -character.characterHeight;
                     worked = true;
                 }
                 // The corrections are used to center the character in the spawn box
@@ -453,11 +477,190 @@ public class TileMap {
                 // NOTE: The character's position now corresponds to the next map. THE CHARACTER SHOULD NOT BE MOVED UNTIL THE NEXT UPDATE!
                 if (worked) {
                     System.out.println(mapOld + " to " + mapNew + " using " + connectionName + " by traveling " + direction);
-                    System.out.println("CharacterX: " + character.x + ", CharacterY: " + character.y);
+                    switch (connection.getEntranceDirection()) {
+                        case("Down"):
+                            character.direction = 0;
+                            xCorrection = -character.characterWidth/2;
+                            yCorrection = -character.characterHeight/2;
+                            break;
+                        case("Left"):
+                            character.direction = 1;
+                            xCorrection = 0;
+                            yCorrection = -character.characterHeight/2;
+                            break;
+                        case("Right"):
+                            character.direction = 2;
+                            xCorrection = 0;
+                            yCorrection = -character.characterHeight/2;
+                            break;
+                        case("Up"):
+                            character.direction = 3;
+                            xCorrection = -character.characterWidth/2;
+                            yCorrection = -character.characterHeight;
+                            break;
+                    }
                     character.translate(xCorrection, yCorrection);
                 }
             }
             rect.translate(xOffset, yOffset);
+        }
+    }
+    public void resolveCollisions(MainCharacter character) {
+        // Deals with collisions against collision boxes (impassable)
+        for (Rectangle rect : collisionBoxes) {
+            rect.translate(-xOffset, -yOffset);
+            int distance = 0;
+            if (rect.intersects(character.collisionBox)) {
+                // Collided traveling to the right
+                if (character.collisionBox.x + character.collisionBox.width > rect.x &&
+                        character.collisionBox.x + character.collisionBox.width - character.vX <= rect.x) {
+                    distance = character.collisionBox.x + character.collisionBox.width - rect.x;
+                    character.translate(-distance, 0);
+                }
+                // Collided traveling to the left
+                else if (character.collisionBox.x < rect.x + rect.width &&
+                        character.collisionBox.x - character.vX >= rect.x + rect.width) {
+                    distance = (rect.x + rect.width) - character.collisionBox.x;
+                    character.translate(distance, 0);
+                }
+                // Collided traveling down
+                if (character.collisionBox.y + character.collisionBox.height > rect.y &&
+                        character.collisionBox.y + character.collisionBox.height - character.vY <= rect.y) {
+                    distance = character.collisionBox.y + character.collisionBox.height - rect.y;
+                    character.translate(0, -distance);
+                }
+                // Collided traveling up
+                else if (character.collisionBox.y < rect.y + rect.height &&
+                        character.collisionBox.y - character.vY >= rect.y + rect.height) {
+                    distance = (rect.y + rect.height) - character.collisionBox.y;
+                    character.translate(0, distance);
+                }
+            }
+            rect.translate(xOffset, yOffset);
+        }
+        // Resolve collisions with collidable removable objects ("Objects with the actionType facing")
+        for (RemovableObject object : mapRemovables) {
+            if (!object.isRemoved() && object.getActionType().equals("Facing")) {
+                Rectangle rect = object.getRect();
+                rect.translate(-xOffset, -yOffset);
+                int distance = 0;
+                if (rect.intersects(character.collisionBox)) {
+                    // Collided traveling to the right
+                    if (character.collisionBox.x + character.collisionBox.width > rect.x &&
+                            character.collisionBox.x + character.collisionBox.width - character.vX <= rect.x) {
+                        distance = character.collisionBox.x + character.collisionBox.width - rect.x;
+                        character.translate(-distance, 0);
+                    }
+                    // Collided traveling to the left
+                    else if (character.collisionBox.x < rect.x + rect.width &&
+                            character.collisionBox.x - character.vX >= rect.x + rect.width) {
+                        distance = (rect.x + rect.width) - character.collisionBox.x;
+                        character.translate(distance, 0);
+                    }
+                    // Collided traveling down
+                    if (character.collisionBox.y + character.collisionBox.height > rect.y &&
+                            character.collisionBox.y + character.collisionBox.height - character.vY <= rect.y) {
+                        distance = character.collisionBox.y + character.collisionBox.height - rect.y;
+                        character.translate(0, -distance);
+                    }
+                    // Collided traveling up
+                    else if (character.collisionBox.y < rect.y + rect.height &&
+                            character.collisionBox.y - character.vY >= rect.y + rect.height) {
+                        distance = (rect.y + rect.height) - character.collisionBox.y;
+                        character.translate(0, distance);
+                    }
+                }
+                rect.translate(xOffset, yOffset);
+            }
+        }
+
+        // Resolve collisions with terrain changes
+        for (TerrainChange change : mapTerrainChanges) {
+            Rectangle rect = change.getRect();
+            rect.translate(-xOffset, -yOffset);
+            if (rect.intersects(character.collisionBox)) {
+                if (change.getMethod2().equals("Swim")) {
+                    if (character.canSwim()) {
+                        change.setEntered(true);
+                    } else {
+                        int distance = 0;
+                        if (rect.intersects(character.collisionBox)) {
+                            // Collided traveling to the right
+                            if (character.collisionBox.x + character.collisionBox.width > rect.x &&
+                                    character.collisionBox.x + character.collisionBox.width - character.vX <= rect.x) {
+                                distance = character.collisionBox.x + character.collisionBox.width - rect.x;
+                                character.translate(-distance, 0);
+                            }
+                            // Collided traveling to the left
+                            else if (character.collisionBox.x < rect.x + rect.width &&
+                                    character.collisionBox.x - character.vX >= rect.x + rect.width) {
+                                distance = (rect.x + rect.width) - character.collisionBox.x;
+                                character.translate(distance, 0);
+                            }
+                            // Collided traveling down
+                            if (character.collisionBox.y + character.collisionBox.height > rect.y &&
+                                    character.collisionBox.y + character.collisionBox.height - character.vY <= rect.y) {
+                                distance = character.collisionBox.y + character.collisionBox.height - rect.y;
+                                character.translate(0, -distance);
+                            }
+                            // Collided traveling up
+                            else if (character.collisionBox.y < rect.y + rect.height &&
+                                    character.collisionBox.y - character.vY >= rect.y + rect.height) {
+                                distance = (rect.y + rect.height) - character.collisionBox.y;
+                                character.translate(0, distance);
+                            }
+                        }
+                    }
+                }
+            }
+            if (change.isEntered()) {
+                if (change.getSide1() == "Top") {
+                    if (character.collisionBox.y + character.collisionBox.height <= rect.y) {
+                        character.changeTravelMethod(change.getMethod1());
+                        change.setEntered(false);
+                    } else if(character.collisionBox.y >= rect.y + rect.height) {
+                        character.changeTravelMethod(change.getMethod2());
+                        change.setEntered(false);
+                    }
+                } else if (change.getSide1() == "Bottom") {
+                    if (character.collisionBox.y + character.collisionBox.height <= rect.y) {
+                        character.changeTravelMethod(change.getMethod2());
+                        change.setEntered(false);
+                    } else if(character.collisionBox.y >= rect.y + rect.height) {
+                        character.changeTravelMethod(change.getMethod1());
+                        change.setEntered(false);
+                    }
+                } else if (change.getSide1() == "Left") {
+                    if (character.collisionBox.x + character.collisionBox.width <= rect.x) {
+                        character.changeTravelMethod(change.getMethod1());
+                        change.setEntered(false);
+                    } else if(character.collisionBox.x >= rect.x + rect.width) {
+                        character.changeTravelMethod(change.getMethod2());
+                        change.setEntered(false);
+                    }
+                } else if (change.getSide1() == "Right") {
+                    if (character.collisionBox.x + character.collisionBox.width <= rect.x) {
+                        character.changeTravelMethod(change.getMethod2());
+                        change.setEntered(false);
+                    } else if(character.collisionBox.x >= rect.x + rect.width) {
+                        character.changeTravelMethod(change.getMethod1());
+                        change.setEntered(false);
+                    }
+                }
+            }
+            rect.translate(xOffset, yOffset);
+        }
+
+        // Resolve collisions with the edge of the map
+        if (character.x < 0) {
+            character.setPosition(0, character.y);
+        } else if (character.x + character.characterWidth > windowWidth) {
+            character.setPosition(windowWidth - character.characterWidth, character.y);
+        }
+        if (character.y < 0) {
+            character.setPosition(character.x, 0);
+        } else if (character.y + character.characterHeight > windowHeight) {
+            character.setPosition(character.x, windowHeight - character.characterHeight);
         }
     }
 
@@ -502,7 +705,11 @@ public class TileMap {
                 //tileCounter += 1;
             }
         }
-
+        for (RemovableObject object: mapRemovables) {
+            if (!object.isRemoved()) {
+                object.draw(g2d, this);
+            }
+        }
     };
 
     public void drawTopLayer(Graphics2D g2d) {
@@ -541,9 +748,32 @@ public class TileMap {
             g2d.draw(rect);
             rect.translate(xOffset, yOffset);
         }
+
+        // This code draws map removable boxes blue, it is for testing purposes only
+        g2d.setColor(Color.BLUE);
+        for(RemovableObject removable: mapRemovables) {
+            if (!removable.isRemoved()) {
+                if (removable.getActionName().equals("Interact")) {
+                    Rectangle rect = removable.getActionRect();
+                    rect.translate(-xOffset, -yOffset);
+                    g2d.draw(rect);
+                    rect.translate(xOffset, yOffset);
+                }
+            }
+        }
+
+        // This code draws map terrain change boxes green, it is for testing purposes only
+        g2d.setColor(Color.GREEN);
+        for (TerrainChange terrainChange: mapTerrainChanges) {
+            Rectangle rect = terrainChange.getRect();
+            rect.translate(-xOffset, -yOffset);
+            g2d.draw(rect);
+            rect.translate(xOffset, yOffset);
+        }
+
     }
 
-    private TileSet getTileSet(int gid) {
+    public TileSet getTileSet(int gid) {
         int i = 0;
         while (gid >= firstGid.get(i)) {
             i += 1;
@@ -559,7 +789,7 @@ public class TileMap {
         }
     }
 
-    private AffineTransform getTransform(boolean[] tmxRotations, int posX, int posY) {
+    public AffineTransform getTransform(boolean[] tmxRotations, int posX, int posY) {
         AffineTransform tx = null;
 
         if (tmxRotations[0]) {
@@ -619,5 +849,9 @@ public class TileMap {
 
     public int getMainSpawnY() {
         return mainSpawnPoint[1];
+    }
+
+    public String getName() {
+        return name;
     }
 }
