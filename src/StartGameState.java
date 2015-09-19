@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
@@ -28,6 +29,10 @@ public class StartGameState implements IState {
 
     @Override
     public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
+        if (keyboardstate[KeyEvent.VK_ENTER][1]) {
+            gameStateMachine.Add("GameMenu", new MenuState(framework, character));
+            gameStateMachine.Change("GameMenu", framework);
+        }
         // Update the main character position and animation
         character.update(elapsedTime, keyboardstate);
         // Update things like dialog boxes and events on the map
