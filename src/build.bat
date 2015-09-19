@@ -5,6 +5,7 @@ cd %3\historicalBuilds
 forfiles /S /D -2 /c "cmd /c rd /s /q @path"
 rem go to the main repository directory
 cd %4
+git reset --hard
 git pull -q origin master
 rem go back to the original directory
 chdir /d %olddir%

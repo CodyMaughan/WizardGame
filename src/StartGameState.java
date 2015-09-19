@@ -18,8 +18,7 @@ public class StartGameState implements IState {
     public StartGameState(Framework framework, String wizardName, BufferedImage characterImage) {
         //mapPath = "\\C:\\Users\\Cody\\IdeaProjects\\WizardGame\\WizardGame\\src\\resources\\tmxfiles\\testmap1.tmx";
         this.framework = framework;
-        URL temp = this.getClass().getResource("/resources/tmxfiles/testmap1.tmx");
-        mapPath = temp.getPath();
+        mapPath = "/resources/tmxfiles/testmap1.tmx";
         map = new TileMap(framework, mapPath, null);
         character = new MainCharacter(wizardName, characterImage, map.getMainSpawnX(), map.getMainSpawnY(),
                 characterImage.getWidth()/3, characterImage.getHeight()/4);

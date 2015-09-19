@@ -73,6 +73,7 @@ public class TileMap {
         mapTerrainChanges = new ArrayList<>();
         mapCharacters = new HashMap<>();
         interactionDialogBoxes = new HashMap<>();
+        System.out.println(tmxFilePath);
         readtmxFile(tmxFilePath);
         windowTileWidth = (int)Math.ceil((double)windowWidth/tileHeight);
         windowTileHeight = (int)Math.ceil((double)windowHeight/tileHeight);
@@ -118,7 +119,7 @@ public class TileMap {
 
     private void readtmxFile(String filePath) {
         try {
-            File tmxFile = new File(filePath);
+            File tmxFile = new FileUtility().GetFile(filePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(tmxFile);
@@ -294,7 +295,7 @@ public class TileMap {
                             String connectionName = objectElement.getAttribute("name");
                             Rectangle rect = new Rectangle(Integer.parseInt(objectElement.getAttribute("x")), Integer.parseInt(objectElement.getAttribute("y")),
                                     Integer.parseInt(objectElement.getAttribute("width")), Integer.parseInt(objectElement.getAttribute("height")));
-                            String mapPath = this.getClass().getResource("/resources/tmxfiles/" + connection + ".tmx").getPath();
+                            String mapPath = "/resources/tmxfiles/" + connection + ".tmx";
                             String direction = objectElement.getAttribute("type");
                             String direction2 = direction.substring(direction.indexOf("_") + 1);
                             direction = direction.substring(0, direction.indexOf("_"));
