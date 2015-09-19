@@ -27,7 +27,7 @@ public class FileUtility {
             }
         } else {
             //this will probably work in your IDE, but not from a JAR
-            file = new File(resource);
+            file = new File(res.getPath());
         }
 
         if (file != null && !file.exists()) {
