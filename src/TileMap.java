@@ -26,6 +26,7 @@ import java.util.logging.Logger;
  */
 public class TileMap {
 
+    private Framework framework;
     protected String name; // The name of the map
     protected int windowWidth; // The width of the game window
     protected int windowHeight; // The height of the game window
@@ -56,17 +57,20 @@ public class TileMap {
     protected ArrayList<MapConnection> mapConnections; // A map of the object boxes that indicate map connections to the corresponding map file path
     protected ArrayList<RemovableObject> mapRemovables;
     protected ArrayList<TerrainChange> mapTerrainChanges;
+    protected Map<String, InteractionDialogBox> interactionDialogBoxes;
 
-    public TileMap(int windowWidth, int windowHeight, String tmxFilePath, MapConnection connection) {
+    public TileMap(Framework framework, String tmxFilePath, MapConnection connection) {
+        this.framework = framework;
         int charID1 = tmxFilePath.indexOf("/resources/tmxfiles/");
         int charID2 = tmxFilePath.indexOf(".tmx");
         this.name = tmxFilePath.substring(charID1 + 20, charID2);
-        this.windowWidth = windowWidth;
-        this.windowHeight = windowHeight;
+        this.windowWidth = framework.getWidth();
+        this.windowHeight = framework.getHeight();
         mapConnections = new ArrayList<>();
         mainSpawnPoint = new int[2];
         mapRemovables = new ArrayList<>();
         mapTerrainChanges = new ArrayList<>();
+        interactionDialogBoxes = new HashMap<>();
         readtmxFile(tmxFilePath);
         windowTileWidth = (int)Math.ceil((double)windowWidth/tileHeight);
         windowTileHeight = (int)Math.ceil((double)windowHeight/tileHeight);
@@ -309,7 +313,7 @@ public class TileMap {
                             String actionType = temp2.substring(_id + 1);
                             Rectangle rect = new Rectangle(Integer.parseInt(objectElement.getAttribute("x")), Integer.parseInt(objectElement.getAttribute("y")),
                                     Integer.parseInt(objectElement.getAttribute("width")), Integer.parseInt(objectElement.getAttribute("height")));
-                            rect.translate(0, -rect.height); // For some reason object tiles are set by their bottom left corner
+                            rect.translate(0, -rect.height); // For some reason object tiles are set by their bottom left corner\
                             long gid = Long.parseLong(objectElement.getAttribute("gid"));
                             boolean[] rotations = new boolean[3];
                             if ((gid & (1 << 31)) != 0) { // Checks Horizontal Flipping
@@ -326,6 +330,13 @@ public class TileMap {
                             }
                             mapRemovables.add(new RemovableObject(removableType, removableName, actionName, actionType,
                                     (int)gid, rotations, rect));
+                            if (actionName.equals("Interact")) {
+                                if (interactionDialogBoxes.get(removableType + "_" + removableName) == null) {
+                                    interactionDialogBoxes.put(removableType + "_" + removableName,
+                                            new InteractionDialogBox(removableType + "_" + removableName,
+                                                    new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D) framework.getGraphics()));
+                                }
+                            }
                         }
                         break;
                     case ("TerrainChange"):
@@ -354,7 +365,10 @@ public class TileMap {
     }
 
     public void update() {
-
+        // Reset the dialog boxes as inactive
+        for (InteractionDialogBox dialogBox : interactionDialogBoxes.values()) {
+            dialogBox.setActive(false);
+        }
     }
 
     public void moveMap(MainCharacter character) {
@@ -401,12 +415,12 @@ public class TileMap {
 
     public void resolveInteraction(MainCharacter character, boolean[][] keyboardstate) {
         // Deals with interactions between character and removable objects
-        if (keyboardstate[KeyEvent.VK_SPACE][1]) { // If the space bar is pressed
-            for (RemovableObject object : mapRemovables) {
-                Rectangle actionRect = object.getActionRect();
-                actionRect.translate(-xOffset, -yOffset);
-                if (actionRect.intersects(character.collisionBox)) {
-                    if (object.getActionName().equals("Interact")) {
+        for (RemovableObject object : mapRemovables) {
+            Rectangle actionRect = object.getActionRect();
+            actionRect.translate(-xOffset, -yOffset);
+            if (actionRect.intersects(character.collisionBox)) {
+                if (object.getActionName().equals("Interact")) {
+                    if (keyboardstate[KeyEvent.VK_SPACE][1]) { // If the space bar is pressed
                         if (object.getActionType().equals("Facing")) {
                             Rectangle rect = object.getRect();
                             rect.translate(-xOffset, -yOffset);
@@ -428,10 +442,12 @@ public class TileMap {
                         } else if (object.getActionType().equals("On")) {
                             object.remove(character);
                         }
+                    } else if (!object.isRemoved()) {
+                        interactionDialogBoxes.get(object.getRemovableType() + "_" + object.getRemovableName()).setActive(true);
                     }
                 }
-                actionRect.translate(xOffset, yOffset);
             }
+            actionRect.translate(xOffset, yOffset);
         }
 
         // Resolve interactions with mapConnections
@@ -712,7 +728,7 @@ public class TileMap {
         }
     };
 
-    public void drawTopLayer(Graphics2D g2d) {
+    public void drawTopLayer(Graphics2D g2d, MainCharacter character) {
         int xTileOffset = Math.floorDiv(xOffset, mapTileWidth);
         int xExtraTile = 0;
         if (xTileOffset*mapTileWidth - xOffset != 0) {
@@ -723,8 +739,7 @@ public class TileMap {
         if (yTileOffset*mapTileHeight - yOffset != 0) {
             yExtraTile = 1;
         }
-        // Currently Draws all the Top layer objects regardless of offset. Add if statement to check that
-        // row and col fit within the possible tiles on the map?
+        // Draws all the Top layer objects
         for (Integer key : topLayer.keySet()) {
             int row = Math.floorDiv(key, mapTileWidth);
             int col = key - row*mapTileWidth;
@@ -733,6 +748,13 @@ public class TileMap {
                     row*tileHeight - yOffset);
             getTileSet(gid).drawTile(g2d, gid, afx);
         }
+        // Draw the interactionDialogBoxes
+        for (InteractionDialogBox dialogBox : interactionDialogBoxes.values()) {
+            if (dialogBox.isActive()) {
+                dialogBox.draw(g2d, character);
+            }
+        }
+
         // This code draws the map collisionBoxes, it is for testing purposes only
         for (Rectangle rect : collisionBoxes) {
             rect.translate(-xOffset, -yOffset);

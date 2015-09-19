@@ -52,4 +52,7 @@ public class StateMachine {
         }
     }
 
+    public void Remove(String stateName) {
+        mStates.remove(stateName);
+    }
 }
