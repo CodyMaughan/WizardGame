@@ -12,6 +12,8 @@ public class DialogCache {
             put("Item_Mushroom", "Press SPACE to pick mushroom.");
 
             put("Equipment_Novice Robes Chest", "Press Space to open the chest.");
+
+            put("Start_Game_Menu_Instructions", "Press ENTER to open the game menu.");
         }
     };
 
