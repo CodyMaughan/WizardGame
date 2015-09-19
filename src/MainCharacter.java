@@ -29,7 +29,7 @@ public class MainCharacter {
     private static String travelState;
     private static boolean canSwim;
 
-    private final long animationTime = 250000L;
+    private final long animationTime = 80000L;
     private final int moveSpeed = 8;
 
     public MainCharacter(String name, BufferedImage image, int posX, int posY, int characterWidth, int characterHeight){
@@ -46,7 +46,7 @@ public class MainCharacter {
         direction = 0;
         maxAnimationFrames = imageWidth/characterWidth;
         walkingTimer = 0;
-        collisionBox = new Rectangle(posX + characterWidth/2, posY + characterHeight/2, characterWidth/2, characterHeight/2);
+        collisionBox = new Rectangle(posX + characterWidth/6, posY + characterHeight/2, 2*characterWidth/3, characterHeight/2);
         vX = 0;
         vY = 0;
         items = new HashMap<>();
@@ -92,7 +92,7 @@ public class MainCharacter {
                 vY = vY*moveSpeed;
             }
             walkingTimer += elapsedTime;
-            if (walkingTimer > animationFrame) { // If enough time has passed to elicit a new animationFrame
+            if (walkingTimer > animationTime) { // If enough time has passed to elicit a new animationFrame
                 animationFrame += 1;             // Then we move to the next frame.
                 walkingTimer = 0;                // Reset the walkingTimer for the next animationFrame
                 if (animationFrame >= maxAnimationFrames) { // Loop back to the first frame if we are already at the last frame
@@ -104,7 +104,7 @@ public class MainCharacter {
             walkingTimer = 0;
         }
         // Move the character with the velocity vector
-        this.translate(vX, vY);
+        translate(vX, vY);
     }
 
     public static void translate(int dx, int dy) {

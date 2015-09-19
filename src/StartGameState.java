@@ -51,10 +51,10 @@ public class StartGameState implements IState {
         }
         // Update the main character position and animation
         character.update(elapsedTime, keyboardstate);
-        // Update things like dialog boxes and events on the map
-        map.update();
         // Move the map if necessary
         map.moveMap(character);
+        // Update things like dialog boxes, characters, and events on the map
+        map.update(elapsedTime, character);
         // Handle collision detections
         // Collision Detection of character and map
         // NOTE: Due to the way the map change function works, resolveInteraction NEEDS TO BE THE LAST COMMAND
@@ -67,7 +67,7 @@ public class StartGameState implements IState {
 
     @Override
     public void Draw(Graphics2D g2d) {
-        map.drawBottomLayer(g2d);
+        map.drawBottomLayer(g2d, character.y);
         character.draw(g2d);
         map.drawTopLayer(g2d, character);
         if (entranceDialogBox.isActive()) {
@@ -90,6 +90,5 @@ public class StartGameState implements IState {
         MapManager.addMapData(map);
         nextMap = new TileMap(framework, mapPath, connection);
         character.setPosition(nextMap.getMainSpawnX(), nextMap.getMainSpawnY());
-        System.out.println("x = " + character.x + ",  y = " + character.y);
     };
 }

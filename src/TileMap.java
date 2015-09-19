@@ -58,6 +58,7 @@ public class TileMap {
     protected ArrayList<RemovableObject> mapRemovables;
     protected ArrayList<TerrainChange> mapTerrainChanges;
     protected Map<String, InteractionDialogBox> interactionDialogBoxes;
+    protected Map<String, Character> mapCharacters;
 
     public TileMap(Framework framework, String tmxFilePath, MapConnection connection) {
         this.framework = framework;
@@ -70,6 +71,7 @@ public class TileMap {
         mainSpawnPoint = new int[2];
         mapRemovables = new ArrayList<>();
         mapTerrainChanges = new ArrayList<>();
+        mapCharacters = new HashMap<>();
         interactionDialogBoxes = new HashMap<>();
         readtmxFile(tmxFilePath);
         windowTileWidth = (int)Math.ceil((double)windowWidth/tileHeight);
@@ -355,6 +357,25 @@ public class TileMap {
                             mapTerrainChanges.add(new TerrainChange(rect, method1, method2, side1, side2));
                         }
                         break;
+                    case ("CharacterSpawn"):
+                        for (int j = 0; j < objectDataLength; j++) {
+                            objectElement = (Element) objectData.item(j);
+                            String name = objectElement.getAttribute("name");
+                            String type = objectElement.getAttribute("type");
+                            mapCharacters.put(name, new Character(name, Integer.parseInt(objectElement.getAttribute("x")),
+                                    Integer.parseInt(objectElement.getAttribute("y"))));
+                        }
+                        break;
+                    case ("CharacterPaths"):
+                        for (int j = 0; j < objectDataLength; j++) {
+                            objectElement = (Element) objectData.item(j);
+                            String name = objectElement.getAttribute("name");
+                            String type = objectElement.getAttribute("type");
+                            Rectangle rect = new Rectangle(Integer.parseInt(objectElement.getAttribute("x")), Integer.parseInt(objectElement.getAttribute("y")),
+                                    Integer.parseInt(objectElement.getAttribute("width")), Integer.parseInt(objectElement.getAttribute("height")));
+                            mapCharacters.get(name).setWalkPath(type, rect);
+                        }
+                        break;
                 }
             }
 
@@ -364,10 +385,38 @@ public class TileMap {
         System.out.println("Finished Loading Tile Data");
     }
 
-    public void update() {
+    public void update(float elapsedTime, MainCharacter character) {
         // Reset the dialog boxes as inactive
         for (InteractionDialogBox dialogBox : interactionDialogBoxes.values()) {
             dialogBox.setActive(false);
+        }
+        // Update each of the map characters and
+        // Reset the characters isDrawn and isStop
+        for (Character mapCharacter : mapCharacters.values()) {
+            mapCharacter.update(elapsedTime);
+            mapCharacter.setDrawn(false);
+            if (mapCharacter.isStop()) {
+                // Don't unStop the map character unless the main character moves out of the way
+                if (mapCharacter.direction == 0 && mapCharacter.collisionBox.y + mapCharacter.collisionBox.height - yOffset >= character.collisionBox.y
+                        && mapCharacter.collisionBox.x - xOffset <= character.collisionBox.x + character.collisionBox.width &&
+                        mapCharacter.collisionBox.x + mapCharacter.collisionBox.width - xOffset >= character.collisionBox.x) {
+                    mapCharacter.setStop(true);
+                } else if (mapCharacter.direction == 1 && mapCharacter.collisionBox.x - xOffset <= character.collisionBox.x + character.collisionBox.width
+                        &&  mapCharacter.collisionBox.y + mapCharacter.collisionBox.height - yOffset >= character.collisionBox.y &&
+                        mapCharacter.collisionBox.y - yOffset <= character.collisionBox.y + character.collisionBox.height) {
+                    mapCharacter.setStop(true);
+                } else if (mapCharacter.direction == 2 && mapCharacter.collisionBox.x + mapCharacter.collisionBox.width - xOffset >= character.collisionBox.x
+                        &&  mapCharacter.collisionBox.y + mapCharacter.collisionBox.height - yOffset >= character.collisionBox.y &&
+                        mapCharacter.collisionBox.y - yOffset <= character.collisionBox.y + character.collisionBox.height) {
+                    mapCharacter.setStop(true);
+                } else if (mapCharacter.direction == 3 && mapCharacter.collisionBox.y - yOffset <= character.collisionBox.y + character.collisionBox.height
+                        && mapCharacter.collisionBox.x - xOffset <= character.collisionBox.x + character.collisionBox.width &&
+                        mapCharacter.collisionBox.x + mapCharacter.collisionBox.width - xOffset >= character.collisionBox.x) {
+                    mapCharacter.setStop(true);
+                } else {
+                    mapCharacter.setStop(false);
+                }
+            }
         }
     }
 
@@ -410,7 +459,7 @@ public class TileMap {
             }
             character.y = (windowHeight - character.characterHeight - playerMoveDistance) + correction;
         }
-        character.collisionBox.setLocation(character.x + character.characterWidth/4, character.y + character.characterHeight/2);
+        character.collisionBox.setLocation(character.x + character.characterWidth/6, character.y + character.characterHeight/2);
     };
 
     public void resolveInteraction(MainCharacter character, boolean[][] keyboardstate) {
@@ -590,6 +639,52 @@ public class TileMap {
             }
         }
 
+        // Resolve collisions between map characters and the main character
+        for (Character mapCharacter : mapCharacters.values()) {
+            Rectangle rect = mapCharacter.collisionBox;
+            rect.translate(-xOffset, -yOffset);
+            int distance = 0;
+            if (rect.intersects(character.collisionBox)) {
+                // Collided traveling to the right
+                if (character.collisionBox.x + character.collisionBox.width > rect.x &&
+                        character.collisionBox.x + character.collisionBox.width - character.vX <= rect.x - mapCharacter.vX) {
+                    distance = character.collisionBox.x + character.collisionBox.width - rect.x;
+                    character.translate(-distance, 0);
+                    if (mapCharacter.vX < 0) {
+                        mapCharacter.setStop(true);
+                    }
+                }
+                // Collided traveling to the left
+                else if (character.collisionBox.x < rect.x + rect.width &&
+                        character.collisionBox.x - character.vX >= rect.x + rect.width - mapCharacter.vX) {
+                    distance = (rect.x + rect.width) - character.collisionBox.x;
+                    character.translate(distance, 0);
+                    if (mapCharacter.vX > 0) {
+                        mapCharacter.setStop(true);
+                    }
+                }
+                // Collided traveling down
+                if (character.collisionBox.y + character.collisionBox.height > rect.y &&
+                        character.collisionBox.y + character.collisionBox.height - character.vY <= rect.y - mapCharacter.vY) {
+                    distance = character.collisionBox.y + character.collisionBox.height - rect.y;
+                    character.translate(0, -distance);
+                    if (mapCharacter.vY < 0) {
+                        mapCharacter.setStop(true);
+                    }
+                }
+                // Collided traveling up
+                else if (character.collisionBox.y < rect.y + rect.height &&
+                        character.collisionBox.y - character.vY >= rect.y + rect.height - mapCharacter.vY) {
+                    distance = (rect.y + rect.height) - character.collisionBox.y;
+                    character.translate(0, distance);
+                    if (mapCharacter.vY > 0) {
+                        mapCharacter.setStop(true);
+                    }
+                }
+            }
+            rect.translate(xOffset, yOffset);
+        }
+
         // Resolve collisions with terrain changes
         for (TerrainChange change : mapTerrainChanges) {
             Rectangle rect = change.getRect();
@@ -680,7 +775,7 @@ public class TileMap {
         }
     }
 
-    public void drawBottomLayer(Graphics2D g2d) {
+    public void drawBottomLayer(Graphics2D g2d, int mainCharacterY) {
         // Determine which tiles need to be drawn based on the offsets
         int xTileOffset = Math.floorDiv(xOffset, tileWidth);
         int yTileOffset = Math.floorDiv(yOffset, tileHeight);
@@ -721,9 +816,17 @@ public class TileMap {
                 //tileCounter += 1;
             }
         }
+        // Draw Removable objects if they are not yet removed
         for (RemovableObject object: mapRemovables) {
             if (!object.isRemoved()) {
                 object.draw(g2d, this);
+            }
+        }
+        // Draw characters that are above the main character
+        for (Character character: mapCharacters.values()) {
+            if (character.y <= mainCharacterY) {
+                character.draw(g2d, xOffset, yOffset);
+                character.setDrawn(true);
             }
         }
     };
@@ -748,6 +851,15 @@ public class TileMap {
                     row*tileHeight - yOffset);
             getTileSet(gid).drawTile(g2d, gid, afx);
         }
+
+        // Draw the characters that are belown the MainCharacter;
+        for (Character charact: mapCharacters.values()) {
+            if (!charact.isDrawn()) {
+                charact.draw(g2d, xOffset, yOffset);
+                charact.setDrawn(true);
+            }
+        }
+
         // Draw the interactionDialogBoxes
         for (InteractionDialogBox dialogBox : interactionDialogBoxes.values()) {
             if (dialogBox.isActive()) {
@@ -756,6 +868,7 @@ public class TileMap {
         }
 
         // This code draws the map collisionBoxes, it is for testing purposes only
+        g2d.setColor(Color.BLACK);
         for (Rectangle rect : collisionBoxes) {
             rect.translate(-xOffset, -yOffset);
             g2d.draw(rect);
