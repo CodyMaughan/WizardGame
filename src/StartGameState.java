@@ -26,8 +26,9 @@ public class StartGameState implements IState {
         nextMap = null;
         SoundManager.getInstance().add("Woodland",
                 new Sound(this.getClass().getResource("/resources/sounds/Woodland_Fantasy_0.wav"), 0));
-        entranceDialogBox = new TimedDialogBox("Start_Game_Menu_Instructions", 3000000,
+        entranceDialogBox = new TimedDialogBox("Start_Game_Menu_Instructions", 3500000,
                 new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics());
+        entranceDialogBox.startDialogBox();
     }
 
     @Override
@@ -77,7 +78,6 @@ public class StartGameState implements IState {
     @Override
     public void OnEnter(Framework framework) {
         SoundManager.loopSound("Woodland");
-        entranceDialogBox.startDialogBox();
     }
 
     @Override
