@@ -54,6 +54,8 @@ public class StartGameState implements IState {
         map.moveMap(character);
         // Update things like dialog boxes, characters, and events on the map
         map.update(elapsedTime, character, keyboardstate);
+        // Sort the mapCharacters in a way that allows them to be drawn correctly
+        map.mapCharacters = MapUtility.sortCharactersByY(map.mapCharacters);
         // Handle collision detections
         // Collision Detection of character and map
         // NOTE: Due to the way the map change function works, resolveInteraction NEEDS TO BE THE LAST COMMAND

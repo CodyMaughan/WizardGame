@@ -11,6 +11,7 @@ public class CharacterCache {
             put("Character1", new CharacterInfo("Character1", "/resources/images/Character1.png", "", 64, 64));
             put("Character2", new CharacterInfo("Character2", "/resources/images/Character2.png", "", 64, 64));
             put("Character3", new CharacterInfo("Character3", "/resources/images/Character3.png", "", 64, 64));
+            put("Character4", new CharacterInfo("Character4", "/resources/images/Character4.png", "", 64, 64));
         }
     };
 

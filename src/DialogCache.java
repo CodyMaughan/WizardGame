@@ -21,6 +21,7 @@ public class DialogCache {
             put("Character2", "Berries are so delicious and scrumptious. I love eating them." +
                     " \n They also can be used to make potions. \n But I prefer to just eat them.");
             put("Character3", "Hey, get out of my way! Can't you see that I'm walking here?");
+            put("Character4", "I would like to be a wizard too...");
         }
     };
 

@@ -51,7 +51,7 @@ public class TileMap {
     protected ArrayList<RemovableObject> mapRemovables;
     protected ArrayList<TerrainChange> mapTerrainChanges;
     protected Map<String, InteractionDialogBox> interactionDialogBoxes;
-    protected Map<String, Character> mapCharacters;
+    protected IndexedLinkedHashMap<String, Character> mapCharacters;
 
     public TileMap(Framework framework, String tmxFilePath, MapConnection connection) {
         this.framework = framework;
@@ -64,7 +64,7 @@ public class TileMap {
         mainSpawnPoint = new int[2];
         mapRemovables = new ArrayList<>();
         mapTerrainChanges = new ArrayList<>();
-        mapCharacters = new LinkedHashMap<>();
+        mapCharacters = new IndexedLinkedHashMap<>();
         interactionDialogBoxes = new HashMap<>();
         System.out.println(tmxFilePath);
         readtmxFile(tmxFilePath);
@@ -499,37 +499,55 @@ public class TileMap {
             actionRect.translate(xOffset, yOffset);
         }
 
-        // Resolve interactions with mapCharacters
-        for (Character mapCharacter : mapCharacters.values()) {
-            Rectangle actionRect = mapCharacter.getInteractionRect();
-            actionRect.translate(-xOffset, -yOffset);
-            if (actionRect.intersects(character.collisionBox)) {
-                if (keyboardstate[KeyEvent.VK_SPACE][1]) { // If the space bar is pressed
-                    Rectangle rect = mapCharacter.collisionBox;
-                    rect.translate(-xOffset, -yOffset);
-                    if (character.direction == 0 && character.collisionBox.y + character.collisionBox.height <= rect.y) {
-                        // Facing Down
-                        mapCharacter.startDiaolog(3);
-                        character.setStop(true);
-                    } else if (character.direction == 1 && character.collisionBox.x >= rect.x + rect.width) {
-                        // Facing Left
-                        mapCharacter.startDiaolog(2);
-                        character.setStop(true);
-                    } else if (character.direction == 2 && character.collisionBox.x + character.collisionBox.width <= rect.x) {
-                        // Facing Right
-                        mapCharacter.startDiaolog(1);
-                        character.setStop(true);
-                    } else if (character.direction == 3 && character.collisionBox.y >= rect.y + rect.height) {
-                        // Facing Up
-                        mapCharacter.startDiaolog(0);
-                        character.setStop(true);
+        // Resolve talking interactions with mapCharacters
+        if (!character.isTalking()) {
+            for (Character mapCharacter : mapCharacters.values()) {
+                Rectangle actionRect = mapCharacter.getInteractionRect();
+                actionRect.translate(-xOffset, -yOffset);
+                if (actionRect.intersects(character.collisionBox)) {
+                    if (keyboardstate[KeyEvent.VK_SPACE][1]) { // If the space bar is pressed
+                        Rectangle rect = mapCharacter.collisionBox;
+                        rect.translate(-xOffset, -yOffset);
+                        if (character.direction == 0 && character.collisionBox.y + character.collisionBox.height <= rect.y) {
+                            // Facing Down
+                            mapCharacter.startDiaolog(3);
+                            character.setStop(true);
+                            character.setTalking(true);
+                            rect.translate(xOffset, yOffset);
+                            actionRect.translate(xOffset, yOffset);
+                            break;
+                        } else if (character.direction == 1 && character.collisionBox.x >= rect.x + rect.width) {
+                            // Facing Left
+                            mapCharacter.startDiaolog(2);
+                            character.setStop(true);
+                            character.setTalking(true);
+                            rect.translate(xOffset, yOffset);
+                            actionRect.translate(xOffset, yOffset);
+                            break;
+                        } else if (character.direction == 2 && character.collisionBox.x + character.collisionBox.width <= rect.x) {
+                            // Facing Right
+                            mapCharacter.startDiaolog(1);
+                            character.setStop(true);
+                            character.setTalking(true);
+                            rect.translate(xOffset, yOffset);
+                            actionRect.translate(xOffset, yOffset);
+                            break;
+                        } else if (character.direction == 3 && character.collisionBox.y >= rect.y + rect.height) {
+                            // Facing Up
+                            mapCharacter.startDiaolog(0);
+                            character.setStop(true);
+                            character.setTalking(true);
+                            rect.translate(xOffset, yOffset);
+                            actionRect.translate(xOffset, yOffset);
+                            break;
+                        }
+                        rect.translate(xOffset, yOffset);
+                    } else if (!mapCharacter.getDialogBox().isActive()) {
+                        interactionDialogBoxes.get("Speak_Character_Instructions").setActive(true);
                     }
-                    rect.translate(xOffset, yOffset);
-                } else if (!mapCharacter.getDialogBox().isActive()) {
-                    interactionDialogBoxes.get("Speak_Character_Instructions").setActive(true);
                 }
+                actionRect.translate(xOffset, yOffset);
             }
-            actionRect.translate(xOffset, yOffset);
         }
 
         // Resolve interactions with mapConnections
@@ -670,6 +688,108 @@ public class TileMap {
                     }
                 }
                 rect.translate(xOffset, yOffset);
+            }
+        }
+
+        // Resolve collisions between different map characters
+        for (int i = 0; i < mapCharacters.size(); i++) {
+            for (int j = i + 1; j < mapCharacters.size(); j++) {
+                Character character1 = mapCharacters.getIndexed(i);
+                Character character2 = mapCharacters.getIndexed(j);
+                Rectangle rect1 = mapCharacters.getIndexed(i).collisionBox;
+                Rectangle rect2 = mapCharacters.getIndexed(j).collisionBox;
+                int distance = 0;
+                if (rect1.intersects(rect2)) {
+                    // Note, these collisions are from the perspective of character2
+                    // Collided traveling to the right
+                    if (rect2.x + rect2.width > rect1.x &&
+                            rect2.x + rect2.width - character2.vX <= rect1.x - character1.vX) {
+                        distance = rect2.x + rect2.width - rect1.x;
+                        if (character2.vX > 0 && character1.vX < 0) {
+                            if (distance % 2 == 1) {
+                                character1.translate(distance / 2 + 1, 0);
+                                character2.translate(-distance / 2, 0);
+                            } else {
+                                character1.translate(distance / 2, 0);
+                                character2.translate(-distance / 2, 0);
+                            }
+                            character1.setStop(true);
+                            character2.setStop(true);
+                        } else if (character1.vX < 0) {
+                            character.translate(distance, 0);
+                            character1.setStop(true);
+                        } else if (character2.vX > 0) {
+                            character2.translate(-distance, 0);
+                            character2.setStop(true);
+                        }
+                    }
+                    // Collided traveling to the left
+                    else if (rect2.x < rect1.x + rect1.width &&
+                            rect2.x - character2.vX >= rect1.x + rect1.width - character1.vX) {
+                        distance = (rect1.x + rect1.width) - rect2.x;
+                        if (character2.vX < 0 && character1.vX > 0) {
+                            if (distance % 2 == 1) {
+                                character1.translate(-distance / 2 - 1, 0);
+                                character2.translate(distance / 2, 0);
+                            } else {
+                                character1.translate(-distance / 2, 0);
+                                character2.translate(distance / 2, 0);
+                            }
+                            character1.setStop(true);
+                            character2.setStop(true);
+                        } else if (character1.vX > 0) {
+                            character1.translate(-distance, 0);
+                            character1.setStop(true);
+                        } else if (character2.vX < 0) {
+                            character2.translate(distance, 0);
+                            character2.setStop(true);
+                        }
+                    }
+                    // Collided traveling down
+                    if (rect2.y + rect2.height > rect1.y &&
+                            rect2.y + rect2.height - character2.vY <= rect1.y - character1.vY) {
+                        distance = rect2.y + rect2.height - rect1.y;
+                        if (character2.vY > 0 && character1.vY < 0) {
+                            if (distance % 2 == 1) {
+                                character1.translate(0, distance / 2 + 1);
+                                character2.translate(0, -distance / 2);
+                            } else {
+                                character1.translate(0, distance / 2);
+                                character2.translate(0, -distance / 2);
+                            }
+                            character1.setStop(true);
+                            character2.setStop(true);
+                        } else if (character1.vY < 0) {
+                            character1.translate(0, distance);
+                            character1.setStop(true);
+                        } else if (character2.vY > 0) {
+                            character2.translate(0, -distance);
+                            character2.setStop(true);
+                        }
+                    }
+                    // Collided traveling up
+                    else if (rect2.y < rect1.y + rect1.height &&
+                            rect2.y - character2.vY >= rect1.y + rect1.height - character1.vY) {
+                        distance = (rect1.y + rect1.height) - rect2.y;
+                        if (character2.vY < 0 && character1.vY > 0) {
+                            if (distance % 2 == 1) {
+                                character1.translate(0, -distance / 2 - 1);
+                                character2.translate(0, distance / 2);
+                            } else {
+                                character1.translate(0, -distance / 2);
+                                character2.translate(0, distance / 2);
+                            }
+                            character1.setStop(true);
+                            character2.setStop(true);
+                        } else if (character1.vY > 0) {
+                            character1.translate(0, -distance);
+                            character1.setStop(true);
+                        } else if (character2.vY < 0) {
+                            character2.translate(0, distance);
+                            character2.setStop(true);
+                        }
+                    }
+                }
             }
         }
 

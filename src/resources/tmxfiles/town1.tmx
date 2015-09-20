@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="28" tilewidth="32" tileheight="32" nextobjectid="27">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="28" tilewidth="32" tileheight="32" nextobjectid="33">
  <tileset firstgid="1" name="town_1" tilewidth="32" tileheight="32" tilecount="120">
   <image source="../images/tileset/town_1.png" width="640" height="192"/>
  </tileset>
@@ -2564,7 +2564,7 @@
   <object id="25" name="Character3" x="528" y="160" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="CharacterPaths">
-  <object id="24" name="Character2" type="Random" x="160" y="288" width="192" height="143"/>
+  <object id="24" name="Character2" type="Box_Edge_Clockwise" x="160" y="288" width="192" height="123"/>
   <object id="26" name="Character3" type="LineY" x="528" y="160" width="32" height="160"/>
  </objectgroup>
 </map>

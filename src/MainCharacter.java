@@ -29,6 +29,7 @@ public class MainCharacter {
     private static String travelState;
     private static boolean canSwim;
     private static boolean stop;
+    private static boolean talking;
 
     private final long animationTime = 80000L;
     private final int moveSpeed = 8;
@@ -146,5 +147,13 @@ public class MainCharacter {
 
     public void changeTravelMethod(String method) {
         this.travelState = method;
+    }
+
+    public static boolean isTalking() {
+        return talking;
+    }
+
+    public static void setTalking(boolean bool) {
+        talking = bool;
     }
 }

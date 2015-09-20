@@ -48,6 +48,7 @@ public class ScrollDialogBox {
             count = 0;
             active = false;
             MainCharacter.setStop(false);
+            MainCharacter.setTalking(false);
             // This line prevents any interactions for the rest of this update
             // Without this there were problems of the dialog looping
             keyboardstate[KeyEvent.VK_SPACE][1] = false;
