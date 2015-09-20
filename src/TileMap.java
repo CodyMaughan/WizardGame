@@ -11,6 +11,7 @@ import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -63,10 +64,11 @@ public class TileMap {
         mainSpawnPoint = new int[2];
         mapRemovables = new ArrayList<>();
         mapTerrainChanges = new ArrayList<>();
-        mapCharacters = new HashMap<>();
+        mapCharacters = new LinkedHashMap<>();
         interactionDialogBoxes = new HashMap<>();
         System.out.println(tmxFilePath);
         readtmxFile(tmxFilePath);
+        mapCharacters = MapUtility.sortCharactersByY(mapCharacters);
         interactionDialogBoxes.put("Speak_Character_Instructions", new InteractionDialogBox("Speak_Character_Instructions",
                 new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D) framework.getGraphics(), true));
         windowTileWidth = (int)Math.ceil((double)windowWidth/tileHeight);
@@ -855,6 +857,7 @@ public class TileMap {
             }
         }
         // Draw characters that are above the main character
+        // Also, due to the sorting done in initialization, characters will be drawn from top to bottom
         for (Character character: mapCharacters.values()) {
             if (character.y - yOffset <= mainCharacterY) {
                 character.draw(g2d, xOffset, yOffset);
@@ -884,7 +887,7 @@ public class TileMap {
             getTileSet(gid).drawTile(g2d, gid, afx);
         }
 
-        // Draw the characters that are belown the MainCharacter;
+        // Draw the characters that are below the MainCharacter;
         for (Character charact: mapCharacters.values()) {
             if (!charact.isDrawn()) {
                 charact.draw(g2d, xOffset, yOffset);
