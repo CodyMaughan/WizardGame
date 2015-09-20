@@ -3,23 +3,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by Cody on 9/12/2015.
@@ -75,6 +67,8 @@ public class TileMap {
         interactionDialogBoxes = new HashMap<>();
         System.out.println(tmxFilePath);
         readtmxFile(tmxFilePath);
+        interactionDialogBoxes.put("Speak_Character_Instructions", new InteractionDialogBox("Speak_Character_Instructions",
+                new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D) framework.getGraphics(), true));
         windowTileWidth = (int)Math.ceil((double)windowWidth/tileHeight);
         windowTileHeight = (int)Math.ceil((double)windowHeight/tileHeight);
         xOffset = 0;
@@ -337,7 +331,7 @@ public class TileMap {
                                 if (interactionDialogBoxes.get(removableType + "_" + removableName) == null) {
                                     interactionDialogBoxes.put(removableType + "_" + removableName,
                                             new InteractionDialogBox(removableType + "_" + removableName,
-                                                    new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D) framework.getGraphics()));
+                                                    new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D) framework.getGraphics(), true));
                                 }
                             }
                         }
@@ -364,7 +358,7 @@ public class TileMap {
                             String name = objectElement.getAttribute("name");
                             String type = objectElement.getAttribute("type");
                             mapCharacters.put(name, new Character(name, Integer.parseInt(objectElement.getAttribute("x")),
-                                    Integer.parseInt(objectElement.getAttribute("y"))));
+                                    Integer.parseInt(objectElement.getAttribute("y")), framework));
                         }
                         break;
                     case ("CharacterPaths"):
@@ -386,7 +380,7 @@ public class TileMap {
         System.out.println("Finished Loading Tile Data");
     }
 
-    public void update(float elapsedTime, MainCharacter character) {
+    public void update(float elapsedTime, MainCharacter character, boolean[][] keyboardstate) {
         // Reset the dialog boxes as inactive
         for (InteractionDialogBox dialogBox : interactionDialogBoxes.values()) {
             dialogBox.setActive(false);
@@ -394,11 +388,14 @@ public class TileMap {
         // Update each of the map characters and
         // Reset the characters isDrawn and isStop
         for (Character mapCharacter : mapCharacters.values()) {
-            mapCharacter.update(elapsedTime);
+            mapCharacter.update(elapsedTime, keyboardstate);
             mapCharacter.setDrawn(false);
             if (mapCharacter.isStop()) {
-                // Don't unStop the map character unless the main character moves out of the way
-                if (mapCharacter.direction == 0 && mapCharacter.collisionBox.y + mapCharacter.collisionBox.height - yOffset >= character.collisionBox.y
+                // Don't unStop the map character if they are speaking
+                if (mapCharacter.getDialogBox().isActive()) {
+                    mapCharacter.setStop(true);
+                } // Don't unStop the map character unless the main character moves out of the way
+                else if (mapCharacter.direction == 0 && mapCharacter.collisionBox.y + mapCharacter.collisionBox.height - yOffset >= character.collisionBox.y
                         && mapCharacter.collisionBox.x - xOffset <= character.collisionBox.x + character.collisionBox.width &&
                         mapCharacter.collisionBox.x + mapCharacter.collisionBox.width - xOffset >= character.collisionBox.x) {
                     mapCharacter.setStop(true);
@@ -500,6 +497,39 @@ public class TileMap {
             actionRect.translate(xOffset, yOffset);
         }
 
+        // Resolve interactions with mapCharacters
+        for (Character mapCharacter : mapCharacters.values()) {
+            Rectangle actionRect = mapCharacter.getInteractionRect();
+            actionRect.translate(-xOffset, -yOffset);
+            if (actionRect.intersects(character.collisionBox)) {
+                if (keyboardstate[KeyEvent.VK_SPACE][1]) { // If the space bar is pressed
+                    Rectangle rect = mapCharacter.collisionBox;
+                    rect.translate(-xOffset, -yOffset);
+                    if (character.direction == 0 && character.collisionBox.y + character.collisionBox.height <= rect.y) {
+                        // Facing Down
+                        mapCharacter.startDiaolog(3);
+                        character.setStop(true);
+                    } else if (character.direction == 1 && character.collisionBox.x >= rect.x + rect.width) {
+                        // Facing Left
+                        mapCharacter.startDiaolog(2);
+                        character.setStop(true);
+                    } else if (character.direction == 2 && character.collisionBox.x + character.collisionBox.width <= rect.x) {
+                        // Facing Right
+                        mapCharacter.startDiaolog(1);
+                        character.setStop(true);
+                    } else if (character.direction == 3 && character.collisionBox.y >= rect.y + rect.height) {
+                        // Facing Up
+                        mapCharacter.startDiaolog(0);
+                        character.setStop(true);
+                    }
+                    rect.translate(xOffset, yOffset);
+                } else if (!mapCharacter.getDialogBox().isActive()) {
+                    interactionDialogBoxes.get("Speak_Character_Instructions").setActive(true);
+                }
+            }
+            actionRect.translate(xOffset, yOffset);
+        }
+
         // Resolve interactions with mapConnections
         for (MapConnection connection : mapConnections) {
             Rectangle rect = connection.getRect();
@@ -571,6 +601,7 @@ public class TileMap {
             rect.translate(xOffset, yOffset);
         }
     }
+
     public void resolveCollisions(MainCharacter character) {
         // Deals with collisions against collision boxes (impassable)
         for (Rectangle rect : collisionBoxes) {
@@ -825,7 +856,7 @@ public class TileMap {
         }
         // Draw characters that are above the main character
         for (Character character: mapCharacters.values()) {
-            if (character.y <= mainCharacterY) {
+            if (character.y - yOffset <= mainCharacterY) {
                 character.draw(g2d, xOffset, yOffset);
                 character.setDrawn(true);
             }

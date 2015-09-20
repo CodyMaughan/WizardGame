@@ -14,6 +14,13 @@ public class DialogCache {
             put("Equipment_Novice Robes Chest", "Press Space to open the chest.");
 
             put("Start_Game_Menu_Instructions", "Press ENTER to open the game menu.");
+            put("Speak_Character_Instructions", "Press SPACE to speak to the person.");
+
+            put("Character1", "Have you seen the cave outside of town? \n My mother won't let me go there," +
+                    " she says it's too dangerous. \n I wonder what's in there...");
+            put("Character2", "Berries are so delicious and scrumptious. I love eating them." +
+                    " \n They also can be used to make potions. \n But I prefer to just eat them.");
+            put("Character3", "Hey, get out of my way! Can't you see that I'm walking here?");
         }
     };
 

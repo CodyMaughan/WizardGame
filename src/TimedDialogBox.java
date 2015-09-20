@@ -22,8 +22,12 @@ public class TimedDialogBox {
 
     private final int lineLength = 100;
 
-    public TimedDialogBox(String name, float time, Font font, int bufferX, int bufferY, Graphics2D g2d) {
-        dialog = DialogCache.getInteractionDialog(name);
+    public TimedDialogBox(String name, float time, Font font, int bufferX, int bufferY, Graphics2D g2d, boolean useCache) {
+        if (useCache) {
+            dialog = DialogCache.getInteractionDialog(name);
+        } else {
+            dialog = name;
+        }
         this.time = time;
         this.font = font;
         fitRect2Text(g2d, bufferX, bufferY);

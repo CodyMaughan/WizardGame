@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,13 +37,17 @@ public class Character {
 
     private String pathType;
     private Rectangle pathRect;
+    private Rectangle interactionBox;
     private boolean drawn;
     private boolean stop;
+    private long randomTimer;
+    private ScrollDialogBox dialogBox;
 
     private final long animationTime = 80000L;
+    private final long randomTime = 400000;
     private final int moveSpeed = 4;
 
-    public Character(String name, int posX, int posY){
+    public Character(String name, int posX, int posY, Framework framework){
 
         this.characterName = name;
         info = CharacterCache.getCharacterInfo(name);
@@ -65,32 +70,44 @@ public class Character {
         maxAnimationFrames = imageWidth/characterWidth;
         walkingTimer = 0;
         collisionBox = new Rectangle(x + characterWidth/6, y + characterHeight/2, 2*characterWidth/3, characterHeight/2);
+        interactionBox = new Rectangle (x - characterWidth/6, y + characterHeight/4, 4*characterWidth/3, characterHeight);
+        dialogBox = new ScrollDialogBox(name, new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics(), true);
         vX = 0;
         vY = 0;
         items = new HashMap<>();
         equipment = new HashMap<>();
         canSwim = false;
+        stop = false;
         travelState = "Walk";
+        randomTimer = 0;
     }
 
-        public void draw(Graphics2D g2d, int xOffset, int yOffset) {
-        g2d.drawImage(image, x - xOffset, y - yOffset, x - xOffset + characterWidth, y - yOffset + characterHeight, characterWidth * animationFrame,
+    public void draw(Graphics2D g2d, int xOffset, int yOffset) {
+        translate(-xOffset, -yOffset);
+        g2d.drawImage(image, x, y, x + characterWidth, y + characterHeight, characterWidth * animationFrame,
                 characterHeight * direction, (animationFrame + 1) * characterWidth, (direction + 1) * characterHeight, null);
         g2d.setColor(Color.WHITE);
-        collisionBox.translate(-xOffset, -yOffset);
         g2d.draw(collisionBox);
-        collisionBox.translate(xOffset, yOffset);
+        g2d.setColor(Color.BLUE);
+        g2d.draw(interactionBox);
         g2d.setColor(Color.RED);
         if (pathRect != null) {
             pathRect.translate(-xOffset, -yOffset);
             g2d.draw(pathRect);
             pathRect.translate(xOffset, yOffset);
         }
+        if (dialogBox.isActive()) {
+            dialogBox.draw(g2d, this);
+        }
+        translate(xOffset, yOffset);
     }
 
-    public void update(float elapsedTime) {
+    public void update(float elapsedTime, boolean[][] keyboardstate) {
         // Determine The Direction to Move the Character
         // The order here is important, as it prioritizes the Up/Down Character animation over Right/Left
+        if (dialogBox.isActive()) {
+            dialogBox.update(elapsedTime, keyboardstate);
+        }
         if (!stop) {
             // Normalize the velocity vector
             if (vX < 0) {
@@ -105,11 +122,180 @@ public class Character {
             }
             // Determine if the current path needs to be changed
             if (pathType.equals("Random")) {
+                randomTimer += elapsedTime;
+                if (randomTimer > randomTime) {
+                    randomTimer = 0;
+                    Random rand = new Random();
+                    int r = rand.nextInt(8);
+                    int distance = 0;
+                    switch (r) {
+                        case (0):
+                            direction = 0;
+                            vX = 0;
+                            vY = 1;
+                            break;
+                        case (1):
+                            direction = 1;
+                            vX = -1;
+                            vY = 0;
+                            break;
+                        case (2):
+                            direction = 2;
+                            vX = 1;
+                            vY = 0;
+                            break;
+                        case (3):
+                            direction = 3;
+                            vX = 0;
+                            vY = -1;
+                            break;
+                        case (4):
+                            vX = 0;
+                            vY = 0;
+                            break;
+                        case (5):
+                            vX = 0;
+                            vY = 0;
+                            break;
+                        case (6):
+                            vX = 0;
+                            vY = 0;
+                            break;
+                        case (7):
+                            vX = 0;
+                            vY = 0;
+                            break;
+                    }
+                }
+                int distance = 0;
+                switch (direction) {
+                    case (0):
+                        if (collisionBox.y + collisionBox.height >= pathRect.y + pathRect.height) {
+                            distance = (collisionBox.y + collisionBox.height) - (pathRect.y + pathRect.height);
+                            translate(0, -distance);
+                            vX = 0;
+                            vY = 0;
+                        }
+                        break;
+                    case (1):
+                        if (collisionBox.x <= pathRect.x) {
+                            distance = pathRect.x - collisionBox.x;
+                            translate(distance, 0);
+                            vX = 0;
+                            vY = 0;
+                        }
+                        break;
+                    case (2):
+                        if (collisionBox.x + collisionBox.width >= pathRect.x + pathRect.width) {
+                            distance = (collisionBox.x + collisionBox.width) - (pathRect.x + pathRect.width);
+                            translate(-distance, 0);
+                            vX = 0;
+                            vY = 0;
+                        }
+                        break;
+                    case (3):
+                        if (collisionBox.y <= pathRect.y) {
+                            distance = pathRect.y - collisionBox.y;
+                            translate(0, distance);
+                            vX = 0;
+                            vY = 0;
+                        }
+                        break;
+                }
+            } else if (pathType.equals("Box_Edge_Clockwise")) {
+                if (collisionBox.x < pathRect.x && direction == 1) {
+                    vX = 0;
+                    vY = -1;
+                    direction = 3;
+                } else if (collisionBox.y <= pathRect.y && direction == 3) {
+                    vX = 1;
+                    vY = 0;
+                    direction = 2;
+                } else if (collisionBox.x + collisionBox.width >= pathRect.x + pathRect.width && direction == 2) {
+                    vX = 0;
+                    vY = 1;
+                    direction = 0;
+                } else if(collisionBox.y + collisionBox.height >= pathRect.y + pathRect.height && direction == 0) {
+                    vX = -1;
+                    vY = 0;
+                    direction = 1;
+                } else {
+                    if (direction == 0) {
+                        vX = 0;
+                        vY = 1;
+                    } else if (direction == 1) {
+                        vX = -1;
+                        vY = 0;
+                    } else if (direction == 2) {
+                        vX = 1;
+                        vY = 0;
+                    } else if (direction == 3) {
+                        vX = 0;
+                        vY = -1;
+                    }
+                }
+            } else if (pathType.equals("Box_Edge_CounterClockwise")) {
+                if (collisionBox.x <= pathRect.x && direction == 1) {
+                    vX = 0;
+                    vY = 1;
+                    direction = 0;
+                } else if (collisionBox.y <= pathRect.y && direction == 3) {
+                    vX = -1;
+                    vY = 0;
+                    direction = 1;
+                } else if (collisionBox.x + collisionBox.width >= pathRect.x + pathRect.width && direction == 2) {
+                    vX = 0;
+                    vY = -1;
+                    direction = 3;
+                } else if(collisionBox.y + collisionBox.height >= pathRect.y + pathRect.height && direction == 0) {
+                    vX = 1;
+                    vY = 0;
+                    direction = 2;
+                } else {
+                    if (direction == 0) {
+                        vX = 0;
+                        vY = 1;
+                    } else if (direction == 1) {
+                        vX = -1;
+                        vY = 0;
+                    } else if (direction == 2) {
+                        vX = 1;
+                        vY = 0;
+                    } else if (direction == 3) {
+                        vX = 0;
+                        vY = -1;
+                    }
+                }
+            } else if (pathType.equals("Box_FillX")) {
 
-            } else if (pathType.equals("Box_Edge")) {
+            } else if (pathType.equals("Box_FillY")) {
 
             } else if (pathType.equals("LineX")) {
-
+                if (collisionBox.x <= pathRect.x) {
+                    vX = 1;
+                    direction = 2;
+                } else if(collisionBox.x + collisionBox.width >= pathRect.x + pathRect.width) {
+                    vX = -1;
+                    direction = 1;
+                } else {
+                    if (direction == 2) {
+                        vX = 1;
+                    } else if (direction == 1) {
+                        vX = -1;
+                    } else if (direction == 0 || direction == 3) {
+                        Random rand = new Random();
+                        int r = rand.nextInt(2);
+                        if (r == 0) {
+                            direction = 1;
+                            vY = 0;
+                            vX = -1;
+                        } else if (r == 1) {
+                            direction = 2;
+                            vY = 0;
+                            vX = 1;
+                        }
+                    }
+                }
             } else if (pathType.equals("LineY")) {
                 if (collisionBox.y <= pathRect.y) {
                     vY = 1;
@@ -122,10 +308,20 @@ public class Character {
                         vY = 1;
                     } else if (direction == 3) {
                         vY = -1;
+                    } else if (direction == 1 || direction == 2) {
+                        Random rand = new Random();
+                        int r = rand.nextInt(2);
+                        if (r == 0) {
+                            direction = 0;
+                            vX = 0;
+                            vY = 1;
+                        } else if (r == 1) {
+                            direction = 3;
+                            vX = 0;
+                            vY = -1;
+                        }
                     }
                 }
-            } else if (pathType.equals("Box_Fill")) {
-
             }
         } else {
             vX = 0;
@@ -160,12 +356,14 @@ public class Character {
         x += dx;
         y += dy;
         collisionBox.translate(dx, dy);
+        interactionBox.translate(dx, dy);
     }
 
     public void setPosition(int posX, int posY) {
         x = posX;
         y = posY;
         collisionBox.setLocation(x + characterWidth / 4, y + characterHeight / 2);
+        interactionBox.setLocation(x - characterWidth / 6, y + characterHeight / 4);
     }
 
     public void addItem(String name, Item item){
@@ -207,5 +405,19 @@ public class Character {
 
     public boolean isStop() {
         return stop;
+    }
+
+    public Rectangle getInteractionRect() {
+        return interactionBox;
+    }
+
+    public void startDiaolog(int dir) {
+        direction = dir;
+        stop = true;
+        dialogBox.setActive(true);
+    }
+
+    public ScrollDialogBox getDialogBox() {
+        return dialogBox;
     }
 }

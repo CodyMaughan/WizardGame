@@ -25,7 +25,7 @@ public class DialogManager {
 
     public static void addInteractionDialogBox(String name) {
         addInteractionDialogBox(name, new InteractionDialogBox(name, new Font("Arial", Font.PLAIN, 10),
-                5, 5, (Graphics2D)framework.getGraphics()));
+                5, 5, (Graphics2D)framework.getGraphics(), true));
     }
 
     public static void addInteractionDialogBox(String name, InteractionDialogBox dialogBox) {

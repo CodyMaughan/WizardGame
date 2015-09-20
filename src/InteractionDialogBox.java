@@ -20,8 +20,12 @@ public class InteractionDialogBox {
 
     private final int lineLength = 100;
 
-    public InteractionDialogBox(String name, Font font, int bufferX, int bufferY, Graphics2D g2d) {
-        dialog = DialogCache.getInteractionDialog(name);
+    public InteractionDialogBox(String name, Font font, int bufferX, int bufferY, Graphics2D g2d, boolean useCache) {
+        if (useCache) {
+            dialog = DialogCache.getInteractionDialog(name);
+        } else {
+            dialog = name;
+        }
         this.font = font;
         fitRect2Text(g2d, bufferX, bufferY);
         active = false;
@@ -74,6 +78,19 @@ public class InteractionDialogBox {
     }
 
     public void draw(Graphics2D g2d, MainCharacter character) {
+        // Find out x and y by centering the dialog box above the head of the character
+        int x = (character.x + character.characterWidth/2) - width/2;
+        int y = (character.y - textBufferY - height);
+        g2d.setColor(Color.WHITE);
+        g2d.fillRoundRect(x, y, width, height, textBufferX, textBufferY);
+        g2d.setColor(Color.BLACK);
+        g2d.drawRoundRect(x, y, width, height, textBufferX, textBufferY);
+        for (int i = 0; i < lines.size(); i++) {
+            g2d.drawString(lines.get(i), x + textBufferX, y + textBufferY + textHeight + (textHeight + lineSpacing)*i);
+        }
+    }
+
+    public void draw(Graphics2D g2d, Character character) {
         // Find out x and y by centering the dialog box above the head of the character
         int x = (character.x + character.characterWidth/2) - width/2;
         int y = (character.y - textBufferY - height);

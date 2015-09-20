@@ -26,7 +26,7 @@ public class StartGameState implements IState {
         SoundManager.getInstance().add("Woodland",
                 new Sound(this.getClass().getResource("/resources/sounds/Woodland_Fantasy_0.wav"), 0));
         entranceDialogBox = new TimedDialogBox("Start_Game_Menu_Instructions", 3500000,
-                new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics());
+                new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics(), true);
         entranceDialogBox.startDialogBox();
     }
 
@@ -53,7 +53,7 @@ public class StartGameState implements IState {
         // Move the map if necessary
         map.moveMap(character);
         // Update things like dialog boxes, characters, and events on the map
-        map.update(elapsedTime, character);
+        map.update(elapsedTime, character, keyboardstate);
         // Handle collision detections
         // Collision Detection of character and map
         // NOTE: Due to the way the map change function works, resolveInteraction NEEDS TO BE THE LAST COMMAND

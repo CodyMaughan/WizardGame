@@ -28,6 +28,7 @@ public class MainCharacter {
     private static Map<String, Equipment> equipment;
     private static String travelState;
     private static boolean canSwim;
+    private static boolean stop;
 
     private final long animationTime = 80000L;
     private final int moveSpeed = 8;
@@ -52,6 +53,7 @@ public class MainCharacter {
         items = new HashMap<>();
         equipment = new HashMap<>();
         canSwim = false;
+        stop = false;
         travelState = "Walk";
     }
 
@@ -66,21 +68,23 @@ public class MainCharacter {
         vY = 0;
         // Determine The Direction to Move the Character base on KeyboardState
         // The order here is important, as it prioritizes the Up/Down Character animation over Right/Left
-        if (keyboardstate[KeyEvent.VK_A][0]) {// Move Left
-            vX -= 1;
-            direction = 1;
-        }
-        if (keyboardstate[KeyEvent.VK_D][0]) { // Move Right
-            vX += 1;
-            direction = 2;
-        }
-        if (keyboardstate[KeyEvent.VK_W][0]) { // Move Up
-            vY -= 1;
-            direction = 3;
-        }
-        if (keyboardstate[KeyEvent.VK_S][0]) { // Move Down
-            vY += 1;
-            direction = 0;
+        if (!stop) {
+            if (keyboardstate[KeyEvent.VK_A][0]) {// Move Left
+                vX -= 1;
+                direction = 1;
+            }
+            if (keyboardstate[KeyEvent.VK_D][0]) { // Move Right
+                vX += 1;
+                direction = 2;
+            }
+            if (keyboardstate[KeyEvent.VK_W][0]) { // Move Up
+                vY -= 1;
+                direction = 3;
+            }
+            if (keyboardstate[KeyEvent.VK_S][0]) { // Move Down
+                vY += 1;
+                direction = 0;
+            }
         }
         // Make the velocity vector a unit vector and then multiply by the moveSpeed
         if (vX != 0 || vY != 0) {
@@ -131,6 +135,10 @@ public class MainCharacter {
         equipment.put(name, object);
     }
 
+    public static boolean isStop() {return stop; }
+
+    public static void setStop(boolean bool) {
+        stop = bool; }
 
     public static boolean canSwim() {
         return canSwim;
