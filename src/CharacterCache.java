@@ -8,10 +8,10 @@ public class CharacterCache {
 
     private static Map<String, CharacterInfo> characters = new HashMap<String, CharacterInfo>() {
         {
-            put("Character1", new CharacterInfo("Character1", "/resources/images/Character1.png", "", 64, 64));
-            put("Character2", new CharacterInfo("Character2", "/resources/images/Character2.png", "", 64, 64));
-            put("Character3", new CharacterInfo("Character3", "/resources/images/Character3.png", "", 64, 64));
-            put("Character4", new CharacterInfo("Character4", "/resources/images/Character4.png", "", 64, 64));
+            put("Character1", new CharacterInfo("Character1", "/resources/images/Characters/Character1.png", "", 64, 64));
+            put("Character2", new CharacterInfo("Character2", "/resources/images/Characters/Character2.png", "", 64, 64));
+            put("Character3", new CharacterInfo("Character3", "/resources/images/Characters/Character3.png", "", 64, 64));
+            put("Character4", new CharacterInfo("Character4", "/resources/images/Characters/Character4.png", "", 64, 64));
         }
     };
 
