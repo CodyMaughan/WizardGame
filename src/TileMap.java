@@ -44,6 +44,10 @@ public class TileMap {
     protected Map<Integer, boolean[]> foregroundRotations; // A mapping of tile location to rotation data used for the foreground layer
     protected Map<Integer, Integer> topLayer; // A mapping of the tile location to gid data used for the top layer
     protected Map<Integer, boolean[]> topRotations; // A mapping of the tile location to rotation data used for the top layer
+    protected Map<Integer, Integer> foregroundLayer2; // A mapping of tile location to gid data used for the foreground layer
+    protected Map<Integer, boolean[]> foregroundRotations2; // A mapping of tile location to rotation data used for the foreground layer
+    protected Map<Integer, Integer> topLayer2; // A mapping of the tile location to gid data used for the top layer
+    protected Map<Integer, boolean[]> topRotations2; // A mapping of the tile location to rotation data used for the top layer
     protected ArrayList<Rectangle>  collisionBoxes; // A list of all the collisionBoxes for the map
     protected int playerMoveDistance; // A set distance from the edges of the window where the map begins to move with the player.
     protected int[] mainSpawnPoint; // A list of the main spawn points |||| NOTE: (This object is subject to being replaced by mapConnections)
@@ -243,6 +247,56 @@ public class TileMap {
                                 }
                                 topLayer.put(j, (int)gid);
                                 topRotations.put(j, rotations);
+                            }
+                        }
+                        break;
+                    case ("Foreground2"):
+                        foregroundLayer2 = new HashMap<>();
+                        foregroundRotations2 = new HashMap<>();
+                        for (int j = 0; j < (tileDataLength); j++) {
+                            tileElement = (Element) tileData.item(j);
+                            gid = Long.parseLong(tileElement.getAttribute("gid"));
+                            if (gid != 0) {
+                                boolean[] rotations = new boolean[3];
+                                if ((gid & (1 << 31)) != 0) { // Checks Horizontal Flipping
+                                    rotations[0] = true;
+                                    gid = gid - (long) Math.pow(2, 31);
+                                }
+                                if ((gid & (1 << 30)) != 0) { // Checks Vertical Flipping
+                                    rotations[1] = true;
+                                    gid = gid - (long) Math.pow(2, 30);
+                                }
+                                if ((gid & (1 << 29)) != 0) { // Checks Diagonal Flipping
+                                    rotations[2] = true;
+                                    gid = gid - (long) Math.pow(2, 29);
+                                }
+                                foregroundLayer2.put(j, (int)gid);
+                                foregroundRotations2.put(j, rotations);
+                            }
+                        }
+                        break;
+                    case ("Top2"):
+                        topLayer2 = new HashMap<>();
+                        topRotations2 = new HashMap<>();
+                        for (int j = 0; j < (tileDataLength); j++) {
+                            tileElement = (Element) tileData.item(j);
+                            gid = Long.parseLong(tileElement.getAttribute("gid"));
+                            if (gid != 0) {
+                                boolean[] rotations = new boolean[3];
+                                if ((gid & (1 << 31)) != 0) { // Checks Horizontal Flipping
+                                    rotations[0] = true;
+                                    gid = gid - (long) Math.pow(2, 31);
+                                }
+                                if ((gid & (1 << 30)) != 0) { // Checks Vertical Flipping
+                                    rotations[1] = true;
+                                    gid = gid - (long) Math.pow(2, 30);
+                                }
+                                if ((gid & (1 << 29)) != 0) { // Checks Diagonal Flipping
+                                    rotations[2] = true;
+                                    gid = gid - (long) Math.pow(2, 29);
+                                }
+                                topLayer2.put(j, (int)gid);
+                                topRotations2.put(j, rotations);
                             }
                         }
                         break;
@@ -962,6 +1016,15 @@ public class TileMap {
                             i*tileHeight - yOffset);
                     getTileSet(gid).drawTile(g2d, gid, afx);
                 }
+
+                if (foregroundLayer2 != null) {
+                    if (foregroundLayer2.containsKey(tileCounter)) {
+                        gid = foregroundLayer2.get(tileCounter);
+                        afx = getTransform(foregroundRotations2.get(tileCounter), j*tileWidth - xOffset,
+                                i*tileHeight - yOffset);
+                        getTileSet(gid).drawTile(g2d, gid, afx);
+                    }
+                }
                 // Rotate/Flip the drawing if necessary
                 // This was the original code but it created a new image for every drawing so it no longer is used
                 //BufferedImage temp = transformTile(getTileSet(gid).getTile(gid - firstGid.get(getTileSetIndex(gid))),
@@ -1005,6 +1068,17 @@ public class TileMap {
             AffineTransform afx = getTransform(topRotations.get(key), col*tileWidth - xOffset,
                     row*tileHeight - yOffset);
             getTileSet(gid).drawTile(g2d, gid, afx);
+        }
+
+        if (topLayer2 != null) {
+            for (Integer key : topLayer2.keySet()) {
+                int row = Math.floorDiv(key, mapTileWidth);
+                int col = key - row*mapTileWidth;
+                int gid = topLayer2.get(key);
+                AffineTransform afx = getTransform(topRotations2.get(key), col*tileWidth - xOffset,
+                        row*tileHeight - yOffset);
+                getTileSet(gid).drawTile(g2d, gid, afx);
+            }
         }
 
         // Draw the characters that are below the MainCharacter;

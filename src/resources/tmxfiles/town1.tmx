@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="28" tilewidth="32" tileheight="32" nextobjectid="33">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="28" tilewidth="32" tileheight="32" nextobjectid="34">
  <tileset firstgid="1" name="town_1" tilewidth="32" tileheight="32" tilecount="120">
   <image source="../images/tileset/town_1.png" width="640" height="192"/>
  </tileset>
@@ -2557,6 +2557,9 @@
  </objectgroup>
  <objectgroup name="Connection_testmap1">
   <object id="21" name="Connection1" type="Down_Down" x="419" y="880" width="155" height="16"/>
+ </objectgroup>
+ <objectgroup name="Connection_magecity">
+  <object id="33" name="Connection1" type="Left_Up" x="1" y="163" width="19" height="90"/>
  </objectgroup>
  <objectgroup name="CharacterSpawn">
   <object id="22" name="Character1" x="224" y="98" width="32" height="32"/>

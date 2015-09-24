@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="I cleaned up the resources/images folder a bit.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/Character0.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/Character1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/Character2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/Character3.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/Character4.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/Character5.png" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\Character0.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\Character1.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\Character2.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\Character3.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\Character4.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\Character5.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\TileMap_src.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\landing_area.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\pointerFinger.xcf" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\red_border.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\rocket.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\rocket_crashed.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\rocket_fire.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\rocket_landed.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\resources\images\tilemap1.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CharacterCache.java" afterPath="$PROJECT_DIR$/src/CharacterCache.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DesignCharacterState.java" afterPath="$PROJECT_DIR$/src/DesignCharacterState.java" />
+    <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/tileset/fat_magecity_0.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/tileset/magecity_0.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/tileset/store_tents.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/magecity.tmx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TileMap.java" afterPath="$PROJECT_DIR$/src/TileMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/testmap2.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/testmap2.tmx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/town1.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/town1.tmx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestRecovery.iws" />
@@ -47,10 +31,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DesignCharacterState.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DesignCharacterState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DesignCharacterState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334">
+            <state vertical-scroll-proportion="0.0">
               <caret line="186" column="113" selection-start-line="186" selection-start-column="113" selection-end-line="186" selection-end-column="113" />
               <folding />
             </state>
@@ -60,7 +44,7 @@
       <file leaf-file-name="Character.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Character.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.1034484">
+            <state vertical-scroll-proportion="0.0">
               <caret line="379" column="0" selection-start-line="379" selection-start-column="0" selection-end-line="379" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -97,16 +81,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StartGameState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/StartGameState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="56" column="81" selection-start-line="56" selection-start-column="81" selection-end-line="56" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MainCharacter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MainCharacter.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -126,20 +100,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TileMap.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TileMap.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TileMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="514" column="55" selection-start-line="514" selection-start-column="55" selection-end-line="514" selection-end-column="55" />
-              <folding>
-                <element signature="e#64896#64897#0" expanded="true" />
-                <element signature="e#64936#64937#0" expanded="true" />
-                <element signature="e#64970#64971#0" expanded="true" />
-                <element signature="e#65010#65011#0" expanded="true" />
-                <element signature="e#65041#65042#0" expanded="true" />
-                <element signature="e#65068#65069#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.3325062">
+              <caret line="1011" column="0" selection-start-line="1011" selection-start-column="0" selection-end-line="1011" selection-end-column="0" />
+              <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dungeon_objects.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/resources/images/tileset/dungeon_objects.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="store_tents.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/resources/images/tileset/store_tents.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
@@ -163,29 +144,8 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="13" column="92" selection-start-line="13" selection-start-column="92" selection-end-line="13" selection-end-column="92" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapUtility.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MapUtility.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DialogCache.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="68" selection-start-line="23" selection-start-column="68" selection-end-line="23" selection-end-column="68" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#801#802#0" expanded="false" />
+                <element signature="e#844#845#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -260,9 +220,9 @@
         <option value="$PROJECT_DIR$/src/IndexedLinkedHashMap.java" />
         <option value="$PROJECT_DIR$/src/ScrollDialogBox.java" />
         <option value="$PROJECT_DIR$/src/MainCharacter.java" />
-        <option value="$PROJECT_DIR$/src/TileMap.java" />
         <option value="$PROJECT_DIR$/src/CharacterCache.java" />
         <option value="$PROJECT_DIR$/src/DesignCharacterState.java" />
+        <option value="$PROJECT_DIR$/src/TileMap.java" />
       </list>
     </option>
   </component>
@@ -298,7 +258,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -371,10 +331,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WizardGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WizardGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tileset" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -768,12 +754,18 @@
       <option name="project" value="LOCAL" />
       <updated>1442787013029</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="I cleaned up the resources/images folder a bit.">
+      <created>1442850282068</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1442850282068</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -783,10 +775,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985657" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32389936" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32232705" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18887262" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18960468" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -860,7 +852,8 @@
     <MESSAGE value="Added some map character movement and collision with the moving character." />
     <MESSAGE value="Added a Map Utility Class which has one method, to sort map characters based on their y position. This is important as it allows the characters to be drawn in an order will lay them over top of one another in an appropriate fashion." />
     <MESSAGE value="Character collision resolution between themselves has been added, as well as some bugs with being able to talk to multiple characters at once being fixed." />
-    <option name="LAST_COMMIT_MESSAGE" value="Character collision resolution between themselves has been added, as well as some bugs with being able to talk to multiple characters at once being fixed." />
+    <MESSAGE value="I cleaned up the resources/images folder a bit." />
+    <option name="LAST_COMMIT_MESSAGE" value="I cleaned up the resources/images folder a bit." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -872,7 +865,7 @@
           <option name="timeStamp" value="116" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="120" />
+      <option name="time" value="124" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -888,27 +881,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/TestMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="56" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Animation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/KeyMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MyCanvas.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -991,7 +963,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2912088">
           <caret line="100" column="114" selection-start-line="100" selection-start-column="114" selection-end-line="100" selection-end-column="114" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1064,7 +1035,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="146" column="37" selection-start-line="90" selection-start-column="8" selection-end-line="146" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1121,9 +1091,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="203" column="30" selection-start-line="203" selection-start-column="30" selection-end-line="203" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1152,17 +1119,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#873#874#0" expanded="false" />
-            <element signature="e#944#945#0" expanded="false" />
-            <element signature="e#1525#1526#0" expanded="false" />
-            <element signature="e#1561#1562#0" expanded="false" />
-            <element signature="e#1600#1601#0" expanded="false" />
-            <element signature="e#1632#1633#0" expanded="false" />
-            <element signature="e#1853#1854#0" expanded="false" />
-            <element signature="e#1894#1895#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1170,7 +1126,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1178,7 +1133,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1186,7 +1140,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1205,7 +1158,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1213,7 +1165,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="26" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1221,9 +1172,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1231,10 +1179,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0494505">
           <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-          <folding>
-            <element signature="e#638#639#0" expanded="false" />
-            <element signature="e#667#668#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1243,7 +1187,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="68" selection-start-line="23" selection-start-column="68" selection-end-line="23" selection-end-column="68" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1251#1252#0" expanded="false" />
+            <element signature="e#1301#1302#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1315,7 +1260,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Character.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.1034484">
+        <state vertical-scroll-proportion="0.0">
           <caret line="379" column="0" selection-start-line="379" selection-start-column="0" selection-end-line="379" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1339,35 +1284,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TileMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="514" column="55" selection-start-line="514" selection-start-column="55" selection-end-line="514" selection-end-column="55" />
-          <folding>
-            <element signature="e#64896#64897#0" expanded="true" />
-            <element signature="e#64936#64937#0" expanded="true" />
-            <element signature="e#64970#64971#0" expanded="true" />
-            <element signature="e#65010#65011#0" expanded="true" />
-            <element signature="e#65041#65042#0" expanded="true" />
-            <element signature="e#65068#65069#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CharacterCache.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="92" selection-start-line="13" selection-start-column="92" selection-end-line="13" selection-end-column="92" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#801#802#0" expanded="false" />
+            <element signature="e#844#845#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DesignCharacterState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
+        <state vertical-scroll-proportion="0.0">
           <caret line="186" column="113" selection-start-line="186" selection-start-column="113" selection-end-line="186" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/resources/images/tileset/store_tents.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/resources/images/tileset/dungeon_objects.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/resources/images/tileset/fat_magecity_0.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TileMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3325062">
+          <caret line="1011" column="0" selection-start-line="1011" selection-start-column="0" selection-end-line="1011" selection-end-column="0" />
           <folding />
         </state>
       </provider>
