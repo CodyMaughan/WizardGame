@@ -72,7 +72,7 @@ public class StartGameState implements IState {
         character.draw(g2d);
         map.drawTopLayer(g2d, character);
         if (entranceDialogBox.isActive()) {
-            entranceDialogBox.draw(g2d, character);
+            entranceDialogBox.draw(g2d);
         }
     }
 

@@ -57,9 +57,9 @@ public class RemovableObject {
     public void remove(MainCharacter character){
         isRemoved = true;
         if (removableType.equals("Item")) {
-            character.addItem(removableName, new Item(removableName));
+            character.addItem(removableName, ItemCache.getItem(removableName));
         } else if (removableType.equals("Equipment")) {
-            character.addEquipment(removableName, new Equipment(removableName));
+            character.addEquipment(removableName, ItemCache.getEquipment(removableName));
         }
     }
 

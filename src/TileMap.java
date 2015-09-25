@@ -1092,7 +1092,7 @@ public class TileMap {
         // Draw the interactionDialogBoxes
         for (InteractionDialogBox dialogBox : interactionDialogBoxes.values()) {
             if (dialogBox.isActive()) {
-                dialogBox.draw(g2d, character);
+                dialogBox.draw(g2d);
             }
         }
 
