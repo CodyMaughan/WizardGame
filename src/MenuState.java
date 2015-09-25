@@ -20,6 +20,7 @@ public class MenuState implements IState {
     private MenuButton statusButton;
     private MenuButton journalButton;
     private MenuButton worldMapButton;
+    private MenuButton optionsButton;
     private MenuButton saveButton;
     private MenuButton exitButton;
     private int maxButtonWidth;
@@ -33,6 +34,7 @@ public class MenuState implements IState {
     private StatusMenu statusMenu;
     private JournalMenu journalMenu;
     private WorldMapMenu worldMapMenu;
+    private OptionsMenu optionsMenu;
     private SaveMenu saveMenu;
     private ExitMenu exitMenu;
     private DrawableObject currentMenu;
@@ -49,13 +51,14 @@ public class MenuState implements IState {
         statusButton = new MenuButton("Status", 0, 0, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
         journalButton = new MenuButton("Journal", 0, 0, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
         worldMapButton = new MenuButton("World Map", 0, 0, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
+        optionsButton = new MenuButton("Options", 0, 0, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
         saveButton = new MenuButton("Save/Load Game", 0, 0, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
         exitButton = new MenuButton("Exit Menu", 0, 0, buttonFont, (Graphics2D)framework.getGraphics(), 5, 5);
         maxButtonWidth = saveButton.getWidth();
         maxButtonHeight = saveButton.getHeight();
         int xButtonSpacing = (windowWidth/3 - maxButtonWidth)/2;
         int x = xButtonSpacing;
-        yButtonSpacing = (windowHeight - saveButton.getHeight()*7)/8;
+        yButtonSpacing = (windowHeight - saveButton.getHeight()*8)/9;
         int y = yButtonSpacing;
         cardsButton.setPosition(x, y);
         cardsButton.setWidth(maxButtonWidth);
@@ -67,8 +70,10 @@ public class MenuState implements IState {
         journalButton.setWidth(maxButtonWidth);
         worldMapButton.setPosition(x, y + 4 * (yButtonSpacing + maxButtonHeight));
         worldMapButton.setWidth(maxButtonWidth);
-        saveButton.setPosition(x, y + 5 * (yButtonSpacing + maxButtonHeight));
-        exitButton.setPosition(x, y + 6*(yButtonSpacing + maxButtonHeight));
+        optionsButton.setPosition(x, y + 5 * (yButtonSpacing + maxButtonHeight));
+        optionsButton.setWidth(maxButtonWidth);
+        saveButton.setPosition(x, y + 6 * (yButtonSpacing + maxButtonHeight));
+        exitButton.setPosition(x, y + 7*(yButtonSpacing + maxButtonHeight));
         exitButton.setWidth(maxButtonWidth);
         BufferedImage scrollerImage = null;
         // Load the Scroller Image
@@ -78,7 +83,7 @@ public class MenuState implements IState {
         catch (IOException ex) {
             Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
         }
-        leftScroller = new MenuPointer(scrollerImage, xButtonSpacing/4, y, yButtonSpacing + maxButtonHeight, 7, 1);
+        leftScroller = new MenuPointer(scrollerImage, xButtonSpacing/4, y, yButtonSpacing + maxButtonHeight, 8, 1);
         leftScroller.setWidth(xButtonSpacing/2);
         leftScroller.setHeight(maxButtonHeight);
         cardsMenu = new CardsMenu(character, framework);
@@ -86,6 +91,7 @@ public class MenuState implements IState {
         statusMenu = new StatusMenu(character, framework);
         journalMenu = new JournalMenu(character, framework);
         worldMapMenu = new WorldMapMenu(character, framework);
+        optionsMenu = new OptionsMenu(character, framework);
         saveMenu = new SaveMenu(character, framework);
         exitMenu = new ExitMenu(character, framework);
         currentMenu = cardsMenu;
@@ -111,9 +117,12 @@ public class MenuState implements IState {
                     //WorldMap Menu
                     break;
                 case (6):
-                    //Save/Load Menu
+                    //Options Menu
                     break;
                 case (7):
+                    //Save/Load Menu
+                    break;
+                case (8):
                     //Exit the Menu State
                     StateMachine.Change("StartGame", StateMachine.getFramework());
                     StateMachine.Remove("GameMenu");
@@ -179,10 +188,14 @@ public class MenuState implements IState {
                 currentMenu = worldMapMenu;
                 break;
             case (6):
+                //Options Menu
+                currentMenu = optionsMenu;
+                break;
+            case (7):
                 //Save/Load Menu
                 currentMenu = saveMenu;
                 break;
-            case (7):
+            case (8):
                 //Exit the Menu State
                 currentMenu = exitMenu;
                 break;
@@ -198,6 +211,7 @@ public class MenuState implements IState {
         statusButton.draw(g2d);
         journalButton.draw(g2d);
         worldMapButton.draw(g2d);
+        optionsButton.draw(g2d);
         saveButton.draw(g2d);
         exitButton.draw(g2d);
         leftScroller.draw(g2d);
