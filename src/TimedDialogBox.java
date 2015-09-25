@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Created by Cody on 9/18/2015.
  */
-public class TimedDialogBox {
+public class TimedDialogBox implements DialogBox {
 
     private String dialog;
     private float time;
@@ -80,7 +80,27 @@ public class TimedDialogBox {
         return size;
     }
 
-    public void draw(Graphics2D g2d, MainCharacter character) {
+    @Override
+    public void update(float elapsedTime, boolean[][] keyboardstate) {
+        addTimer(elapsedTime);
+    }
+
+    @Override
+    public void draw(Graphics2D g2d) {
+        // Find out x and y by centering the dialog box above the head of the character
+        int x = (MainCharacter.x + MainCharacter.characterWidth/2) - width/2;
+        int y = (MainCharacter.y - textBufferY - height);
+        g2d.setColor(Color.WHITE);
+        g2d.fillRoundRect(x, y, width, height, textBufferX, textBufferY);
+        g2d.setColor(Color.BLACK);
+        g2d.drawRoundRect(x, y, width, height, textBufferX, textBufferY);
+        for (int i = 0; i < lines.size(); i++) {
+            g2d.drawString(lines.get(i), x + textBufferX, y + textBufferY + textHeight + (textHeight + lineSpacing)*i);
+        }
+    }
+
+    @Override
+    public void draw(Graphics2D g2d, Character character) {
         // Find out x and y by centering the dialog box above the head of the character
         int x = (character.x + character.characterWidth/2) - width/2;
         int y = (character.y - textBufferY - height);

@@ -20,13 +20,30 @@ public class DialogCache {
                     " she says it's too dangerous. \n I wonder what's in there...");
             put("Character2", "Berries are so delicious and scrumptious. I love eating them." +
                     " \n They also can be used to make potions. \n But I prefer to just eat them.");
-            put("Character3", "Hey, get out of my way! Can't you see that I'm walking here?");
             put("Character4", "I would like to be a wizard too...");
+            put("AlchemistVendor_MageCity", "I've got potions galore! Come take a look!");
+        }
+    };
+
+    private static final Map<String, String> choiceDialog = new HashMap<String, String>() {
+        {
+            put("AlchemistVendor_MageCity", "Shop from the alchemy vendor?");
+        }
+    };
+
+    private static final Map<String, String[]> choices = new HashMap<String, String[]>() {
+        {
+            put("AlchemistVendor_MageCity", new String[]{"Yes", "No"});
         }
     };
 
     public static String getInteractionDialog(String name) {
         return interactionDialog.get(name);
     }
+
+    public static String getChoiceDialog(String name) { return choiceDialog.get(name); }
+
+    public static String[] getChoices(String name) { return choices.get(name); }
+
 
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by Cody on 9/19/2015.
  */
-public class ScrollDialogBox {
+public class ScrollDialogBox implements DialogBox {
 
     private String dialog;
     private int textBufferX;
@@ -40,6 +40,7 @@ public class ScrollDialogBox {
         }
     }
 
+    @Override
     public void update(float elapsedTime, boolean[][] keyboardstate) {
         if (keyboardstate[KeyEvent.VK_SPACE][1]) { // If the user scrolls down
             count += 1;
@@ -55,6 +56,14 @@ public class ScrollDialogBox {
         }
     }
 
+    @Override
+    public void draw(Graphics2D g2d) {
+        if (dialogBoxes.size() > 0 && active) {
+            dialogBoxes.get(count).draw(g2d);
+        }
+    }
+
+    @Override
     public void draw(Graphics2D g2d, Character character) {
         if (dialogBoxes.size() > 0 && active) {
             dialogBoxes.get(count).draw(g2d, character);
