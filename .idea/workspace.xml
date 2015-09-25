@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/OptionsMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MenuState.java" afterPath="$PROJECT_DIR$/src/MenuState.java" />
+    <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="Added an options menu to the game menu screen. It doesn't do anything yet, but it could be where we place things like volume changes and such.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestRecovery.iws" />
@@ -41,7 +39,7 @@
       <file leaf-file-name="MenuState.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MenuState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3272727">
+            <state vertical-scroll-proportion="-3.522078">
               <caret line="85" column="110" selection-start-line="85" selection-start-column="110" selection-end-line="85" selection-end-column="110" />
               <folding />
             </state>
@@ -647,12 +645,24 @@
       <option name="project" value="LOCAL" />
       <updated>1443162604827</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Added an options menu to the game menu screen. It doesn't do anything yet, but it could be where we place things like volume changes and such.">
+      <created>1443203579397</created>
+      <option name="number" value="00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1443203579397</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Added an options menu to the game menu screen. It doesn't do anything yet, but it could be where we place things like volume changes and such.">
+      <created>1443203718386</created>
+      <option name="number" value="00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1443203718386</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -665,7 +675,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35062894" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18960468" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18960468" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -716,7 +726,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="The Background Game Map is Fully Functional" />
     <MESSAGE value="Check out the new tile map!!!! On the new game screen choose the start your adventure option to see the map load!" />
     <MESSAGE value="Added the main character class with animation and movement!!!!!&#10;No collision detection yet." />
     <MESSAGE value="For some reason I can't upload the images that I've added to the project but I'll try to figure it out." />
@@ -741,7 +750,8 @@
     <MESSAGE value="Added a new area and DialogBox interface." />
     <MESSAGE value="Trying to make a stable framework for game events, getting dialog, and opening a vendor shop." />
     <MESSAGE value="I changed the Game State Machine to be a Singleton class and changed the methods and variables to be static." />
-    <option name="LAST_COMMIT_MESSAGE" value="I changed the Game State Machine to be a Singleton class and changed the methods and variables to be static." />
+    <MESSAGE value="Added an options menu to the game menu screen. It doesn't do anything yet, but it could be where we place things like volume changes and such." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added an options menu to the game menu screen. It doesn't do anything yet, but it could be where we place things like volume changes and such." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1206,7 +1216,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MenuState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3272727">
+        <state vertical-scroll-proportion="-3.522078">
           <caret line="85" column="110" selection-start-line="85" selection-start-column="110" selection-end-line="85" selection-end-column="110" />
           <folding />
         </state>
