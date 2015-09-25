@@ -109,7 +109,7 @@ public class DesignCharacterState implements IState {
     }
 
     @Override
-    public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
+    public void update(float elapsedTime, boolean[][] keyboardstate) {
         if (designState == 0) {
             if (keyboardstate[KeyEvent.VK_ENTER][1]) {
                 designState = 1;
@@ -189,17 +189,17 @@ public class DesignCharacterState implements IState {
                         catch (IOException ex) {
                             Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        gameStateMachine.Add("StartGame", new StartGameState(gameStateMachine.getFramework(), name, chosenImage));
+                        StateMachine.Add("StartGame", new StartGameState(StateMachine.getFramework(), name, chosenImage));
                         SoundManager.getInstance().stopSound("MainMenuMusic");
                         SoundManager.remove("MainMenuMusic");
-                        gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
+                        StateMachine.Change("StartGame", StateMachine.getFramework());
                         break;
                     case(2):
                         designState = 0;
                         scroller2.scrollLeft();
                         break;
                     case(3):
-                        gameStateMachine.Change("NewGame", gameStateMachine.getFramework());
+                        StateMachine.Change("NewGame", StateMachine.getFramework());
                         break;
                 }
             } else {
@@ -242,7 +242,7 @@ public class DesignCharacterState implements IState {
     }
 
     @Override
-    public void Draw(Graphics2D g2d) {
+    public void draw(Graphics2D g2d) {
         g2d.setColor(Color.WHITE);
         g2d.fillRoundRect((windowWidth - width) / 2, (windowHeight - height) / 2, width, height, spacing / 2, spacing / 2);
         int width1 = 0;
@@ -284,12 +284,12 @@ public class DesignCharacterState implements IState {
     }
 
     @Override
-    public void OnEnter(Framework framework) {
+    public void onEnter(Framework framework) {
 
     }
 
     @Override
-    public void OnExit() {
+    public void onExit() {
 
     }
 

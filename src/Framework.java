@@ -77,7 +77,7 @@ public class Framework extends MyCanvas {
         SoundManager.getInstance();
         MapManager.getInstance();
         DialogManager.getInstance(this);
-        gameStateMachine = new StateMachine(this);
+        gameStateMachine = StateMachine.getInstance(this);
         gameStateMachine.Add("MainMenu", new MainMenuState(this));
         gameStateMachine.Change("MainMenu", this);
     }
@@ -95,7 +95,7 @@ public class Framework extends MyCanvas {
         long elapsedTime = System.nanoTime() - lastTime;
         gameTime += elapsedTime;
         elapsedTime = elapsedTime/1000; //change the time to microseconds instead of nanoseconds
-        gameStateMachine.Update(elapsedTime, keyboardState); // Update the game state through the State Machine
+        gameStateMachine.Update(elapsedTime, keyboardState); // update the game state through the State Machine
         // Here we are going to change the meaning of the key released booleans.
         // The changes made here will register it as single time occurrences (when the key went up).
         // By resetting the key released booleans to false after every update it makes the variable only
@@ -146,7 +146,7 @@ public class Framework extends MyCanvas {
         while(true) // At this point the game ends by closing the window which stops all threads (and therefore this loop)
         {
             beginTime = System.nanoTime(); // Determines when the loop has started
-            Update(); // Update through the game state machine
+            Update(); // update through the game state machine
             repaint(); // Repaint the screen.
 
             // Here we calculate the time that defines for how long we should put threat to sleep to meet the GAME_FPS.
@@ -162,7 +162,7 @@ public class Framework extends MyCanvas {
         }
     }
     /**
-     * Draw the game to the screen. It is called through repaint() method in GameLoop() method.
+     * draw the game to the screen. It is called through repaint() method in GameLoop() method.
      */
     @Override
     public void Draw(Graphics2D g2d)

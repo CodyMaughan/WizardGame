@@ -16,14 +16,13 @@ public class BattleState implements IState {
 
     }
 
-
     @Override
-    public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
+    public void update(float elapsedTime, boolean[][] keyboardstate) {
 
     }
 
     @Override
-    public void Draw(Graphics2D g2d) {
+    public void draw(Graphics2D g2d) {
         Font font = new Font("Arial", Font.BOLD, 30);
         g2d.setFont(font);
         int textWidth = (int)(font.getStringBounds("You Are Now In Battle State",g2d.getFontRenderContext()).getWidth());
@@ -32,12 +31,12 @@ public class BattleState implements IState {
     }
 
     @Override
-    public void OnEnter(Framework framework) {
+    public void onEnter(Framework framework) {
 
     }
 
     @Override
-    public void OnExit() {
+    public void onExit() {
 
     }
 }

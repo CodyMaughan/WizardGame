@@ -8,7 +8,7 @@ public class EventCache {
 
     private static final Map<String, GameEvent> events = new HashMap<String, GameEvent>() {
         {
-            put("AlchemistVendor_MageCity", new VendorEvent("AlchemistVendor_MageCity", VendorCache.getVendables("AlchemistVendor_MageCity")));
+            put("AlchemistVendor_MageCity", new VendorState("AlchemistVendor_MageCity", VendorCache.getVendables("AlchemistVendor_MageCity")));
         }
     };
 

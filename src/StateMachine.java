@@ -7,44 +7,52 @@ import java.util.Map;
  */
 public class StateMachine {
 
-    private Map<String, IState> mStates; // List of all the possible game states
-    private IState mCurrentState; // Current state that is updated and drawn
-    private Framework framework; // The framework for which this game state machine is working
+    private static Map<String, IState> mStates; // List of all the possible game states
+    private static IState mCurrentState; // Current state that is updated and drawn
+    private static Framework framework; // The framework for which this game state machine is working
+    private static StateMachine machine;
 
-    public StateMachine(Framework framework) {
-        mStates = new HashMap<String, IState>(); // List of all the possible game states
+    private StateMachine(Framework framework) {
+        mStates = new HashMap<>(); // List of all the possible game states
         mCurrentState = new EmptyState(); // Current state that is updated and drawn
-        this.framework = framework;
+        StateMachine.framework = framework;
     }
 
-    public void Update(float elapsedTime, boolean[][] keyboardstate)
+    public static StateMachine getInstance(Framework framework) {
+        if (machine == null) {
+            machine = new StateMachine(framework);
+        }
+        return machine;
+    }
+
+    public static void Update(float elapsedTime, boolean[][] keyboardstate)
     {
-        mCurrentState.Update(elapsedTime, keyboardstate, this); // Updates the current game state
+        mCurrentState.update(elapsedTime, keyboardstate); // Updates the current game state
     }
 
-    public void Draw(Graphics2D g2d) {
-        mCurrentState.Draw(g2d); // Draws the current game state
+    public static void Draw(Graphics2D g2d) {
+        mCurrentState.draw(g2d); // Draws the current game state
     }
 
-    public void Change(String stateName, Framework framework) { // Changes the current game state
-        mCurrentState.OnExit(); // Lets the game state do anything it needs to do before leaving
+    public static void Change(String stateName, Framework framework) { // Changes the current game state
+        mCurrentState.onExit(); // Lets the game state do anything it needs to do before leaving
         mCurrentState = mStates.get(stateName); // Changes the current game state
-        mCurrentState.OnEnter(framework); // Lets the new game state do anything it needs to do when it starts
+        mCurrentState.onEnter(framework); // Lets the new game state do anything it needs to do when it starts
     }
 
-    public void Add(String name, IState state) {
+    public static void Add(String name, IState state) {
         mStates.put(name, state); // Adds a new game state to the possible game state list
     }
 
-    public IState getmCurrentState(){
+    public static IState getmCurrentState(){
         return mCurrentState;
     }
 
-    public Framework getFramework() {
+    public static Framework getFramework() {
         return framework;
     }
 
-    public boolean isState(String stateName) {
+    public static boolean isState(String stateName) {
         if (mStates.get(stateName) == null) {
             return false;
         } else{
@@ -52,7 +60,7 @@ public class StateMachine {
         }
     }
 
-    public void Remove(String stateName) {
+    public static void Remove(String stateName) {
         mStates.remove(stateName);
     }
 }

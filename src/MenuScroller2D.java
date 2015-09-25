@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
  */
 public class MenuScroller2D {
 
-    private int width; // Draw width
-    private int height; // Draw Height
+    private int width; // draw width
+    private int height; // draw Height
     private int x; // Drawing left position
     private int y; // Drawing top position of the menu options (doesn't change with scrolling)
     private int menuSpacingX; // Space between each menu option it's pointing to

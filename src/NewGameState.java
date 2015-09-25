@@ -85,7 +85,7 @@ public class NewGameState implements IState{
     }
 
     @Override
-    public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
+    public void update(float elapsedTime, boolean[][] keyboardstate) {
         // Handle Input from the Keyboard
         if (inNamingMode) { // If the user has clicked the Name MenuButton and is naming the hero
             nameTime += elapsedTime;
@@ -109,7 +109,7 @@ public class NewGameState implements IState{
             } else {
                 wizardName.setDrawCursor(true);
             }
-            wizardName.resetTextSize((Graphics2D)gameStateMachine.getFramework().getGraphics());
+            wizardName.resetTextSize((Graphics2D)StateMachine.getFramework().getGraphics());
             wizardName.setPosition(frameWidth/2 - wizardName.getWidth()/2, 160);
             if (!inNamingMode) { // This branch will only activate if we have exited naming mode
                 wizardName.setDrawCursor(false); // Set draw typing cursor false
@@ -123,15 +123,15 @@ public class NewGameState implements IState{
                         break;
                     case (2):
                         // Start Your Game
-                            gameStateMachine.Add("DesignCharacter", new DesignCharacterState(gameStateMachine.getFramework(), wizardName.getTypingText()));
-                            gameStateMachine.Change("DesignCharacter", gameStateMachine.getFramework());
+                        StateMachine.Add("DesignCharacter", new DesignCharacterState(StateMachine.getFramework(), wizardName.getTypingText()));
+                        StateMachine.Change("DesignCharacter", StateMachine.getFramework());
                         break;
                     case (3):
-                        if (gameStateMachine.isState("MainMenu")) {
-                            gameStateMachine.Change("MainMenu", gameStateMachine.getFramework());
+                        if (StateMachine.isState("MainMenu")) {
+                            StateMachine.Change("MainMenu", StateMachine.getFramework());
                         } else {
-                            gameStateMachine.Add("MainMenu", new MainMenuState(gameStateMachine.getFramework()));
-                            gameStateMachine.Change("MainMenu", gameStateMachine.getFramework());
+                            StateMachine.Add("MainMenu", new MainMenuState(StateMachine.getFramework()));
+                            StateMachine.Change("MainMenu", StateMachine.getFramework());
                         }
                         break;
                 }
@@ -171,29 +171,29 @@ public class NewGameState implements IState{
                 }
             }
         }
-        // Update the scroller (Animations, ect.);
+        // update the scroller (Animations, ect.);
         scroller.update(elapsedTime);
     }
 
     @Override
-    public void Draw(Graphics2D g2d) {
-        g2d.drawImage(backgroundImg, 0, 0, frameWidth, frameHeight, null); // Draw the Background Image
+    public void draw(Graphics2D g2d) {
+        g2d.drawImage(backgroundImg, 0, 0, frameWidth, frameHeight, null); // draw the Background Image
         wizardName.draw(g2d);
-        nameMenuButton.draw(g2d); // Draw the Name MenuButton
-        startMenuButton.draw(g2d); // Draw the New Game MenuButton
-        mainmenuMenuButton.draw(g2d); // Draw the Load Game MenuButton
+        nameMenuButton.draw(g2d); // draw the Name MenuButton
+        startMenuButton.draw(g2d); // draw the New Game MenuButton
+        mainmenuMenuButton.draw(g2d); // draw the Load Game MenuButton
         if (!inNamingMode) {
-            scroller.draw(g2d); // Draw the Scroller if not in naming mode
+            scroller.draw(g2d); // draw the Scroller if not in naming mode
         }
     }
 
     @Override
-    public void OnEnter(Framework framework) {
+    public void onEnter(Framework framework) {
 
     }
 
     @Override
-    public void OnExit() {
+    public void onExit() {
 
     }
 }

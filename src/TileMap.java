@@ -441,7 +441,7 @@ public class TileMap {
         for (InteractionDialogBox dialogBox : interactionDialogBoxes.values()) {
             dialogBox.setActive(false);
         }
-        // Update each of the map characters and
+        // update each of the map characters and
         // Reset the characters isDrawn and isStop
         for (Character mapCharacter : mapCharacters.values()) {
             mapCharacter.update(elapsedTime, keyboardstate);
@@ -1029,17 +1029,17 @@ public class TileMap {
                 // This was the original code but it created a new image for every drawing so it no longer is used
                 //BufferedImage temp = transformTile(getTileSet(gid).getTile(gid - firstGid.get(getTileSetIndex(gid))),
                 //        backgroundRotations.get(tileCounter)); // Get the Tile
-                //g2d.drawImage(temp, j*tileWidth, i*tileHeight, tileWidth, tileHeight, null);// Draw the Tile
+                //g2d.drawImage(temp, j*tileWidth, i*tileHeight, tileWidth, tileHeight, null);// draw the Tile
                 //tileCounter += 1;
             }
         }
-        // Draw Removable objects if they are not yet removed
+        // draw Removable objects if they are not yet removed
         for (RemovableObject object: mapRemovables) {
             if (!object.isRemoved()) {
                 object.draw(g2d, this);
             }
         }
-        // Draw characters that are above the main character
+        // draw characters that are above the main character
         // Also, due to the sorting done in initialization, characters will be drawn from top to bottom
         for (Character character: mapCharacters.values()) {
             if (character.y - yOffset <= mainCharacterY) {
@@ -1081,7 +1081,7 @@ public class TileMap {
             }
         }
 
-        // Draw the characters that are below the MainCharacter;
+        // draw the characters that are below the MainCharacter;
         for (Character charact: mapCharacters.values()) {
             if (!charact.isDrawn()) {
                 charact.draw(g2d, xOffset, yOffset);
@@ -1089,7 +1089,7 @@ public class TileMap {
             }
         }
 
-        // Draw the interactionDialogBoxes
+        // draw the interactionDialogBoxes
         for (InteractionDialogBox dialogBox : interactionDialogBoxes.values()) {
             if (dialogBox.isActive()) {
                 dialogBox.draw(g2d);

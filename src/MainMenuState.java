@@ -87,17 +87,17 @@ public class MainMenuState implements IState {
 
     @Override
     // Handle Input from the Keyboard
-    public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
+    public void update(float elapsedTime, boolean[][] keyboardstate) {
         if (keyboardstate[KeyEvent.VK_ENTER][1]) { // Handle the Enter Key is pressed
             switch (scroller.count) {
                 case (1):
-                    gameStateMachine.Add("NewGame", new NewGameState(gameStateMachine.getFramework()));
-                    gameStateMachine.Change("NewGame", gameStateMachine.getFramework());
+                    StateMachine.Add("NewGame", new NewGameState(StateMachine.getFramework()));
+                    StateMachine.Change("NewGame", StateMachine.getFramework());
                     break;
                 case (2):
                     //Load Game
-                    gameStateMachine.Add("BattleState", new BattleState(gameStateMachine.getFramework()));
-                    gameStateMachine.Change("BattleState", gameStateMachine.getFramework());
+                    StateMachine.Add("BattleState", new BattleState(StateMachine.getFramework()));
+                    StateMachine.Change("BattleState", StateMachine.getFramework());
                     SoundManager.getInstance().stopSound("MainMenuMusic");
                     SoundManager.remove("MainMenuMusic");
                     break;
@@ -143,27 +143,27 @@ public class MainMenuState implements IState {
                 scroller.scrollTimer = 0;
             }
         }
-        // Update the scroller (Animations, ect.);
+        // update the scroller (Animations, ect.);
         scroller.update(elapsedTime);
     }
 
     @Override
-    public void Draw(Graphics2D g2d) {
-        g2d.drawImage(backgroundImg, 0, 0, frameWidth, frameHeight, null); // Draw the Background Image
-        newgameMenuButton.draw(g2d); // Draw the New Game MenuButton
-        loadgameMenuButton.draw(g2d); // Draw the Load Game MenuButton
-        optionsMenuButton.draw(g2d); // Draw the Options MenuButton
-        exitMenuButton.draw(g2d); // Draw the Exit MenuButton
-        scroller.draw(g2d); // Draw the Scroller
+    public void draw(Graphics2D g2d) {
+        g2d.drawImage(backgroundImg, 0, 0, frameWidth, frameHeight, null); // draw the Background Image
+        newgameMenuButton.draw(g2d); // draw the New Game MenuButton
+        loadgameMenuButton.draw(g2d); // draw the Load Game MenuButton
+        optionsMenuButton.draw(g2d); // draw the Options MenuButton
+        exitMenuButton.draw(g2d); // draw the Exit MenuButton
+        scroller.draw(g2d); // draw the Scroller
     }
 
     @Override
-    public void OnEnter(Framework framework) {
+    public void onEnter(Framework framework) {
         SoundManager.loopSound("MainMenuMusic");
     }
 
     @Override
-    public void OnExit() {
+    public void onExit() {
 
     }
 

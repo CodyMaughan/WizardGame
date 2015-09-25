@@ -9,19 +9,19 @@ public class EmptyState implements IState {
 
     }
 
-    public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
+    public void update(float elapsedTime, boolean[][] keyboardstate) {
         // Nothing to update in the empty state.
     }
 
-    public void Draw(Graphics2D g2d) {
+    public void draw(Graphics2D g2d) {
         // Nothing to render in the empty state
     }
 
-    public void OnEnter(Framework framework) {
+    public void onEnter(Framework framework) {
         // No action to take when the state is entered
     }
 
-    public void OnExit() {
+    public void onExit() {
         // No action to take when the state is exited
     }
 }

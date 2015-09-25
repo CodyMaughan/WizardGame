@@ -23,7 +23,7 @@ public class StartGameState implements IState {
         character = new MainCharacter(wizardName, characterImage, map.getMainSpawnX(), map.getMainSpawnY(),
                 characterImage.getWidth()/3, characterImage.getHeight()/4);
         nextMap = null;
-        SoundManager.getInstance().add("Woodland",
+        SoundManager.add("Woodland",
                 new Sound(this.getClass().getResource("/resources/sounds/Woodland_Fantasy_0.wav"), 0));
         entranceDialogBox = new TimedDialogBox("Start_Game_Menu_Instructions", 3500000,
                 new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics(), true);
@@ -31,11 +31,11 @@ public class StartGameState implements IState {
     }
 
     @Override
-    public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
+    public void update(float elapsedTime, boolean[][] keyboardstate) {
         // Check whether or not the main menu should be opened
         if (keyboardstate[KeyEvent.VK_ENTER][1]) {
-            gameStateMachine.Add("GameMenu", new MenuState(framework, character));
-            gameStateMachine.Change("GameMenu", framework);
+            StateMachine.Add("GameMenu", new MenuState(framework, character));
+            StateMachine.Change("GameMenu", framework);
         }
         // Check whether the entrance dialog box should be replaced by another dialog box
         if (entranceDialogBox.isActive()) {
@@ -48,11 +48,11 @@ public class StartGameState implements IState {
                 }
             }
         }
-        // Update the main character position and animation
+        // update the main character position and animation
         character.update(elapsedTime, keyboardstate);
         // Move the map if necessary
         map.moveMap(character);
-        // Update things like dialog boxes, characters, and events on the map
+        // update things like dialog boxes, characters, and events on the map
         map.update(elapsedTime, character, keyboardstate);
         // Sort the mapCharacters in a way that allows them to be drawn correctly
         map.mapCharacters = MapUtility.sortCharactersByY(map.mapCharacters);
@@ -67,8 +67,8 @@ public class StartGameState implements IState {
     }
 
     @Override
-    public void Draw(Graphics2D g2d) {
-        map.drawBottomLayer(g2d, character.y);
+    public void draw(Graphics2D g2d) {
+        map.drawBottomLayer(g2d, MainCharacter.y);
         character.draw(g2d);
         map.drawTopLayer(g2d, character);
         if (entranceDialogBox.isActive()) {
@@ -77,12 +77,12 @@ public class StartGameState implements IState {
     }
 
     @Override
-    public void OnEnter(Framework framework) {
+    public void onEnter(Framework framework) {
         SoundManager.loopSound("Woodland");
     }
 
     @Override
-    public void OnExit() {
+    public void onExit() {
 
     }
 
@@ -90,6 +90,6 @@ public class StartGameState implements IState {
         mapPath = connection.getMapPath();
         MapManager.addMapData(map);
         nextMap = new TileMap(framework, mapPath, connection);
-        character.setPosition(nextMap.getMainSpawnX(), nextMap.getMainSpawnY());
-    };
+        MainCharacter.setPosition(nextMap.getMainSpawnX(), nextMap.getMainSpawnY());
+    }
 }

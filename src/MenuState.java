@@ -92,7 +92,7 @@ public class MenuState implements IState {
     }
 
     @Override
-    public void Update(float elapsedTime, boolean[][] keyboardstate, StateMachine gameStateMachine) {
+    public void update(float elapsedTime, boolean[][] keyboardstate) {
         if (keyboardstate[KeyEvent.VK_ENTER][1]) { // Handle the Enter Key is pressed
             switch (leftScroller.count) {
                 case (1):
@@ -115,8 +115,8 @@ public class MenuState implements IState {
                     break;
                 case (7):
                     //Exit the Menu State
-                    gameStateMachine.Change("StartGame", gameStateMachine.getFramework());
-                    gameStateMachine.Remove("GameMenu");
+                    StateMachine.Change("StartGame", StateMachine.getFramework());
+                    StateMachine.Remove("GameMenu");
                     break;
             }
         } else {
@@ -154,7 +154,7 @@ public class MenuState implements IState {
                 leftScroller.scrollTimer = 0;
             }
         }
-        // Update the scroller (Animations, ect.);
+        // update the scroller (Animations, ect.);
         leftScroller.update(elapsedTime);
         // Get the current menu
         switch (leftScroller.count) {
@@ -190,7 +190,7 @@ public class MenuState implements IState {
     }
 
     @Override
-    public void Draw(Graphics2D g2d) {
+    public void draw(Graphics2D g2d) {
         g2d.setColor(Color.BLUE);
         g2d.fillRect(0, 0, windowWidth/3, windowHeight);
         cardsButton.draw(g2d);
@@ -205,12 +205,12 @@ public class MenuState implements IState {
     }
 
     @Override
-    public void OnEnter(Framework framework) {
+    public void onEnter(Framework framework) {
 
     }
 
     @Override
-    public void OnExit() {
+    public void onExit() {
 
     }
 }
