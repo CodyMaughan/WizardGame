@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/male_blue_chemist_merchant_by_leon_murayami-d96zlqr.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/necromancer__male__by_darklack-d92uqtq.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/MainMenuState.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/MainMenuState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/MenuPointer.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/MenuPointer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/NewGameState.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/NewGameState.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/mage__female__by_darklack-d90t8i1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/mage__male__by_darklack-d90t7qq.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/necromancer__female__by_darklack-d92jw6p.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/summoner__female__by_darklack-d91k9rq.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/summoner__male__by_darklack-d91ndgx.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/the_caos__request__by_darklack-d90t70u.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/whitch__request__by_darklack-d8x3vij.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/wraith_by_darklack-d8xnzxc.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestRecovery.iws" />
@@ -107,8 +109,8 @@
       <file leaf-file-name="DialogCache.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.15064935">
-              <caret line="32" column="51" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.37922078">
+              <caret line="44" column="73" selection-start-line="44" selection-start-column="73" selection-end-line="44" selection-end-column="73" />
               <folding>
                 <element signature="e#3119#3130#0" expanded="true" />
               </folding>
@@ -815,12 +817,18 @@
       <option name="project" value="LOCAL" />
       <updated>1443250554146</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Added an options menu to the game menu screen. It doesn't do anything yet, but it could be where we place things like volume changes and such.">
+      <created>1443288067402</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1443288067402</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -833,7 +841,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35062894" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18960468" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18960468" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1375,8 +1383,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.15064935">
-          <caret line="32" column="51" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.37922078">
+          <caret line="44" column="73" selection-start-line="44" selection-start-column="73" selection-end-line="44" selection-end-column="73" />
           <folding>
             <element signature="e#3119#3130#0" expanded="true" />
           </folding>
