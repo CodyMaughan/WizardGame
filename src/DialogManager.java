@@ -8,12 +8,17 @@ import java.util.Map;
 public class DialogManager {
 
     private static DialogManager manager;
-    private static Map<String, InteractionDialogBox> interactionBoxes;
     private static Framework framework;
+    private static Map<String, DialogSequenceBox> dialogSequences;
+    private static DialogSequenceBox currentDialog;
+    private static int branchCount;
+    private static int branchSize;
 
     private DialogManager(Framework framework) {
-        interactionBoxes = new HashMap<>();
+        dialogSequences = new HashMap<>();
         this.framework = framework;
+        branchCount = 0;
+        branchSize = 1;
     }
 
     public static DialogManager getInstance(Framework framework) {
@@ -23,22 +28,62 @@ public class DialogManager {
         return manager;
     }
 
-    public static void addInteractionDialogBox(String name) {
-        addInteractionDialogBox(name, new InteractionDialogBox(name, new Font("Arial", Font.PLAIN, 10),
-                5, 5, (Graphics2D)framework.getGraphics(), true));
+    public static void update(float elapsedTime, boolean[][] keyboardstate) {
+
     }
 
-    public static void addInteractionDialogBox(String name, InteractionDialogBox dialogBox) {
-        interactionBoxes.put(name, dialogBox);
+    public static void draw(Graphics2D g2d) {
+
     }
 
-    public static InteractionDialogBox getInteractionDialogBox(String name) {
-        return interactionBoxes.get(name);
+    public static void draw(Graphics g2d, Character character) {
+
     }
 
-    public static void includeInteractionDialogBox(String name) {
-        if (interactionBoxes.get(name) == null) {
-            addInteractionDialogBox(name);
+    public static void addDialogBox(String name) {
+        addDialogBox(name, new DialogSequenceBox(name, new Font("Arial", Font.PLAIN, 10),
+                5, 5, (Graphics2D) framework.getGraphics()));
+    }
+
+    public static void addDialogBox(String name, DialogSequenceBox dialogBox) {
+        dialogSequences.put(name, dialogBox);
+    }
+
+    public static DialogSequenceBox getDialogBox(String name) {
+        return dialogSequences.get(name);
+    }
+
+    public static void includeDialogBox(String name) {
+        if (dialogSequences.get(name) == null) {
+            addDialogBox(name);
         }
+    }
+
+    public static void startDialog(String name) {
+        currentDialog = dialogSequences.get(name);
+        currentDialog.startDialog();
+    }
+
+    public static void progressDialog() {
+        currentDialog.progressDialog();
+    }
+
+    public static void endDialog() {
+        branchCount = 0;
+        branchSize = 1;
+        currentDialog = null;
+    }
+
+    public static void setBranch(int branch, int numBranches) {
+        branchCount = branch;
+        branchSize = numBranches;
+    }
+
+    public static int getBranchSize() {
+        return branchSize;
+    }
+
+    public static int getBranchCount() {
+        return branchCount;
     }
 }

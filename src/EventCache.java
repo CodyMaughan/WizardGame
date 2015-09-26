@@ -6,10 +6,17 @@ import java.util.Map;
  */
 public class EventCache {
 
-    private static final Map<String, GameEvent> events = new HashMap<String, GameEvent>() {
+    private static final Map<String, GameEvent[]> events = new HashMap<String, GameEvent[]>() {
         {
-            put("AlchemistVendor_MageCity", new VendorState("AlchemistVendor_MageCity", VendorCache.getVendables("AlchemistVendor_MageCity")));
+            put("AlchemistVendor_MageCity_1", new GameEvent[]{
+                    new VendorState("Alchemist Vendor", VendorCache.getVendables("AlchemistVendor_MageCity")),
+                    null
+            });
         }
     };
+
+    public static GameEvent[] getEvents(String name){
+        return events.get(name);
+    }
 
 }

@@ -27,7 +27,7 @@ public class StartGameState implements IState {
                 new Sound(this.getClass().getResource("/resources/sounds/Woodland_Fantasy_0.wav"), 0));
         entranceDialogBox = new TimedDialogBox("Start_Game_Menu_Instructions", 3500000,
                 new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics(), true);
-        entranceDialogBox.startDialogBox();
+        entranceDialogBox.startDialog();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class StartGameState implements IState {
         // Check whether or not the main menu should be opened
         if (keyboardstate[KeyEvent.VK_ENTER][1]) {
             StateMachine.Add("GameMenu", new MenuState(framework, character));
-            StateMachine.Change("GameMenu", framework);
+            StateMachine.Change("GameMenu");
         }
         // Check whether the entrance dialog box should be replaced by another dialog box
         if (entranceDialogBox.isActive()) {

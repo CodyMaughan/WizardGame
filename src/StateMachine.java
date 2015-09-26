@@ -34,7 +34,7 @@ public class StateMachine {
         mCurrentState.draw(g2d); // Draws the current game state
     }
 
-    public static void Change(String stateName, Framework framework) { // Changes the current game state
+    public static void Change(String stateName) { // Changes the current game state
         mCurrentState.onExit(); // Lets the game state do anything it needs to do before leaving
         mCurrentState = mStates.get(stateName); // Changes the current game state
         mCurrentState.onEnter(framework); // Lets the new game state do anything it needs to do when it starts

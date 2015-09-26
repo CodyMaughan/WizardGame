@@ -48,6 +48,8 @@ public class MenuPointer {
         return height;
     }
 
+    public int getMenuCount() { return menuCount; }
+
     public void setPosition(int posX, int posY) {
         x = posX;
         y = posY;

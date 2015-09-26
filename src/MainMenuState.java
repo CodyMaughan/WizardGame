@@ -92,12 +92,12 @@ public class MainMenuState implements IState {
             switch (scroller.count) {
                 case (1):
                     StateMachine.Add("NewGame", new NewGameState(StateMachine.getFramework()));
-                    StateMachine.Change("NewGame", StateMachine.getFramework());
+                    StateMachine.Change("NewGame");
                     break;
                 case (2):
                     //Load Game
                     StateMachine.Add("BattleState", new BattleState(StateMachine.getFramework()));
-                    StateMachine.Change("BattleState", StateMachine.getFramework());
+                    StateMachine.Change("BattleState");
                     SoundManager.getInstance().stopSound("MainMenuMusic");
                     SoundManager.remove("MainMenuMusic");
                     break;

@@ -41,7 +41,7 @@ public class Character {
     private boolean drawn;
     private boolean stop;
     private long randomTimer;
-    private ScrollDialogBox dialogBox;
+    private DialogSequenceBox dialogBox;
 
     private final long animationTime = 80000L;
     private final long randomTime = 400000;
@@ -71,7 +71,8 @@ public class Character {
         walkingTimer = 0;
         collisionBox = new Rectangle(x + characterWidth/6, y + characterHeight/2, 2*characterWidth/3, characterHeight/2);
         interactionBox = new Rectangle (x - characterWidth/6, y + characterHeight/4, 4*characterWidth/3, characterHeight);
-        dialogBox = new ScrollDialogBox(name, new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics(), true);
+        dialogBox = new DialogSequenceBox(name, new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics());
+        DialogManager.addDialogBox(name, dialogBox);
         vX = 0;
         vY = 0;
         items = new HashMap<>();
@@ -414,10 +415,11 @@ public class Character {
     public void startDiaolog(int dir) {
         direction = dir;
         stop = true;
-        dialogBox.setActive(true);
+        DialogManager.startDialog(characterName);
+        //dialogBox.setActive(true);
     }
 
-    public ScrollDialogBox getDialogBox() {
+    public DialogSequenceBox getDialogBox() {
         return dialogBox;
     }
 }

@@ -113,8 +113,26 @@ public class TimedDialogBox implements DialogBox {
         }
     }
 
+    @Override
+    public void startDialog() {
+        timer = 0L;
+        active = true;
+    }
+
+    @Override
+    public void progressDialog() {
+
+    }
+
+    @Override
+    public void endDialog() {
+        active = false;
+    }
+
+    @Override
     public boolean isActive() { return active; }
 
+    @Override
     public void setActive(boolean bool) {
         active = bool;
     }
@@ -132,11 +150,6 @@ public class TimedDialogBox implements DialogBox {
 
     public float getTimer() {
         return timer;
-    }
-
-    public void startDialogBox() {
-        timer = 0L;
-        active = true;
     }
 
 }

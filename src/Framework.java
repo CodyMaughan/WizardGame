@@ -79,7 +79,7 @@ public class Framework extends MyCanvas {
         DialogManager.getInstance(this);
         gameStateMachine = StateMachine.getInstance(this);
         gameStateMachine.Add("MainMenu", new MainMenuState(this));
-        gameStateMachine.Change("MainMenu", this);
+        gameStateMachine.Change("MainMenu");
     }
     
     /**

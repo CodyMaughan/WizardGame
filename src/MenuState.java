@@ -124,7 +124,7 @@ public class MenuState implements IState {
                     break;
                 case (8):
                     //Exit the Menu State
-                    StateMachine.Change("StartGame", StateMachine.getFramework());
+                    StateMachine.Change("StartGame");
                     StateMachine.Remove("GameMenu");
                     break;
             }

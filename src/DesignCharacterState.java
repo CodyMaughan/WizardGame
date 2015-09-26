@@ -192,14 +192,14 @@ public class DesignCharacterState implements IState {
                         StateMachine.Add("StartGame", new StartGameState(StateMachine.getFramework(), name, chosenImage));
                         SoundManager.getInstance().stopSound("MainMenuMusic");
                         SoundManager.remove("MainMenuMusic");
-                        StateMachine.Change("StartGame", StateMachine.getFramework());
+                        StateMachine.Change("StartGame");
                         break;
                     case(2):
                         designState = 0;
                         scroller2.scrollLeft();
                         break;
                     case(3):
-                        StateMachine.Change("NewGame", StateMachine.getFramework());
+                        StateMachine.Change("NewGame");
                         break;
                 }
             } else {

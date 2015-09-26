@@ -22,41 +22,40 @@ public class DialogCache {
             put("Speak_Character_Instructions", "Press SPACE to speak to the person.");
 
             // Character Dialog
-            put("Character1", "Have you seen the cave outside of town? \n My mother won't let me go there," +
+            put("Character1_0", "Have you seen the cave outside of town? \n My mother won't let me go there," +
                     " she says it's too dangerous. \n I wonder what's in there...");
-            put("Character2", "Berries are so delicious and scrumptious. I love eating them." +
+            put("Character2_0", "Berries are so delicious and scrumptious. I love eating them." +
                     " \n They also can be used to make potions. \n But I prefer to just eat them.");
-            put("Character3", "Hey, get out of the way! Can't you see I'm walking here?");
-            put("Character4", "I would like to be a wizard too...");
-            put("AlchemistVendor_MageCity", "I've got potions galore! Come take a look!");
+            put("Character3_0", "Hey, get out of the way! Can't you see I'm walking here?");
+            put("Character4_0", "I would like to be a wizard too...");
+            put("AlchemistVendor_MageCity_0", "I've got potions galore! Come take a look!");
+            put("AlchemistVendor_MageCity_2_Branch0", "Come back again if you need anymore potions!");
+            put("AlchemistVendor_MageCity_2_Branch1", "You don't need any potions!? \n Alright then... Come back soon!");
         }
     };
 
     private static final Map<String, String> choiceDialog = new HashMap<String, String>() {
         {
-            put("AlchemistVendor_MageCity", "Shop from the alchemy vendor?");
+            put("AlchemistVendor_MageCity_1", "Shop from the alchemy vendor?");
         }
     };
 
     private static final Map<String, String[]> choices = new HashMap<String, String[]>() {
         {
-            put("AlchemistVendor_MageCity", new String[]{"Yes", "No"});
+            put("AlchemistVendor_MageCity_1", new String[]{"Yes", "No"});
         }
     };
 
-    private static final Map<String, GameEvent[]> choiceEvents = new HashMap<String, GameEvent[]>() {
+    private static final Map<String, String[]> sequenceTypes = new HashMap<String, String[]>() {
         {
-
-        }
-    };
-
-    private static final Map<String, ArrayList<String>> sequenceTypes = new HashMap<String, ArrayList<String>>() {
-        {
-            put("AlchemistVendor_MageCity", new ArrayList<String>() {
-                {
-                    add("ScrollDialogBox");
-                    add("ChoiceBox");
-                }
+            put("Character1", new String[] {"ScrollDialogBox"});
+            put("Character2", new String[] {"ScrollDialogBox"});
+            put("Character3", new String[] {"ScrollDialogBox"});
+            put("Character4", new String[] {"ScrollDialogBox"});
+            put("AlchemistVendor_MageCity", new String[] {
+                    "ScrollDialogBox",
+                    "ChoiceBox",
+                    "ScrollDialogBox_ScrollDialogBox"
             });
         }
     };
@@ -72,7 +71,43 @@ public class DialogCache {
 
     public static ArrayList<DialogBox> getDialogSequence(String name, Font font, int bufferX, int bufferY, Graphics2D g2d) {
         ArrayList<DialogBox> boxes = new ArrayList<DialogBox>();
-
-        return null;
+        String[] types = sequenceTypes.get(name);
+        for (int i = 0; i < types.length; i++) {
+            String[] split = types[i].split("_");
+            if (split.length == 1) {
+                switch (split[0]) {
+                    case ("ScrollDialogBox"):
+                        boxes.add(new ScrollDialogBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
+                        break;
+                    case ("ChoiceBox"):
+                        boxes.add(new ChoiceBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
+                        break;
+                    case ("TimedDialogBox"):
+                        boxes.add(new TimedDialogBox(name + "_" + i, 3000000L, font, bufferX, bufferY, g2d, true));
+                        break;
+                    case ("InteractionDialogBox"):
+                        boxes.add(new InteractionDialogBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
+                        break;
+                }
+            } else {
+                for (int j = 0; j < Integer.valueOf(split.length); j++) {
+                    switch (split[j]) {
+                        case ("ScrollDialogBox"):
+                            boxes.add(new ScrollDialogBox(name + "_" + i + "_Branch" + j, font, bufferX, bufferY, g2d, true));
+                            break;
+                        case ("ChoiceBox"):
+                            boxes.add(new ChoiceBox(name + "_" + i + "_Branch" + j, font, bufferX, bufferY, g2d, true));
+                            break;
+                        case ("TimedDialogBox"):
+                            boxes.add(new TimedDialogBox(name + "_" + i + "_Branch" + j, 3000000L, font, bufferX, bufferY, g2d, true));
+                            break;
+                        case ("InteractionDialogBox"):
+                            boxes.add(new InteractionDialogBox(name + "_" + i + "_Branch" + j, font, bufferX, bufferY, g2d, true));
+                            break;
+                    }
+                }
+            }
+        }
+        return boxes;
     }
 }

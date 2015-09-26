@@ -124,14 +124,14 @@ public class NewGameState implements IState{
                     case (2):
                         // Start Your Game
                         StateMachine.Add("DesignCharacter", new DesignCharacterState(StateMachine.getFramework(), wizardName.getTypingText()));
-                        StateMachine.Change("DesignCharacter", StateMachine.getFramework());
+                        StateMachine.Change("DesignCharacter");
                         break;
                     case (3):
                         if (StateMachine.isState("MainMenu")) {
-                            StateMachine.Change("MainMenu", StateMachine.getFramework());
+                            StateMachine.Change("MainMenu");
                         } else {
                             StateMachine.Add("MainMenu", new MainMenuState(StateMachine.getFramework()));
-                            StateMachine.Change("MainMenu", StateMachine.getFramework());
+                            StateMachine.Change("MainMenu");
                         }
                         break;
                 }

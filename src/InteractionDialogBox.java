@@ -110,8 +110,25 @@ public class InteractionDialogBox implements DialogBox{
         }
     }
 
+    @Override
+    public void startDialog() {
+        active = true;
+    }
+
+    @Override
+    public void progressDialog() {
+
+    }
+
+    @Override
+    public void endDialog() {
+        active = false;
+    }
+
+    @Override
     public boolean isActive() { return active; }
 
+    @Override
     public void setActive(boolean bool) {
         active = bool;
     }

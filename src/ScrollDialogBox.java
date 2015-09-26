@@ -43,16 +43,11 @@ public class ScrollDialogBox implements DialogBox {
     @Override
     public void update(float elapsedTime, boolean[][] keyboardstate) {
         if (keyboardstate[KeyEvent.VK_SPACE][1]) { // If the user scrolls down
-            count += 1;
+            progressDialog();
         }
         if (count >= dialogBoxes.size()) {
-            count = 0;
-            active = false;
-            MainCharacter.setStop(false);
-            MainCharacter.setTalking(false);
-            // This line prevents any interactions for the rest of this update
-            // Without this there were problems of the dialog looping
             keyboardstate[KeyEvent.VK_SPACE][1] = false;
+            endDialog();
         }
     }
 
@@ -70,8 +65,28 @@ public class ScrollDialogBox implements DialogBox {
         }
     }
 
+    @Override
+    public void startDialog() {
+        count = 0;
+        active = true;
+    }
+
+    @Override
+    public void progressDialog() {
+        count += 1;
+    }
+
+    @Override
+    public void endDialog() {
+        count = 0;
+        active = false;
+        DialogManager.progressDialog();
+    }
+
+    @Override
     public boolean isActive() { return active; }
 
+    @Override
     public void setActive(boolean bool) {
         active = bool;
     }
