@@ -31,6 +31,10 @@ public class MainCharacter {
     public static Map<String, Integer> equipmentCount;
     public static IndexedTreeMap<String, Vendable> vendables;
     public static Map<String, Integer> vendableCount;
+    public static int level;
+    public static int experience;
+    public static IndexedLinkedHashMap<String, Integer> stats;
+    public static IndexedLinkedHashMap<String, Integer> skills;
     private static String travelState;
     private static boolean canSwim;
     private static boolean stop;
@@ -62,10 +66,23 @@ public class MainCharacter {
         equipmentCount = new HashMap<>();
         vendables = new IndexedTreeMap<>();
         vendableCount = new HashMap<>();
+        stats = new IndexedLinkedHashMap<>();
+        stats.put("Wisdom", 3);
+        stats.put("Intelligence", 3);
+        stats.put("Defense", 3);
+        stats.put("Willpower", 3);
+        stats.put("Agility", 3);
+        stats.put("Luck", 3);
+        skills = new IndexedLinkedHashMap<>();
+        skills.put("Fire", 1);
+        skills.put("Ice", 1);
+        skills.put("Earth", 1);
+        money = 0;
+        level = 1;
+        experience = 0;
         canSwim = false;
         stop = false;
         travelState = "Walk";
-        money = 0;
     }
 
     public void draw(Graphics2D g2d) {
@@ -181,6 +198,7 @@ public class MainCharacter {
     }
 
     public static void addEquipment(String name, Equipment object) {
+        name = name.replace(" Chest", "");
         if (equipment.containsKey(name)) {
             equipmentCount.put(name, equipmentCount.get(name) + 1);
             if (!object.getVendableType().equals("None")) {

@@ -63,7 +63,7 @@ public class ItemsMenu implements Menu {
         int countWidth = (int)(headerFont.getStringBounds("Count", g2d.getFontRenderContext()).getWidth());
         Font itemFont = new Font("Arial", Font.BOLD, 15);
         int textWidth = (int)(headerFont.getStringBounds("Value", g2d.getFontRenderContext()).getWidth());
-        g2d.drawString("Items", windowWidth / 3 + 50, 100);
+        g2d.drawString("Item", windowWidth / 3 + 50, 100);
         g2d.drawString("Value", windowWidth - 60 - countWidth - textWidth, 100);
         g2d.drawString("Count", windowWidth - 30 - countWidth, 100);
         g2d.setFont(itemFont);

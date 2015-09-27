@@ -33,10 +33,42 @@ public class StatusMenu implements Menu {
     @Override
     public void draw(Graphics2D g2d) {
         g2d.setColor(Color.WHITE);
-        g2d.fillRect(menuX, menuY, 2*windowWidth/3, windowHeight);
+        g2d.fillRect(menuX, menuY, 2 * windowWidth / 3, windowHeight);
         g2d.setColor(Color.BLACK);
         g2d.setFont(titleFont);
         g2d.drawString(title, menuX + (windowWidth/3 - titleWidth/2), menuY + 50);
+        Font headerFont = new Font("Arial", Font.BOLD, 20);
+        g2d.setFont(headerFont);
+        g2d.drawString("Level:", windowWidth / 3 + 40, 100);
+        g2d.drawString("Stats", windowWidth / 3 + 40, 100 + 3 * (20 + 15));
+        g2d.drawString("Skills", 2 * windowWidth / 3 + 20, 100);
+        Font itemFont = new Font("Arial", Font.BOLD, 15);
+        g2d.setFont(itemFont);
+        g2d.drawString("Total Exp:", windowWidth / 3 + 40, 100 + (20 + 15));
+        g2d.drawString("Exp to nxt Lvl:", windowWidth / 3 + 40, 100 + 2*(20 + 15));
+        int textWidth = (int)(itemFont.getStringBounds(String.valueOf(MainCharacter.level), g2d.getFontRenderContext()).getWidth());
+        g2d.drawString(String.valueOf(MainCharacter.level), 2 * windowWidth / 3 - 20 - textWidth, 100);
+        textWidth = (int)(itemFont.getStringBounds(String.valueOf(MainCharacter.experience), g2d.getFontRenderContext()).getWidth());
+        g2d.drawString(String.valueOf(MainCharacter.experience), 2 * windowWidth / 3 - 20 - textWidth, 100 + (20 + 15));
+        textWidth = (int)(itemFont.getStringBounds(String.valueOf(MainCharacter.experience), g2d.getFontRenderContext()).getWidth());
+        g2d.drawString(String.valueOf(MainCharacter.experience), 2 * windowWidth / 3 - 20 - textWidth, 100 + 2 * (20 + 15));
+        int i = 4;
+        for (String name : MainCharacter.stats.keySet()) {
+            g2d.drawString(name, windowWidth / 3 + 40, 100 + (15 + 20) * (i));
+            textWidth = (int)(itemFont.getStringBounds(String.valueOf(MainCharacter.stats.get(name)), g2d.getFontRenderContext()).getWidth());
+            g2d.drawString(String.valueOf(MainCharacter.stats.get(name)), 2*windowWidth/3 - 20 - textWidth, 100 + (15 + 20)*(i));
+            i++;
+        }
+        i = 1;
+        for (String name : MainCharacter.skills.keySet()) {
+            g2d.setColor(SkillCache.getColor(name));
+            g2d.fillRoundRect(2 * windowWidth / 3, 100 + 13 + (15 + 20) * (i - 1), windowWidth / 3, 15 + 20 - 2 * 3, 5, 5);
+            g2d.setColor(Color.BLACK);
+            g2d.drawString(name, 2*windowWidth / 3 + 20, 100 + (15 + 20) * (i));
+            textWidth = (int)(itemFont.getStringBounds(String.valueOf(MainCharacter.skills.get(name)), g2d.getFontRenderContext()).getWidth());
+            g2d.drawString(String.valueOf(MainCharacter.skills.get(name)), windowWidth - 40 - textWidth, 100 + (15 + 20)*(i));
+            i++;
+        }
     }
 
     @Override
