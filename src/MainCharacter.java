@@ -25,10 +25,10 @@ public class MainCharacter {
     private static int maxAnimationFrames;
     private static long walkingTimer;
     public static int money;
-    private static IndexedTreeMap<String, Item> items;
-    private static Map<String, Integer> itemCount;
-    private static IndexedTreeMap<String, Equipment> equipment;
-    private static Map<String, Integer> equipmentCount;
+    public static IndexedTreeMap<String, Item> items;
+    public static Map<String, Integer> itemCount;
+    public static IndexedTreeMap<String, Equipment> equipment;
+    public static Map<String, Integer> equipmentCount;
     public static IndexedTreeMap<String, Vendable> vendables;
     public static Map<String, Integer> vendableCount;
     private static String travelState;

@@ -7,9 +7,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Cody on 9/18/2015.
+ * Created by Cody on 9/26/2015.
  */
-public class ItemsMenu implements Menu {
+public class EquipmentMenu implements Menu {
 
     private MainCharacter character;
     private int windowWidth;
@@ -23,7 +23,7 @@ public class ItemsMenu implements Menu {
     private boolean active;
     private MenuPointer scroller;
 
-    public ItemsMenu(MainCharacter character, Framework framework) {
+    public EquipmentMenu(MainCharacter character, Framework framework) {
         this.character = character;
         windowWidth = framework.getWidth();
         windowHeight = framework.getHeight();
@@ -43,10 +43,10 @@ public class ItemsMenu implements Menu {
         catch (IOException ex) {
             Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
         }
-        scroller = new MenuPointer(scrollerImage, windowWidth/3 + 15, 100 + (15), (15 + 20), MainCharacter.items.size(), 1);
+        scroller = new MenuPointer(scrollerImage, windowWidth/3 + 15, 100 + (15), (15 + 20), MainCharacter.equipment.size(), 1);
         scroller.setWidth(20);
         scroller.setHeight(20);
-        if (MainCharacter.items.size() == 0) {
+        if (MainCharacter.equipment.size() == 0) {
             scroller.setMenuCount(1);
         }
     }
@@ -57,21 +57,21 @@ public class ItemsMenu implements Menu {
         g2d.fillRect(menuX, menuY, 2 * windowWidth / 3, windowHeight);
         g2d.setColor(Color.BLACK);
         g2d.setFont(titleFont);
-        g2d.drawString(title, menuX + (windowWidth / 3 - titleWidth / 2), menuY + 50);
+        g2d.drawString(title, menuX + (windowWidth/3 - titleWidth/2), menuY + 50);
         Font headerFont = new Font("Arial", Font.BOLD, 20);
         g2d.setFont(headerFont);
         int countWidth = (int)(headerFont.getStringBounds("Count", g2d.getFontRenderContext()).getWidth());
         Font itemFont = new Font("Arial", Font.BOLD, 15);
         int textWidth = (int)(headerFont.getStringBounds("Value", g2d.getFontRenderContext()).getWidth());
-        g2d.drawString("Items", windowWidth / 3 + 50, 100);
+        g2d.drawString("Equipment", windowWidth / 3 + 50, 100);
         g2d.drawString("Value", windowWidth - 60 - countWidth - textWidth, 100);
         g2d.drawString("Count", windowWidth - 30 - countWidth, 100);
         g2d.setFont(itemFont);
         int i = 0;
-        for (Item item : MainCharacter.items.values()) {
-            g2d.drawString(item.name, windowWidth / 3 + 50, 100 + (15 + 20) * (i + 1));
-            g2d.drawString(String.valueOf(item.price), windowWidth - 60 - countWidth - textWidth, 100 + (15 + 20)*(i + 1));
-            g2d.drawString(String.valueOf(MainCharacter.itemCount.get(item.name)), windowWidth - 30 - countWidth, 100 + (15 + 20)*(i + 1));
+        for (Equipment equipment : MainCharacter.equipment.values()) {
+            g2d.drawString(equipment.name, windowWidth / 3 + 50, 100 + (15 + 20) * (i + 1));
+            g2d.drawString(String.valueOf(equipment.price), windowWidth - 60 - countWidth - textWidth, 100 + (15 + 20)*(i + 1));
+            g2d.drawString(String.valueOf(MainCharacter.equipmentCount.get(equipment.name)), windowWidth - 30 - countWidth, 100 + (15 + 20)*(i + 1));
             i++;
         }
         if (active) {
