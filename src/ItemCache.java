@@ -8,15 +8,15 @@ public class ItemCache {
 
     public static final Map<String, Item> items = new HashMap<String, Item>() {
         {
-            put("Berries", new Item("Berries", 20));
-            put("Mushroom", new Item("Mushroom", 30));
+            put("Berries", new Item("Berries", 20, "Ingredient, Food"));
+            put("Mushroom", new Item("Mushroom", 30, "Ingredient, Food"));
         }
     };
 
     public static final Map<String, Equipment> equipment = new HashMap<String, Equipment>() {
         {
-            put("Novice Robes", new Equipment("Novice Robes", 100));
-            put("Novice Robes Chest", new Equipment("Novice Robes", 100));
+            put("Novice Robes", new Equipment("Novice Robes", 100, "Clothing"));
+            put("Novice Robes Chest", new Equipment("Novice Robes", 100, "Clothing"));
         }
     };
 

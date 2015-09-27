@@ -3,8 +3,8 @@
  */
 public class Equipment extends Vendable {
 
-    public Equipment(String name, int price) {
-        super(name, price);
+    public Equipment(String name, int price, String vendableType) {
+        super(name, price, vendableType);
         System.out.println("The Equipment " + name + " was added to your inventory.");
     }
 

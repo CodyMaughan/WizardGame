@@ -7,16 +7,33 @@ import java.util.Map;
  */
 public class VendorCache {
 
-    private static final Map<String, Vendable[]> vendableList = new HashMap<String, Vendable[]>() {
+    private static final HashMap<String, HashMap<String, Vendable>> vendableList = new HashMap<String, HashMap<String, Vendable>>() {
         {
-            put("AlchemistVendor_MageCity", new Vendable[]{
-                    ItemCache.getItem("Berries"),
-                    ItemCache.getItem("Mushroom")
+            put("AlchemistVendor_MageCity", new HashMap<String, Vendable>() {
+                {
+                    put("Berries", ItemCache.getItem("Berries"));
+                    put("Mushroom", ItemCache.getItem("Mushroom"));
+                }
             });
         }
     };
 
-    public static Vendable[] getVendables(String name) {
+    private static final HashMap<String, HashMap<String, Integer>> vendableCountList = new HashMap<String, HashMap<String, Integer>>() {
+        {
+            put("AlchemistVendor_MageCity", new HashMap<String, Integer>() {
+                {
+                    put("Berries", 4);
+                    put("Mushroom", 3);
+                }
+            });
+        }
+    };
+
+    public static HashMap<String, Vendable> getVendables(String name) {
         return vendableList.get(name);
+    }
+
+    public static HashMap<String, Integer> getVendableCount(String name) {
+        return vendableCountList.get(name);
     }
 }

@@ -24,8 +24,13 @@ public class MainCharacter {
     private static int animationFrame;
     private static int maxAnimationFrames;
     private static long walkingTimer;
+    public static int money;
     private static Map<String, Item> items;
+    private static Map<String, Integer> itemCount;
     private static Map<String, Equipment> equipment;
+    private static Map<String, Integer> equipmentCount;
+    public static Map<String, Vendable> vendables;
+    public static Map<String, Integer> vendableCount;
     private static String travelState;
     private static boolean canSwim;
     private static boolean stop;
@@ -52,10 +57,15 @@ public class MainCharacter {
         vX = 0;
         vY = 0;
         items = new HashMap<>();
+        itemCount = new HashMap<>();
         equipment = new HashMap<>();
+        equipmentCount = new HashMap<>();
+        vendables = new HashMap<>();
+        vendableCount = new HashMap<>();
         canSwim = false;
         stop = false;
         travelState = "Walk";
+        money = 0;
     }
 
     public void draw(Graphics2D g2d) {
@@ -125,15 +135,59 @@ public class MainCharacter {
     }
 
     public static void addItem(String name, Item item){
-        items.put(name, item);
+        if (items.containsKey(name)) {
+            itemCount.put(name, itemCount.get(name) + 1);
+            if (!item.getVendableType().equals("None")) {
+                vendableCount.put(name, vendableCount.get(name) + 1);
+            }
+        } else {
+            items.put(name, item);
+            itemCount.put(name, 1);
+            if (!item.getVendableType().equals("None")) {
+                vendables.put(name, item);
+                vendableCount.put(name, 1);
+            }
+        }
     }
 
     public static void useItem(String name) {
         items.get(name).use();
     }
 
+    public static void dropItem(String name) {
+        itemCount.put(name, itemCount.get(name) - 1);
+        if (itemCount.get(name) <= 0) {
+            items.remove(name);
+        }
+    }
+
+    public static void sellItem(String name, int price) {
+        money += price;
+        itemCount.put(name, itemCount.get(name) - 1);
+        if (itemCount.get(name) <= 0) {
+            items.remove(name);
+        }
+    }
+
+    public static void buyItem(String name, int price) {
+        money -= price;
+        addItem(name, ItemCache.getItem(name));
+    }
+
     public static void addEquipment(String name, Equipment object) {
-        equipment.put(name, object);
+        if (equipment.containsKey(name)) {
+            equipmentCount.put(name, equipmentCount.get(name) + 1);
+            if (!object.getVendableType().equals("None")) {
+                vendableCount.put(name, vendableCount.get(name) + 1);
+            }
+        } else {
+            equipment.put(name, object);
+            equipmentCount.put(name, 1);
+            if (!object.getVendableType().equals("None")) {
+                vendables.put(name, object);
+                vendableCount.put(name, 1);
+            }
+        }
     }
 
     public static boolean isStop() {return stop; }

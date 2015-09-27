@@ -88,4 +88,12 @@ public class MenuPointer {
         }
         SoundManager.restartSound("Scroll_1");
     }
+
+    public void setMenuCount(int menuCount) {
+        this.menuCount = menuCount;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 }
