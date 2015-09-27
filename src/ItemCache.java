@@ -28,4 +28,13 @@ public class ItemCache {
         return equipment.get(name);
     }
 
+    public static Vendable getVendable(String name) {
+        if (items.get(name) != null) {
+            return items.get(name);
+        } else if (equipment.get(name) != null) {
+            return equipment.get(name);
+        } else {
+            return null;
+        }
+    }
 }

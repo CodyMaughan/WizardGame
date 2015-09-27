@@ -24,8 +24,9 @@ public class VendorState implements GameEvent, IState {
     private String name;
     private String vendorType;
     private int vendorMoney;
-    private Map<String, Vendable> vendables;
-    private Map<String, Integer> vendableCount;
+    private IndexedTreeMap<String, Vendable> vendables;
+    private HashMap<String, Integer> vendableCount;
+    private IndexedTreeMap<String, Vendable> sellables;
     private MenuButton buyButton;
     private MenuButton sellButton;
     private MenuButton exitButton;
@@ -39,7 +40,7 @@ public class VendorState implements GameEvent, IState {
     private int titleHeight;
     private MenuPointer rightScroller;
 
-    public VendorState(String id, String name, HashMap<String, Vendable> vendables, HashMap<String, Integer> vendableCount, int vendorMoney, String vendorType) {
+    public VendorState(String id, String name, IndexedTreeMap<String, Vendable> vendables, HashMap<String, Integer> vendableCount, int vendorMoney, String vendorType) {
         this.windowWidth = StateMachine.getFramework().getWidth();
         this.windowHeight = StateMachine.getFramework().getHeight();
         this.id = id;
@@ -48,6 +49,16 @@ public class VendorState implements GameEvent, IState {
         this.vendableCount = vendableCount;
         this.vendorMoney = vendorMoney;
         this.vendorType = vendorType;
+        sellables = new IndexedTreeMap<>();
+        for (Vendable vendable : MainCharacter.vendables.values()) {
+            String[] split = vendable.type.split(", ");
+            for (int j = 0; j < split.length; j++) {
+                if (vendorType.contains(split[j])) {
+                    sellables.put(vendable.name, vendable);
+                    break;
+                }
+            }
+        }
         Font buttonFont = new Font("Arial", Font.BOLD, 15);
         buyButton = new MenuButton("Buy Items", 0, 0, buttonFont, (Graphics2D)StateMachine.getFramework().getGraphics(), 5, 5);
         sellButton = new MenuButton("Sell Items", 0, 0, buttonFont, (Graphics2D)StateMachine.getFramework().getGraphics(), 5, 5);
@@ -101,7 +112,7 @@ public class VendorState implements GameEvent, IState {
                     case (2):
                         //Sell Menu
                         state = 1;
-                        rightScroller.setMenuCount(MainCharacter.vendables.size());
+                        rightScroller.setMenuCount(sellables.size());
                         rightScroller.setCount(1);
                         break;
                     case (3):
@@ -167,19 +178,50 @@ public class VendorState implements GameEvent, IState {
                     titleHeight = (int) (titleFont.getStringBounds(title, g2d.getFontRenderContext()).getHeight());
                     break;
             }
-        } else {
+        } else if (state == 1) {
             if (keyboardstate[KeyEvent.VK_BACK_SPACE][1]) {
                 state = 0;
             } else if (keyboardstate[KeyEvent.VK_ENTER][1]) { // Handle the Enter Key is pressed
                 // Buy/Sell the item
+                Vendable temp = null;
                 switch (leftScroller.count) {
-                    case (0):
-                        // Buy the item
-
-                        break;
                     case (1):
+                        // Buy the item
+                        if (vendables.size() > 0) {
+                            temp = vendables.getIndexed(rightScroller.count - 1);
+                            if (MainCharacter.money < temp.price) {
+                                state = 2;
+                            } else {
+                                vendorMoney += temp.price;
+                                vendableCount.put(temp.name, vendableCount.get(temp.name) - 1);
+                                if (vendableCount.get(temp.name) <= 0) {
+                                    vendables.remove(temp.name);
+                                }
+                                MainCharacter.buyItem(temp.name, temp.price);
+                                sellables.put(temp.name, temp);
+                            }
+                        }
+                        break;
+                    case (2):
                         // Sell the item
-
+                        if (sellables.size() > 0) {
+                            temp = sellables.getIndexed(rightScroller.count - 1);
+                            if (vendorMoney < temp.price) {
+                                state = 3;
+                            } else {
+                                vendorMoney -= temp.price;
+                                if (vendables.get(temp.name) == null) {
+                                    vendables.put(temp.name, ItemCache.getVendable(temp.name));
+                                    vendableCount.put(temp.name, 1);
+                                } else {
+                                    vendableCount.put(temp.name, vendableCount.get(temp.name) + 1);
+                                }
+                                MainCharacter.sellItem(temp.name, temp.price);
+                                if (MainCharacter.vendables.get(temp.name) == null) {
+                                    sellables.remove(temp.name);
+                                }
+                            }
+                        }
                         break;
                 }
             } else {
@@ -217,28 +259,38 @@ public class VendorState implements GameEvent, IState {
                     rightScroller.scrollTimer = 0;
                 }
             }
-            // update the scroller (Animations, ect.);
-            rightScroller.update(elapsedTime);
-            Graphics2D g2d = (Graphics2D) StateMachine.getFramework().getGraphics();
-            switch (rightScroller.count) {
+            // update the scroller (Animations, ect.);\
+            // move the scroller if the an item runs out
+            switch (leftScroller.count) {
                 case (1):
-                    // Buy Items Screen
-                    title = name + "'s Items";
-                    titleWidth = (int) (titleFont.getStringBounds(title, g2d.getFontRenderContext()).getWidth());
-                    titleHeight = (int) (titleFont.getStringBounds(title, g2d.getFontRenderContext()).getHeight());
+                    //Buy Menu
+                    if (rightScroller.getMenuCount() > vendables.size()) {
+                        rightScroller.setMenuCount(vendables.size());
+                        rightScroller.setCount(rightScroller.getCount() - 1);
+                        if (rightScroller.getCount() <= 0) {
+                            rightScroller.setCount(1);
+                        }
+                    }
                     break;
                 case (2):
-                    // Sell Items Screen
-                    title = MainCharacter.characterName + "'s Items";
-                    titleWidth = (int) (titleFont.getStringBounds(title, g2d.getFontRenderContext()).getWidth());
-                    titleHeight = (int) (titleFont.getStringBounds(title, g2d.getFontRenderContext()).getHeight());
+                    //Sell Menu
+                    if (rightScroller.getMenuCount() > sellables.size()) {
+                        rightScroller.setMenuCount(sellables.size());
+                        rightScroller.setCount(rightScroller.getCount() - 1);
+                        if (rightScroller.getCount() <= 0) {
+                            rightScroller.setCount(1);
+                        }
+                    }
                     break;
-                case (3):
-                    // Exit Screen
-                    title = "Exit " + name + "'s Shop";
-                    titleWidth = (int) (titleFont.getStringBounds(title, g2d.getFontRenderContext()).getWidth());
-                    titleHeight = (int) (titleFont.getStringBounds(title, g2d.getFontRenderContext()).getHeight());
-                    break;
+            }
+            rightScroller.update(elapsedTime);
+        } else if (state == 2) {
+            if (keyboardstate[KeyEvent.VK_ENTER][1]) {
+                state = 1;
+            }
+        } else if (state == 3) {
+            if (keyboardstate[KeyEvent.VK_ENTER][1]) {
+                state = 1;
             }
         }
     }
@@ -282,23 +334,12 @@ public class VendorState implements GameEvent, IState {
                 textWidth = (int)(headerFont.getStringBounds("Sell Price", g2d.getFontRenderContext()).getWidth());
                 g2d.drawString("Sell Price", windowWidth - 60 - countWidth - textWidth, 100);
                 g2d.drawString("Count", windowWidth - 30 - countWidth, 100);
-                boolean canSell = false;
                 g2d.setFont(itemFont);
-                for (Vendable vendable : MainCharacter.vendables.values()) {
-                    String[] split = vendable.type.split(", ");
-                    for (int j = 0; j < split.length; j++) {
-                        if (vendorType.contains(split[j])) {
-                            canSell = true;
-                            break;
-                        }
-                    }
-                    if (canSell) {
-                        g2d.drawString(vendable.name, windowWidth / 3 + 50, 100 + (15 + 20) * (i + 1));
-                        g2d.drawString(String.valueOf(vendable.price), windowWidth - 60 - countWidth - textWidth, 100 + (15 + 20)*(i + 1));
-                        g2d.drawString(String.valueOf(MainCharacter.vendableCount.get(vendable.name)), windowWidth - 30 - countWidth, 100 + (15 + 20)*(i + 1));
-                        i++;
-                    }
-                    canSell = false;
+                for (Vendable vendable : sellables.values()) {
+                    g2d.drawString(vendable.name, windowWidth / 3 + 50, 100 + (15 + 20) * (i + 1));
+                    g2d.drawString(String.valueOf(vendable.price), windowWidth - 60 - countWidth - textWidth, 100 + (15 + 20)*(i + 1));
+                    g2d.drawString(String.valueOf(MainCharacter.vendableCount.get(vendable.name)), windowWidth - 30 - countWidth, 100 + (15 + 20)*(i + 1));
+                    i++;
                 }
                 break;
             case (3):
@@ -311,6 +352,34 @@ public class VendorState implements GameEvent, IState {
         } else {
             rightScroller.draw(g2d);
         }
+        if (state == 2) {
+            // Draw a message telling the user that they can't buy due to lack of funds
+            g2d.setFont(headerFont);
+            textWidth = (int)(headerFont.getStringBounds("You don't have the",
+                    g2d.getFontRenderContext()).getWidth());
+            g2d.setColor(Color.WHITE);
+            g2d.fillRoundRect(windowWidth / 2 - textWidth / 2 - 10, windowHeight / 2 - 20 - 15, textWidth + 2 * (10), 2 * (20) + 3 * (10), 5, 5);
+            g2d.setColor(Color.BLACK);
+            g2d.drawRoundRect(windowWidth / 2 - textWidth / 2 - 10, windowHeight / 2 - 20 - 15, textWidth + 2 * (10), 2 * (20) + 3 * (10), 5, 5);
+            g2d.drawString("You don't have the", windowWidth / 2 - textWidth / 2, windowHeight / 2 - 5);
+            g2d.drawString("money to do this!", windowWidth/2 - textWidth/2, windowHeight / 2 + 20 + 5);
+        } else if (state == 3) {
+            // Draw a message telling the user that they can't sell due to the vendor's lack of funds
+            g2d.setFont(headerFont);
+            textWidth = (int)(headerFont.getStringBounds(name + " doesn't have the",
+                    g2d.getFontRenderContext()).getWidth());
+            g2d.setColor(Color.WHITE);
+            g2d.fillRoundRect(windowWidth / 2 - textWidth / 2 - 10, windowHeight / 2 - 20 - 15, textWidth + 2 * (10), 2 * (20) + 3 * (10), 5, 5);
+            g2d.setColor(Color.BLACK);
+            g2d.drawRoundRect(windowWidth / 2 - textWidth / 2 - 10, windowHeight / 2 - 20 - 15, textWidth + 2 * (10), 2 * (20) + 3 * (10), 5, 5);
+            g2d.drawString(name + " doesn't have the", windowWidth / 2 - textWidth / 2, windowHeight / 2 - 5);
+            g2d.drawString("money to do this!", windowWidth/2 - textWidth/2, windowHeight / 2 + 20 + 5);
+        }
+        g2d.setFont(itemFont);
+        g2d.drawString(name + "'s Money: " + String.valueOf(vendorMoney), windowWidth / 3 + 30, windowHeight - 30);
+        textWidth = (int)(itemFont.getStringBounds(MainCharacter.characterName + "'s Money: " + String.valueOf(MainCharacter.money),
+                g2d.getFontRenderContext()).getWidth());
+        g2d.drawString(MainCharacter.characterName + "'s Money: " + String.valueOf(MainCharacter.money), windowWidth - 30 - textWidth, windowHeight - 30);
     }
 
     @Override
@@ -336,6 +405,9 @@ public class VendorState implements GameEvent, IState {
 
     @Override
     public void endEvent() {
+        VendorCache.putVendables(id, vendables);
+        VendorCache.putVendableCount(id, vendableCount);
+        VendorCache.putVendorMoney(id, vendorMoney);
         StateMachine.Change("StartGame");
         StateMachine.Remove("VendorState");
     }

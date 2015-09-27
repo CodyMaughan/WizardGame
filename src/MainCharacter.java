@@ -25,11 +25,11 @@ public class MainCharacter {
     private static int maxAnimationFrames;
     private static long walkingTimer;
     public static int money;
-    private static Map<String, Item> items;
+    private static IndexedTreeMap<String, Item> items;
     private static Map<String, Integer> itemCount;
-    private static Map<String, Equipment> equipment;
+    private static IndexedTreeMap<String, Equipment> equipment;
     private static Map<String, Integer> equipmentCount;
-    public static Map<String, Vendable> vendables;
+    public static IndexedTreeMap<String, Vendable> vendables;
     public static Map<String, Integer> vendableCount;
     private static String travelState;
     private static boolean canSwim;
@@ -56,11 +56,11 @@ public class MainCharacter {
         collisionBox = new Rectangle(posX + characterWidth/6, posY + characterHeight/2, 2*characterWidth/3, characterHeight/2);
         vX = 0;
         vY = 0;
-        items = new HashMap<>();
+        items = new IndexedTreeMap<>();
         itemCount = new HashMap<>();
-        equipment = new HashMap<>();
+        equipment = new IndexedTreeMap<>();
         equipmentCount = new HashMap<>();
-        vendables = new HashMap<>();
+        vendables = new IndexedTreeMap<>();
         vendableCount = new HashMap<>();
         canSwim = false;
         stop = false;
@@ -156,16 +156,22 @@ public class MainCharacter {
 
     public static void dropItem(String name) {
         itemCount.put(name, itemCount.get(name) - 1);
+        if (!items.get(name).getVendableType().equals("None")) {
+            vendableCount.put(name, itemCount.get(name));
+        }
         if (itemCount.get(name) <= 0) {
             items.remove(name);
+            vendables.remove(name);
         }
     }
 
     public static void sellItem(String name, int price) {
         money += price;
         itemCount.put(name, itemCount.get(name) - 1);
+        vendableCount.put(name, itemCount.get(name));
         if (itemCount.get(name) <= 0) {
             items.remove(name);
+            vendables.remove(name);
         }
     }
 
