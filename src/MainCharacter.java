@@ -35,6 +35,10 @@ public class MainCharacter {
     public static int experience;
     public static IndexedLinkedHashMap<String, Integer> stats;
     public static IndexedLinkedHashMap<String, Integer> skills;
+    public static int health;
+    public static int maxHealth;
+    public static int mana;
+    public static int maxMana;
     private static String travelState;
     private static boolean canSwim;
     private static boolean stop;
@@ -80,6 +84,10 @@ public class MainCharacter {
         money = 0;
         level = 1;
         experience = 0;
+        health = 30;
+        maxHealth = 30;
+        mana = 20;
+        maxMana = 20;
         canSwim = false;
         stop = false;
         travelState = "Walk";
