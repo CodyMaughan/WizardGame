@@ -65,10 +65,10 @@ public class StatusMenu implements Menu {
         g2d.fillRoundRect(windowWidth / 3 + 40, 100 + 9 * (20 + 15) / 4 - 17, windowWidth / 3 - 60, 17, 3, 3);
         g2d.setColor(Color.GREEN);
         g2d.fillRoundRect(windowWidth / 3 + 40, 100 + 3 * (20 + 15) / 4 - 17,
-                (MainCharacter.health / MainCharacter.maxHealth) * (windowWidth / 3 - 60), 17, 3, 3);
+                (int) (((float) MainCharacter.health / (float) MainCharacter.maxHealth) * (windowWidth / 3 - 60)), 17, 3, 3);
         g2d.setColor(Color.BLUE);
         g2d.fillRoundRect(windowWidth / 3 + 40, 100 + 9 * (20 + 15) / 4 - 17,
-                (MainCharacter.mana / MainCharacter.maxMana) * (windowWidth / 3 - 60), 17, 3, 3);
+                (int) (((float) MainCharacter.mana / (float) MainCharacter.maxMana) * (windowWidth / 3 - 60)), 17, 3, 3);
         g2d.setColor(Color.BLACK);
         g2d.drawRoundRect(windowWidth / 3 + 40, 100 + 3 * (20 + 15) / 4 - 17, windowWidth / 3 - 60, 17, 3, 3);
         g2d.drawRoundRect(windowWidth / 3 + 40, 100 + 9 * (20 + 15) / 4 - 17, windowWidth / 3 - 60, 17, 3, 3);
