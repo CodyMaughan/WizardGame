@@ -42,6 +42,7 @@ public class MainCharacter {
     public static int maxHealth;
     public static int mana;
     public static int maxMana;
+    public static String battleStatus;
     private static String travelState;
     private static boolean canSwim;
     private static boolean stop;
@@ -51,7 +52,7 @@ public class MainCharacter {
     private final int moveSpeed = 8;
 
     public MainCharacter(String name, BufferedImage image, int posX, int posY, int characterWidth, int characterHeight){
-
+        battleStatus = "None";
         this.characterName = name;
         this.image = image;
         this.x = posX;
@@ -67,6 +68,12 @@ public class MainCharacter {
         collisionBox = new Rectangle(posX + characterWidth/6, posY + characterHeight/2, 2*characterWidth/3, characterHeight/2);
         vX = 0;
         vY = 0;
+        cards = new IndexedTreeMap<>();
+        cardCount = new HashMap<>();
+        deck = new IndexedTreeMap<>();
+        addCard("Singe");
+        addCard("Quake");
+        addCard("Frost");
         items = new IndexedTreeMap<>();
         itemCount = new HashMap<>();
         equipment = new IndexedTreeMap<>();
@@ -161,6 +168,17 @@ public class MainCharacter {
         x = posX;
         y = posY;
         collisionBox.setLocation(x + characterWidth / 4, y + characterHeight / 2);
+    }
+
+
+
+    private void addCard(String name) {
+        if (cards.containsKey(name)) {
+            cardCount.put(name, cardCount.get(name) + 1);
+        } else {
+            cards.put(name, CardCache.getCard(name));
+            cardCount.put(name, 1);
+        }
     }
 
     public static void addItem(String name, Item item){
