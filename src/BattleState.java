@@ -196,11 +196,11 @@ public class BattleState implements IState, GameEvent {
         g2d.setColor(Color.BLACK);
         Font hpFont = new Font("Arial", Font.BOLD, 15);
         g2d.setFont(hpFont);
-        String text = "Mana:  " + String.valueOf(MainCharacter.mana) + "/" + String.valueOf(MainCharacter.maxMana);
-        g2d.drawString(text, 60 + mainCharacterImage.getWidth() * 2 + 45, 3 * windowHeight / 4 - 30);
-        text = "Health: " + String.valueOf(MainCharacter.health) + "/" + String.valueOf(MainCharacter.maxHealth);
+        String text = "Health: " + String.valueOf(MainCharacter.health) + "/" + String.valueOf(MainCharacter.maxHealth);
         textWidth = (int)(hpFont.getStringBounds(text, g2d.getFontRenderContext()).getWidth());
         g2d.drawString(text, 60 + mainCharacterImage.getWidth() * 2 + 45, 3 * windowHeight / 4 - 30 - 15 - 20);
+        text = "Mana:  " + String.valueOf(MainCharacter.mana) + "/" + String.valueOf(MainCharacter.maxMana);
+        g2d.drawString(text, 60 + mainCharacterImage.getWidth() * 2 + 45, 3 * windowHeight / 4 - 30);
         g2d.setColor(Color.GRAY);
         g2d.fillRoundRect(60 + mainCharacterImage.getWidth()*2 + 45 + textWidth + 20, 3*windowHeight/4 - 45 - 15 - 20, 100, 15, 3, 3);
         g2d.fillRoundRect(60 + mainCharacterImage.getWidth() * 2 + 45 + textWidth + 20, 3 * windowHeight / 4 - 45, 100, 15, 3, 3);
