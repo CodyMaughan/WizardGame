@@ -25,6 +25,9 @@ public class MainCharacter {
     private static int maxAnimationFrames;
     private static long walkingTimer;
     public static int money;
+    public static IndexedTreeMap<String, Card> cards;
+    public static Map<String, Integer> cardCount;
+    public static IndexedTreeMap<Integer, Card> deck;
     public static IndexedTreeMap<String, Item> items;
     public static Map<String, Integer> itemCount;
     public static IndexedTreeMap<String, Equipment> equipment;
