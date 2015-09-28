@@ -96,10 +96,6 @@ public class MainMenuState implements IState {
                     break;
                 case (2):
                     //Load Game
-                    StateMachine.Add("BattleState", new BattleState(StateMachine.getFramework()));
-                    StateMachine.Change("BattleState");
-                    SoundManager.getInstance().stopSound("MainMenuMusic");
-                    SoundManager.remove("MainMenuMusic");
                     break;
                 case (3):
                     //Options

@@ -48,7 +48,6 @@ public class Character {
     private final int moveSpeed = 4;
 
     public Character(String name, int posX, int posY, Framework framework){
-
         this.characterName = name;
         info = CharacterCache.getCharacterInfo(name);
         try {
@@ -382,6 +381,14 @@ public class Character {
     public void setWalkPath(String pathType, Rectangle pathRect) {
         this.pathType = pathType;
         this.pathRect = pathRect;
+    }
+
+    public BufferedImage getBattleImage() {
+        BufferedImage temp = new BufferedImage(imageWidth/maxAnimationFrames, imageHeight/4, image.getType());
+        Graphics2D gr = temp.createGraphics();
+        gr.drawImage(image, 0, 0, temp.getWidth(), temp.getHeight(), 0, 0, temp.getWidth(), temp.getHeight(), null);
+        gr.dispose();
+        return temp;
     }
 
     public void setDrawn(boolean bool) {

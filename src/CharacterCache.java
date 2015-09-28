@@ -14,6 +14,7 @@ public class CharacterCache {
             put("Character4", new CharacterInfo("Character4", "/resources/images/Characters/Character4.png", "", 64, 64));
             put("AlchemistVendor_MageCity", new CharacterInfo("AlchemistVendor_MageCity",
                     "/resources/images/Characters/male_blue_chemist_merchant_by_leon_murayami-d96zlqr.png", "", 64, 64));
+            put("Necromancer", new CharacterInfo("Necromancer", "/resources/images/Characters/necromancer__male__by_darklack-d92uqtq.png", "", 64, 64));
         }
     };
 

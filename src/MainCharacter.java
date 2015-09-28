@@ -223,6 +223,14 @@ public class MainCharacter {
         }
     }
 
+    public static BufferedImage getBattleImage() {
+        BufferedImage temp = new BufferedImage(imageWidth/maxAnimationFrames, imageHeight/4, image.getType());
+        Graphics2D gr = temp.createGraphics();
+        gr.drawImage(image, 0, 0, temp.getWidth(), temp.getHeight(), 0, 3*imageHeight/4, temp.getWidth(), 3*imageHeight/4 + temp.getHeight(), null);
+        gr.dispose();
+        return temp;
+    }
+
     public static boolean isStop() {return stop; }
 
     public static void setStop(boolean bool) {

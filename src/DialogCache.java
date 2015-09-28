@@ -31,6 +31,7 @@ public class DialogCache {
             put("AlchemistVendor_MageCity_0", "I've got potions galore! Come take a look!");
             put("AlchemistVendor_MageCity_2_Branch0", "Come back again if you need anymore potions!");
             put("AlchemistVendor_MageCity_2_Branch1", "You don't need any potions!? \n Alright then... Come back soon!");
+            put("Necromancer_0", "You fool, I will crush you!");
         }
     };
 
@@ -57,6 +58,7 @@ public class DialogCache {
                     "ChoiceBox",
                     "ScrollDialogBox_ScrollDialogBox"
             });
+            put("Necromancer", new String[] {"ScrollDialogBox"});
         }
     };
 
