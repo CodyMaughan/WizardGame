@@ -42,7 +42,6 @@ public class StartGameState implements IState {
             StateMachine.Add("BattleState", new BattleState(framework, new Character("Necromancer", 0, 0, framework)));
             StateMachine.Change("BattleState");
             SoundManager.getInstance().stopSound("Woodland");
-            SoundManager.remove("Woodland");
         }
         // Check whether the entrance dialog box should be replaced by another dialog box
         if (entranceDialogBox.isActive()) {

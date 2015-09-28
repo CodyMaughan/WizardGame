@@ -28,6 +28,7 @@ public class MainCharacter {
     public static IndexedTreeMap<String, Card> cards;
     public static Map<String, Integer> cardCount;
     public static IndexedTreeMap<Integer, Card> deck;
+    public static int maxHand;
     public static IndexedTreeMap<String, Item> items;
     public static Map<String, Integer> itemCount;
     public static IndexedTreeMap<String, Equipment> equipment;
@@ -71,9 +72,13 @@ public class MainCharacter {
         cards = new IndexedTreeMap<>();
         cardCount = new HashMap<>();
         deck = new IndexedTreeMap<>();
+        maxHand = 4;
         addCard("Singe");
         addCard("Quake");
         addCard("Frost");
+        addCardToDeck("Singe", 0);
+        addCardToDeck("Quake", 1);
+        addCardToDeck("Frost", 2);
         items = new IndexedTreeMap<>();
         itemCount = new HashMap<>();
         equipment = new IndexedTreeMap<>();
@@ -172,12 +177,18 @@ public class MainCharacter {
 
 
 
-    private void addCard(String name) {
+    public void addCard(String name) {
         if (cards.containsKey(name)) {
             cardCount.put(name, cardCount.get(name) + 1);
         } else {
             cards.put(name, CardCache.getCard(name));
             cardCount.put(name, 1);
+        }
+    }
+
+    public void addCardToDeck(String name, int pos) {
+        if (cards.containsKey(name)) {
+            deck.put(pos, cards.get(name));
         }
     }
 

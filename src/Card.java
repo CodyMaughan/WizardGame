@@ -17,6 +17,8 @@ public class Card {
     private CardEffect effect;
     private String path;
     private BufferedImage image;
+    private int width;
+    private int height;
 
     public Card(String id, String cardName, int damage, int magicCost, CardEffect effect, String path) {
         this.id = id;
@@ -25,6 +27,15 @@ public class Card {
         this.magicCost = magicCost;
         this.effect = effect;
         this.path = path;
+        try {
+            image = ImageIO.read(this.getClass().getResource(path));
+        }
+        catch (IOException ex) {
+            Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.width = image.getWidth();
+        this.height = image.getHeight();
+        disposeImage();
     }
 
     public void activateEffect() {
@@ -40,7 +51,32 @@ public class Card {
                 Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        if (width <= 0) {
+            width = image.getWidth();
+        }
+        if (height <= 0) {
+            height = image.getHeight();
+        }
         g2d.drawImage(image, x, y, width, height, null);
     }
 
+    public String getName() {
+        return cardName;
+    }
+
+    public void disposeImage() {
+        image = null;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
 }

@@ -163,4 +163,11 @@ public class MenuScroller2D {
     }
 
 
+    public void setMenuCountX(int menuCounterX) {
+        this.menuCountX = menuCounterX;
+    }
+
+    public void setCountX(int countX) {
+        this.countX = countX;
+    }
 }

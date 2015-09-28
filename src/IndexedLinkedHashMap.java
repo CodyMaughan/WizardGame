@@ -31,4 +31,23 @@ public class IndexedLinkedHashMap<V, K> extends LinkedHashMap<V, K> {
     public K getIndexed(int ind) {
         return super.get(index.get(ind));
     }
+
+    @Override
+    public K remove(Object key) {
+        K val = super.remove(key);
+        int length = index.size();
+        boolean removed = false;
+        for (int i = 0; i < length; i++) {
+            if (index.get(i).equals(key)) {
+                index.remove(i);
+                removed = true;
+                curr -= 1;
+            }
+            if (removed && i < length - 1) {
+                index.put(i, index.get(i + 1));
+            }
+        }
+        index.remove(length - 1);
+        return val;
+    }
 }
