@@ -72,6 +72,7 @@ public class MainCharacter {
         vendableCount = new HashMap<>();
         stats = new IndexedLinkedHashMap<>();
         stats.put("Wisdom", 3);
+        stats.put("Strength", 3);
         stats.put("Intelligence", 3);
         stats.put("Defense", 3);
         stats.put("Willpower", 3);
