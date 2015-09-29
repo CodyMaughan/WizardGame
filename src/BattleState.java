@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -266,17 +267,14 @@ public class BattleState implements IState, GameEvent {
                     turnState = 0;
                 }
             } else if (turnState == 5) {
-                if (turn == 0) {
-                    enemy.health -= playedCard.getDamage();
-                    if (enemy.health > 0) {
-                        turn = 1;
-                        turnState = 0;
-                    } else {
-                        enemy.health = 0;
-                        turn = 2;
-                    }
+                enemy.health -= playedCard.getDamage();
+                MainCharacter.mana -= playedCard.getManaCost();
+                if (enemy.health > 0) {
+                    turn = 1;
+                    turnState = 0;
                 } else {
-                    turn = 0;
+                    enemy.health = 0;
+                    turn = 2;
                 }
             }
         } else if (turn == 1) { // If it's the Enemy's turn we can't do anything, and the AI decides what to do
@@ -365,6 +363,48 @@ public class BattleState implements IState, GameEvent {
         for (Card card : hand.values()) {
             card.draw(g2d, x + i * (card.getWidth() + 40), y, 0, 0);
             i++;
+        }
+        Card current = hand.getIndexed(cardScroller.getCountX() - 1);
+        g2d.setFont(new Font("Arial", Font.BOLD, 20));
+        g2d.setColor(Color.BLACK);
+        int explanationWidth = windowWidth/4 - 25;
+        if (current != null) {
+            g2d.drawString(current.getName(), 3 * windowWidth / 4 + 15, cardButton.getY());
+            Font explanationFont = new Font("Arial", Font.BOLD, 10);
+            g2d.setFont(explanationFont);
+            ArrayList<String> lines = new ArrayList<>();
+            // Determines width and height of only the text
+            String dialog = current.getExplanation();
+            int width = (int)(explanationFont.getStringBounds(dialog,g2d.getFontRenderContext()).getWidth());
+            int lineLength = explanationWidth;
+            if (width > lineLength) {
+                String[] split = dialog.split("\\s+");
+                int tempWidth = 0;
+                int maxWidth = 0;
+                String line = "";
+                for (i = 0; i < split.length; i++) {
+                    tempWidth += (int)(explanationFont.getStringBounds(split[i] + "_",g2d.getFontRenderContext()).getWidth());
+                    if (tempWidth > lineLength) {
+                        tempWidth = (int) (explanationFont.getStringBounds(split[i] + "_", g2d.getFontRenderContext()).getWidth());
+                        lines.add(line);
+                        line = split[i] + " ";
+                    } else {
+                        line = line + split[i] + " ";
+                    }
+                    if (tempWidth > maxWidth) {
+                        maxWidth = tempWidth;
+                    }
+                }
+                lines.add(line);
+            } else {
+                lines.add(dialog);
+            }
+            for (i = 0; i < lines.size(); i++) {
+                g2d.drawString(lines.get(i), 3*windowWidth/4 + 15, cardButton.getY() + (i + 1)*(10 + 4));
+            }
+            g2d.setFont(hpFont);
+            g2d.drawString("Damage:   " + String.valueOf(current.getDamage()), 3*windowWidth/4 + 15, cardButton.getY() + (lines.size())*(10 + 4) + 5 + 15);
+            g2d.drawString("Mana Cost: " + String.valueOf(current.getManaCost()), 3*windowWidth/4 + 15, cardButton.getY() + (lines.size())*(10 + 4) + 2*(15 + 5));
         }
     }
 

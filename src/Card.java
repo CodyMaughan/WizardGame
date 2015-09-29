@@ -19,6 +19,7 @@ public class Card {
     private BufferedImage image;
     private int width;
     private int height;
+    private String explanation;
 
     public Card(String id, String cardName, int damage, int magicCost, CardEffect effect, String path) {
         this.id = id;
@@ -36,6 +37,7 @@ public class Card {
         this.width = image.getWidth();
         this.height = image.getHeight();
         disposeImage();
+        explanation = CardCache.getCardExplanation(id);
     }
 
     public void activateEffect() {
@@ -78,5 +80,13 @@ public class Card {
 
     public int getDamage() {
         return damage;
+    }
+
+    public int getManaCost() {
+        return magicCost;
+    }
+
+    public String getExplanation() {
+        return explanation;
     }
 }
