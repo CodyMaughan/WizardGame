@@ -164,10 +164,20 @@ public class MenuScroller2D {
 
 
     public void setMenuCountX(int menuCounterX) {
+        if (this.lastCol == this.menuCountX) {
+            this.lastCol = menuCounterX;
+        }
         this.menuCountX = menuCounterX;
+        if (this.lastCol > this.menuCountX) {
+            this.lastCol = this.menuCountX;
+        }
     }
 
     public void setCountX(int countX) {
         this.countX = countX;
+    }
+
+    public void setMenuSpacingX(int menuSpacingX) {
+        this.menuSpacingX = menuSpacingX;
     }
 }

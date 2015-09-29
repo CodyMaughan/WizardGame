@@ -50,4 +50,8 @@ public class IndexedLinkedHashMap<V, K> extends LinkedHashMap<V, K> {
         index.remove(length - 1);
         return val;
     }
+
+    public V getIndexedKey(V ind) {
+        return index.get(ind);
+    }
 }

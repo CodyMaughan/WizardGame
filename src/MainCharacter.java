@@ -79,6 +79,8 @@ public class MainCharacter {
         addCardToDeck("Singe", 0);
         addCardToDeck("Quake", 1);
         addCardToDeck("Frost", 2);
+        addCardToDeck("Singe", 3);
+        addCardToDeck("Quake", 4);
         items = new IndexedTreeMap<>();
         itemCount = new HashMap<>();
         equipment = new IndexedTreeMap<>();

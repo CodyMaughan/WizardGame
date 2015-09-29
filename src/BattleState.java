@@ -27,10 +27,16 @@ public class BattleState implements IState, GameEvent {
     private BufferedImage enemyImage;
     private BufferedImage mainCharacterImage;
     private Character enemy;
-    private IndexedLinkedHashMap<String, Card> hand;
+    private IndexedLinkedHashMap<Integer, Card> hand;
     private int deckCount;
     private MenuScroller2D cardScroller;
+    private int cardWidth;
     private Card playedCard;
+    private BufferedImage cardBack;
+    private MenuScroller2D deckScroller;
+    private boolean shouldWait;
+    private boolean drawNoCards;
+    private boolean drawNoMana;
 
     // Initialization of the Battle State
     public BattleState(Framework framework, Character character) {
@@ -79,19 +85,36 @@ public class BattleState implements IState, GameEvent {
         deckCount = 0;
         if (MainCharacter.maxHand <= MainCharacter.deck.size()) {
             for (int i = 0; i < MainCharacter.maxHand; i++) {
-                hand.put(MainCharacter.deck.get(i).getName(), MainCharacter.deck.get(i));
+                hand.put(i, MainCharacter.deck.get(i));
                 deckCount++;
             }
         } else {
             for (int i = 0; i < MainCharacter.deck.size(); i++) {
-                hand.put(MainCharacter.deck.get(i).getName(), MainCharacter.deck.get(i));
+                hand.put(i, MainCharacter.deck.get(i));
                 deckCount++;
             }
         }
+        try {
+            cardBack = ImageIO.read(this.getClass().getResource("/resources/images/Cards/40X56 Card Frames Revised/Card_Back.png"));
+        }
+        catch (IOException ex) {
+            Logger.getLogger(Framework.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int x = drawButton.getX() + drawButton.getWidth() + 40;
+        cardWidth = 3*windowWidth/4 - 2*15 - cardBack.getWidth() - x;
+        int cardSpacing = cardWidth/hand.size();
         cardScroller = new MenuScroller2D(scrollerImage, drawButton.getX() + drawButton.getWidth() + 10,
-                drawButton.getY() + hand.getIndexed(0).getHeight()/2 - 10, hand.getIndexed(0).getWidth() + 40, 0, deckCount, 1, deckCount, 1, 1);
+                drawButton.getY() + hand.getIndexed(0).getHeight()/2 - 10, cardSpacing, 0, deckCount, 1, deckCount, 1, 1);
         cardScroller.setWidth(actionScroller.getWidth());
         cardScroller.setHeight(actionScroller.getHeight());
+        deckScroller = new MenuScroller2D(scrollerImage, 3*windowWidth/4 - 15 - cardBack.getWidth() - 10 - actionScroller.getWidth(),
+                drawButton.getY() + hand.getIndexed(0).getHeight()/2 - 10, 0, 0, 1, 1, 1, 1, 1);
+
+        deckScroller.setWidth(actionScroller.getWidth());
+        deckScroller.setHeight(actionScroller.getHeight());
+        shouldWait = false;
+        drawNoMana = false;
+        drawNoCards = false;
     }
 
     @Override
@@ -178,78 +201,91 @@ public class BattleState implements IState, GameEvent {
                     }
                 }
             } else if (turnState == 1) {
-                if (keyboardstate[KeyEvent.VK_BACK_SPACE][1]) {
-                    turnState = 0;
-                } else if (keyboardstate[KeyEvent.VK_ENTER][1]) {
-                    turnState = 5;
-                    String name = hand.getIndexed(cardScroller.getCountX() - 1).getName();
-                    playedCard = hand.get(name);
-                    hand.remove(name);
-                    cardScroller.setMenuCountX(hand.size());
-                    cardScroller.setCountX(cardScroller.getCountX() - 1);
-                    if (cardScroller.getCountX() <= 0) {
-                        cardScroller.setCountX(1);
-                    }
+                if (drawNoMana) {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) { }
+                    drawNoMana = false;
                 } else {
-                    if (!keyboardstate[KeyEvent.VK_S][0] && !keyboardstate[KeyEvent.VK_W][0] && !keyboardstate[KeyEvent.VK_A][0] && !keyboardstate[KeyEvent.VK_D][0]) { // Handle the absence of scrolling
-                        // Reset the scroller action variables
-                        cardScroller.scrollDirection = -1;
-                        cardScroller.scrollTimer = 0;
-                    } else {
-                        if (keyboardstate[KeyEvent.VK_S][0] && keyboardstate[KeyEvent.VK_W][0]) {
-                            cardScroller.scrollDirection = -1;
-                            cardScroller.scrollTimer = 0;
-                        } else if (keyboardstate[KeyEvent.VK_S][1]) {
-                            if (cardScroller.scrollDirection == 0) {                 // If the scroller was already scrolling down...
-                                cardScroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
-                                if (cardScroller.scrollTimer > cardScroller.TIMER_MAX) { // And determine if we've waited to long enough ...
-                                    cardScroller.scrollTimer -= cardScroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
-                                    cardScroller.scrollDown();                       // And finally we scroll down.
-                                }
-                            } else {                                             // If the scroller was not already scrolling down...
-                                cardScroller.scrollDown();                           // We scroll down...
-                                cardScroller.scrollDirection = 0;                    // Set the scroll direction to down...
-                                cardScroller.scrollTimer = 0;                        // And reset the scrollTimer.
+                    if (keyboardstate[KeyEvent.VK_BACK_SPACE][1]) {
+                        turnState = 0;
+                    } else if (keyboardstate[KeyEvent.VK_ENTER][1]) {
+                        playedCard = hand.getIndexed(cardScroller.getCountX() - 1);
+                        if (MainCharacter.mana < playedCard.getManaCost()) {
+                            drawNoMana = true;
+                        } else {
+                            turnState = 5;
+                            hand.remove(hand.getIndexedKey(cardScroller.getCountX() - 1));
+                            cardScroller.setMenuCountX(hand.size());
+                            cardScroller.setCountX(cardScroller.getCountX() - 1);
+                            if (cardScroller.getCountX() <= 0) {
+                                cardScroller.setCountX(1);
                             }
-                        } else if (keyboardstate[KeyEvent.VK_W][1]) {
-                            if (cardScroller.scrollDirection == 3) {                // If the scroller was already scrolling up...
-                                cardScroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
-                                if (cardScroller.scrollTimer > cardScroller.TIMER_MAX) { // And determine if we've waited to long enough ...
-                                    cardScroller.scrollTimer -= cardScroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
-                                    cardScroller.scrollUp();                         // And finally we scroll up.
-                                }
-                            } else {                                             // If the scroller was not already scrolling up...
-                                cardScroller.scrollUp();                             // We scroll up...
-                                cardScroller.scrollDirection = 3;                   // Set the scroll direction to up...
-                                cardScroller.scrollTimer = 0;                        // And reset the scrollTimer.
+                            if (hand.size() > 0) {
+                                cardScroller.setMenuSpacingX(cardWidth / hand.size());
                             }
                         }
-                        if (keyboardstate[KeyEvent.VK_A][0] && keyboardstate[KeyEvent.VK_D][0]) {
+                    } else {
+                        if (!keyboardstate[KeyEvent.VK_S][0] && !keyboardstate[KeyEvent.VK_W][0] && !keyboardstate[KeyEvent.VK_A][0] && !keyboardstate[KeyEvent.VK_D][0]) { // Handle the absence of scrolling
+                            // Reset the scroller action variables
                             cardScroller.scrollDirection = -1;
                             cardScroller.scrollTimer = 0;
-                        } else if (keyboardstate[KeyEvent.VK_A][1]) {
-                            if (cardScroller.scrollDirection == 1) {                 // If the scroller was already scrolling down...
-                                cardScroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
-                                if (cardScroller.scrollTimer > cardScroller.TIMER_MAX) { // And determine if we've waited to long enough ...
-                                    cardScroller.scrollTimer -= cardScroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
-                                    cardScroller.scrollLeft();                       // And finally we scroll down.
+                        } else {
+                            if (keyboardstate[KeyEvent.VK_S][0] && keyboardstate[KeyEvent.VK_W][0]) {
+                                cardScroller.scrollDirection = -1;
+                                cardScroller.scrollTimer = 0;
+                            } else if (keyboardstate[KeyEvent.VK_S][1]) {
+                                if (cardScroller.scrollDirection == 0) {                 // If the scroller was already scrolling down...
+                                    cardScroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
+                                    if (cardScroller.scrollTimer > cardScroller.TIMER_MAX) { // And determine if we've waited to long enough ...
+                                        cardScroller.scrollTimer -= cardScroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
+                                        cardScroller.scrollDown();                       // And finally we scroll down.
+                                    }
+                                } else {                                             // If the scroller was not already scrolling down...
+                                    cardScroller.scrollDown();                           // We scroll down...
+                                    cardScroller.scrollDirection = 0;                    // Set the scroll direction to down...
+                                    cardScroller.scrollTimer = 0;                        // And reset the scrollTimer.
                                 }
-                            } else {                                             // If the scroller was not already scrolling down...
-                                cardScroller.scrollLeft();                           // We scroll down...
-                                cardScroller.scrollDirection = 1;                    // Set the scroll direction to down...
-                                cardScroller.scrollTimer = 0;                        // And reset the scrollTimer.
+                            } else if (keyboardstate[KeyEvent.VK_W][1]) {
+                                if (cardScroller.scrollDirection == 3) {                // If the scroller was already scrolling up...
+                                    cardScroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
+                                    if (cardScroller.scrollTimer > cardScroller.TIMER_MAX) { // And determine if we've waited to long enough ...
+                                        cardScroller.scrollTimer -= cardScroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
+                                        cardScroller.scrollUp();                         // And finally we scroll up.
+                                    }
+                                } else {                                             // If the scroller was not already scrolling up...
+                                    cardScroller.scrollUp();                             // We scroll up...
+                                    cardScroller.scrollDirection = 3;                   // Set the scroll direction to up...
+                                    cardScroller.scrollTimer = 0;                        // And reset the scrollTimer.
+                                }
                             }
-                        } else if (keyboardstate[KeyEvent.VK_D][1]) {
-                            if (cardScroller.scrollDirection == 2) {                // If the scroller was already scrolling up...
-                                cardScroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
-                                if (cardScroller.scrollTimer > cardScroller.TIMER_MAX) { // And determine if we've waited to long enough ...
-                                    cardScroller.scrollTimer -= cardScroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
-                                    cardScroller.scrollRight();                         // And finally we scroll up.
+                            if (keyboardstate[KeyEvent.VK_A][0] && keyboardstate[KeyEvent.VK_D][0]) {
+                                cardScroller.scrollDirection = -1;
+                                cardScroller.scrollTimer = 0;
+                            } else if (keyboardstate[KeyEvent.VK_A][1]) {
+                                if (cardScroller.scrollDirection == 1) {                 // If the scroller was already scrolling down...
+                                    cardScroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
+                                    if (cardScroller.scrollTimer > cardScroller.TIMER_MAX) { // And determine if we've waited to long enough ...
+                                        cardScroller.scrollTimer -= cardScroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
+                                        cardScroller.scrollLeft();                       // And finally we scroll down.
+                                    }
+                                } else {                                             // If the scroller was not already scrolling down...
+                                    cardScroller.scrollLeft();                           // We scroll down...
+                                    cardScroller.scrollDirection = 1;                    // Set the scroll direction to down...
+                                    cardScroller.scrollTimer = 0;                        // And reset the scrollTimer.
                                 }
-                            } else {                                             // If the scroller was not already scrolling up...
-                                cardScroller.scrollRight();                             // We scroll up...
-                                cardScroller.scrollDirection = 2;                   // Set the scroll direction to up...
-                                cardScroller.scrollTimer = 0;                        // And reset the scrollTimer.
+                            } else if (keyboardstate[KeyEvent.VK_D][1]) {
+                                if (cardScroller.scrollDirection == 2) {                // If the scroller was already scrolling up...
+                                    cardScroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
+                                    if (cardScroller.scrollTimer > cardScroller.TIMER_MAX) { // And determine if we've waited to long enough ...
+                                        cardScroller.scrollTimer -= cardScroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
+                                        cardScroller.scrollRight();                         // And finally we scroll up.
+                                    }
+                                } else {                                             // If the scroller was not already scrolling up...
+                                    cardScroller.scrollRight();                             // We scroll up...
+                                    cardScroller.scrollDirection = 2;                   // Set the scroll direction to up...
+                                    cardScroller.scrollTimer = 0;                        // And reset the scrollTimer.
+                                }
                             }
                         }
                     }
@@ -259,8 +295,30 @@ public class BattleState implements IState, GameEvent {
                     turnState = 0;
                 }
             } else if (turnState == 3) {
-                if (keyboardstate[KeyEvent.VK_BACK_SPACE][1]) {
+                if (shouldWait) {
+                    try {
+                        // Waits a little on the enemy turn, this is just for testing and will be removed when AI is written
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) { }
+                    drawNoCards = false;
+                    shouldWait = false;
                     turnState = 0;
+                } else {
+                    if (keyboardstate[KeyEvent.VK_BACK_SPACE][1]) {
+                        turnState = 0;
+                    } else if (keyboardstate[KeyEvent.VK_ENTER][1]) {
+                        if (deckCount >= MainCharacter.deck.size()) {
+                            drawNoCards = true;
+                            shouldWait = true;
+                        } else {
+                            hand.put(hand.getIndexedKey(hand.size() - 1) + 1, MainCharacter.deck.get(deckCount));
+                            cardScroller.setMenuCountX(hand.size());
+                            cardScroller.setMenuSpacingX(cardWidth/hand.size());
+                            deckCount++;
+                            turn = 1;
+                            turnState = 0;
+                        }
+                    }
                 }
             } else if (turnState == 4) {
                 if (keyboardstate[KeyEvent.VK_BACK_SPACE][1]) {
@@ -349,26 +407,27 @@ public class BattleState implements IState, GameEvent {
         g2d.setColor(Color.BLACK);
         g2d.drawRoundRect(windowWidth - 60 - enemyImage.getWidth() - 45 - 100, 60, 100, 15, 3, 3);
         g2d.drawRoundRect(windowWidth - 60 - enemyImage.getWidth() - 45 - 100, 60 + 15 + 20, 100, 15, 3, 3);
-        // If it is MainCharacter turn then we draw the actions in the action box
-        if (turn == 0) {
-            drawActionBox(g2d);
-        } else if (turn == 1) {
-            drawEnemyMessage(g2d);
-        } else if (turn == 2) {
-            drawVictoryMessage(g2d);
-        }
+        // Draw the player's hand and the current card
         int x = drawButton.getX() + drawButton.getWidth() + 40;
-        int y = drawButton.getY();
+        int y = drawButton.getY() + 10;
         int i = 0;
-        for (Card card : hand.values()) {
-            card.draw(g2d, x + i * (card.getWidth() + 40), y, 0, 0);
-            i++;
+        if (deckCount < MainCharacter.deck.size()) {
+            g2d.drawImage(cardBack, 3*windowWidth/4 - 15 - cardBack.getWidth(), y, null);
         }
-        Card current = hand.getIndexed(cardScroller.getCountX() - 1);
-        g2d.setFont(new Font("Arial", Font.BOLD, 20));
-        g2d.setColor(Color.BLACK);
-        int explanationWidth = windowWidth/4 - 25;
-        if (current != null) {
+        if (hand.size() > 0) {
+            int cardSpacing = cardWidth / hand.size();
+            for (Card card : hand.values()) {
+                if (i != cardScroller.getCountX() - 1) {
+                    card.draw(g2d, x + i * (cardSpacing), y, 0, 0);
+                }
+                i++;
+            }
+            Card current = hand.getIndexed(cardScroller.getCountX() - 1);
+            current.draw(g2d, x + (cardScroller.getCountX() - 1) * (cardSpacing), y - 20, 0, 0);
+            // If it is MainCharacter turn then we draw the actions in the action box
+            g2d.setFont(new Font("Arial", Font.BOLD, 20));
+            g2d.setColor(Color.BLACK);
+            int explanationWidth = windowWidth/4 - 25;
             g2d.drawString(current.getName(), 3 * windowWidth / 4 + 15, cardButton.getY());
             Font explanationFont = new Font("Arial", Font.BOLD, 10);
             g2d.setFont(explanationFont);
@@ -376,15 +435,14 @@ public class BattleState implements IState, GameEvent {
             // Determines width and height of only the text
             String dialog = current.getExplanation();
             int width = (int)(explanationFont.getStringBounds(dialog,g2d.getFontRenderContext()).getWidth());
-            int lineLength = explanationWidth;
-            if (width > lineLength) {
+            if (width > explanationWidth) {
                 String[] split = dialog.split("\\s+");
                 int tempWidth = 0;
                 int maxWidth = 0;
                 String line = "";
                 for (i = 0; i < split.length; i++) {
                     tempWidth += (int)(explanationFont.getStringBounds(split[i] + "_",g2d.getFontRenderContext()).getWidth());
-                    if (tempWidth > lineLength) {
+                    if (tempWidth > explanationWidth) {
                         tempWidth = (int) (explanationFont.getStringBounds(split[i] + "_", g2d.getFontRenderContext()).getWidth());
                         lines.add(line);
                         line = split[i] + " ";
@@ -403,8 +461,23 @@ public class BattleState implements IState, GameEvent {
                 g2d.drawString(lines.get(i), 3*windowWidth/4 + 15, cardButton.getY() + (i + 1)*(10 + 4));
             }
             g2d.setFont(hpFont);
-            g2d.drawString("Damage:   " + String.valueOf(current.getDamage()), 3*windowWidth/4 + 15, cardButton.getY() + (lines.size())*(10 + 4) + 5 + 15);
-            g2d.drawString("Mana Cost: " + String.valueOf(current.getManaCost()), 3*windowWidth/4 + 15, cardButton.getY() + (lines.size())*(10 + 4) + 2*(15 + 5));
+            g2d.drawString("Damage:   " + String.valueOf(current.getDamage()), 3 * windowWidth / 4 + 15, cardButton.getY() + (lines.size()) * (10 + 4) + 5 + 15);
+            g2d.drawString("Mana Cost: " + String.valueOf(current.getManaCost()), 3*windowWidth/4 + 15, cardButton.getY() + (lines.size()) * (10 + 4) + 2*(15 + 5));
+        }
+        if (drawNoMana) {
+            g2d.setFont(new Font("Arial", Font.BOLD, 15));
+            g2d.drawString("You don't have", cardButton.getX(), cardButton.getY() + 15);
+            g2d.drawString("enough mana!", cardButton.getX(), cardButton.getY() + 2*15 + 10);
+        } else if (drawNoCards) {
+            g2d.setFont(new Font("Arial", Font.BOLD, 15));
+            g2d.drawString("You are out of", cardButton.getX(), cardButton.getY() + 15);
+            g2d.drawString("cards to draw!", cardButton.getX(), cardButton.getY() + 2*15 + 10);
+        } else if (turn == 0) {
+            drawActionBox(g2d);
+        } else if (turn == 1) {
+            drawEnemyMessage(g2d);
+        } else if (turn == 2) {
+            drawVictoryMessage(g2d);
         }
     }
 
@@ -419,6 +492,8 @@ public class BattleState implements IState, GameEvent {
             actionScroller.draw(g2d);
         } else if (turnState == 1) {
             cardScroller.draw(g2d);
+        } else if (turnState == 3) {
+            deckScroller.draw(g2d);
         }
     }
 
