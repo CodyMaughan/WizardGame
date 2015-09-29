@@ -13,6 +13,9 @@ public class EventCache {
                             VendorCache.getVendableCount("AlchemistVendor_MageCity"), VendorCache.getMoney("AlchemistVendor_MageCity"), "Ingredients, Potions"),
                     null
             });
+            put("Mage3_MageCity_1", new GameEvent[]{
+                   null, null, null
+            });
         }
     };
 

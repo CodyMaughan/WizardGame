@@ -14,6 +14,15 @@ public class CharacterCache {
             put("Character4", new CharacterInfo("Character4", "/resources/images/Characters/Character4.png", "", 64, 64));
             put("AlchemistVendor_MageCity", new CharacterInfo("AlchemistVendor_MageCity",
                     "/resources/images/Characters/male_blue_chemist_merchant_by_leon_murayami-d96zlqr.png", "", 64, 64));
+            put("Mage1_MageCity", new CharacterInfo("Mage1_MageCity", "/resources/images/Characters/mage__male__by_darklack-d90t7qq.png",
+                    "", 64, 64));
+            put("Mage2_MageCity", new CharacterInfo("Mage2_MageCity", "/resources/images/Characters/mage__female__by_darklack-d90t8i1.png",
+                    "", 64, 64));
+            put("Mage3_MageCity", new CharacterInfo("Mage3_MageCity", "/resources/images/Characters/mage__female__by_darklack-d90t8i1.png",
+                    "", 64, 64));
+            put("Pervert1_MageCity", new CharacterInfo("Pervert1_MageCity",
+                    "/resources/images/Characters/rmvx___sprite_reqest_autolycus_by_leon_murayami-d7eze2n.png", "", 64, 64));
+
             put("Necromancer", new CharacterInfo("Necromancer", "/resources/images/Characters/necromancer__male__by_darklack-d92uqtq.png", "", 64, 64));
         }
     };

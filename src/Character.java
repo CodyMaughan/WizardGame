@@ -153,7 +153,15 @@ public class Character {
                 vY = 1;
             }
             // Determine if the current path needs to be changed
-            if (pathType.equals("Random")) {
+            if (pathType.equals("FaceDown")) {
+                direction = 0;
+            } else if (pathType.equals("FaceLeft")) {
+                direction = 1;
+            } else if (pathType.equals("FaceRight")) {
+                direction = 2;
+            } else if (pathType.equals("FaceUp")) {
+                direction = 3;
+            } else if (pathType.equals("Random")) {
                 randomTimer += elapsedTime;
                 if (randomTimer > randomTime) {
                     randomTimer = 0;
