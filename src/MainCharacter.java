@@ -214,7 +214,7 @@ public class MainCharacter {
         items.get(name).use();
     }
 
-    public static void dropItem(String name) {
+    public static void removeItem(String name) {
         itemCount.put(name, itemCount.get(name) - 1);
         if (!items.get(name).getVendableType().equals("None")) {
             vendableCount.put(name, itemCount.get(name));

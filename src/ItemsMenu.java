@@ -11,7 +11,6 @@ import java.util.logging.Logger;
  */
 public class ItemsMenu implements Menu {
 
-    private MainCharacter character;
     private int windowWidth;
     private int windowHeight;
     private int menuX;
@@ -22,14 +21,14 @@ public class ItemsMenu implements Menu {
     private int titleHeight;
     private boolean active;
     private MenuPointer scroller;
+    private Item lastItem;
 
-    public ItemsMenu(MainCharacter character, Framework framework) {
-        this.character = character;
+    public ItemsMenu(Framework framework) {
         windowWidth = framework.getWidth();
         windowHeight = framework.getHeight();
         menuX = windowWidth/3;
         menuY = 0;
-        title = character.characterName + "'s Items";
+        title = MainCharacter.characterName + "'s Items";
         titleFont = new Font("Arial", Font.BOLD, 30);
         Graphics2D g2d = (Graphics2D)framework.getGraphics();
         titleWidth = (int)(titleFont.getStringBounds(title, g2d.getFontRenderContext()).getWidth());
@@ -56,6 +55,7 @@ public class ItemsMenu implements Menu {
         g2d.setColor(Color.WHITE);
         g2d.fillRect(menuX, menuY, 2 * windowWidth / 3, windowHeight);
         g2d.setColor(Color.BLACK);
+        g2d.drawRect(menuX, menuY, 2 * windowWidth / 3 - 1, windowHeight - 1);
         g2d.setFont(titleFont);
         g2d.drawString(title, menuX + (windowWidth / 3 - titleWidth / 2), menuY + 50);
         Font headerFont = new Font("Arial", Font.BOLD, 20);
@@ -77,42 +77,51 @@ public class ItemsMenu implements Menu {
         if (active) {
             scroller.draw(g2d);
         }
+        lastItem = null;
     }
 
     @Override
     public void update(float elapsedTime, boolean[][] keyboardstate) {
-        if (keyboardstate[KeyEvent.VK_S][0]) { // Handle the S Key is down
-            // Decide whether to scroll down or not
-            if (scroller.scrollDirection == 1) {                 // If the scroller was already scrolling down...
-                scroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
-                if (scroller.scrollTimer > scroller.TIMER_MAX) { // And determine if we've waited to long enough ...
-                    scroller.scrollTimer -= scroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
-                    scroller.scrollDown();                       // And finally we scroll down.
-                }
-            } else {                                             // If the scroller was not already scrolling down...
-                scroller.scrollDown();                           // We scroll down...
-                scroller.scrollDirection = 1;                    // Set the scroll direction to down...
-                scroller.scrollTimer = 0;                        // And reset the scrollTimer.
+        if (keyboardstate[KeyEvent.VK_ENTER][1]) {
+            if (MainCharacter.items.getIndexed(scroller.getCount() - 1).use()) {
+                String name = MainCharacter.items.getIndexed(scroller.getCount() - 1).name;
+                lastItem = MainCharacter.items.getIndexed(scroller.getCount() - 1);
+                MainCharacter.removeItem(name);
             }
-        }
-        if (keyboardstate[KeyEvent.VK_W][0]) { // Handle the W Key is down
-            // Decide whether to scroll up or not
-            if (scroller.scrollDirection == -1) {                // If the scroller was already scrolling up...
-                scroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
-                if (scroller.scrollTimer > scroller.TIMER_MAX) { // And determine if we've waited to long enough ...
-                    scroller.scrollTimer -= scroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
-                    scroller.scrollUp();                         // And finally we scroll up.
+        } else {
+            if (keyboardstate[KeyEvent.VK_S][0]) { // Handle the S Key is down
+                // Decide whether to scroll down or not
+                if (scroller.scrollDirection == 1) {                 // If the scroller was already scrolling down...
+                    scroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
+                    if (scroller.scrollTimer > scroller.TIMER_MAX) { // And determine if we've waited to long enough ...
+                        scroller.scrollTimer -= scroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
+                        scroller.scrollDown();                       // And finally we scroll down.
+                    }
+                } else {                                             // If the scroller was not already scrolling down...
+                    scroller.scrollDown();                           // We scroll down...
+                    scroller.scrollDirection = 1;                    // Set the scroll direction to down...
+                    scroller.scrollTimer = 0;                        // And reset the scrollTimer.
                 }
-            } else {                                             // If the scroller was not already scrolling up...
-                scroller.scrollUp();                             // We scroll up...
-                scroller.scrollDirection = -1;                   // Set the scroll direction to up...
-                scroller.scrollTimer = 0;                        // And reset the scrollTimer.
             }
-        }
-        if (!keyboardstate[KeyEvent.VK_S][0] && !keyboardstate[KeyEvent.VK_W][0]) { // Handle the absence of scrolling
-            // Reset the scroller action variables
-            scroller.scrollDirection = 0;
-            scroller.scrollTimer = 0;
+            if (keyboardstate[KeyEvent.VK_W][0]) { // Handle the W Key is down
+                // Decide whether to scroll up or not
+                if (scroller.scrollDirection == -1) {                // If the scroller was already scrolling up...
+                    scroller.scrollTimer += elapsedTime;             // We add the elapsed time to the scroll timer...
+                    if (scroller.scrollTimer > scroller.TIMER_MAX) { // And determine if we've waited to long enough ...
+                        scroller.scrollTimer -= scroller.TIMER_MAX;  // To justify a scroll. We reset the scrollTimer...
+                        scroller.scrollUp();                         // And finally we scroll up.
+                    }
+                } else {                                             // If the scroller was not already scrolling up...
+                    scroller.scrollUp();                             // We scroll up...
+                    scroller.scrollDirection = -1;                   // Set the scroll direction to up...
+                    scroller.scrollTimer = 0;                        // And reset the scrollTimer.
+                }
+            }
+            if (!keyboardstate[KeyEvent.VK_S][0] && !keyboardstate[KeyEvent.VK_W][0]) { // Handle the absence of scrolling
+                // Reset the scroller action variables
+                scroller.scrollDirection = 0;
+                scroller.scrollTimer = 0;
+            }
         }
     }
 
@@ -124,5 +133,9 @@ public class ItemsMenu implements Menu {
     @Override
     public boolean isActive() {
         return active;
+    }
+
+    public Item getLastItem() {
+        return lastItem;
     }
 }

@@ -8,8 +8,8 @@ public class ItemCache {
 
     public static final Map<String, Item> items = new HashMap<String, Item>() {
         {
-            put("Berries", new Item("Berries", 20, "Ingredient, Food"));
-            put("Mushroom", new Item("Mushroom", 30, "Ingredient, Food"));
+            put("Berries", new Item("Berries", 20, "Ingredient, Food", new ItemEffect("Heal,", 15)));
+            put("Mushroom", new Item("Mushroom", 30, "Ingredient, Food", new ItemEffect("Restore Mana,", 10)));
         }
     };
 

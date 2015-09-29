@@ -37,6 +37,8 @@ public class BattleState implements IState, GameEvent {
     private boolean shouldWait;
     private boolean drawNoCards;
     private boolean drawNoMana;
+    private ItemsMenu itemMenu;
+    private boolean drawItemUsed;
 
     // Initialization of the Battle State
     public BattleState(Framework framework, Character character) {
@@ -115,6 +117,8 @@ public class BattleState implements IState, GameEvent {
         shouldWait = false;
         drawNoMana = false;
         drawNoCards = false;
+        drawItemUsed = false;
+        itemMenu = new ItemsMenu(framework);
     }
 
     @Override
@@ -291,8 +295,24 @@ public class BattleState implements IState, GameEvent {
                     }
                 }
             } else if (turnState == 2) {
-                if (keyboardstate[KeyEvent.VK_BACK_SPACE][1]) {
+                if (shouldWait) {
+                    shouldWait = false;
+                    drawItemUsed = false;
                     turnState = 0;
+                    turn = 1;
+                } else {
+                    itemMenu.setActive(true);
+                    if (keyboardstate[KeyEvent.VK_BACK_SPACE][1]) {
+                        turnState = 0;
+                        itemMenu.setActive(false);
+                    } else {
+                        itemMenu.update(elapsedTime, keyboardstate);
+                        if (keyboardstate[KeyEvent.VK_ENTER][1]) {
+                            shouldWait = true;
+                            drawItemUsed = true;
+                            itemMenu.setActive(false);
+                        }
+                    }
                 }
             } else if (turnState == 3) {
                 if (shouldWait) {
@@ -467,11 +487,15 @@ public class BattleState implements IState, GameEvent {
         if (drawNoMana) {
             g2d.setFont(new Font("Arial", Font.BOLD, 15));
             g2d.drawString("You don't have", cardButton.getX(), cardButton.getY() + 15);
-            g2d.drawString("enough mana!", cardButton.getX(), cardButton.getY() + 2*15 + 10);
+            g2d.drawString("enough mana!", cardButton.getX(), cardButton.getY() + 2 * 15 + 10);
         } else if (drawNoCards) {
             g2d.setFont(new Font("Arial", Font.BOLD, 15));
             g2d.drawString("You are out of", cardButton.getX(), cardButton.getY() + 15);
-            g2d.drawString("cards to draw!", cardButton.getX(), cardButton.getY() + 2*15 + 10);
+            g2d.drawString("cards to draw!", cardButton.getX(), cardButton.getY() + 2 * 15 + 10);
+        } else if (drawItemUsed) {
+            g2d.setFont(new Font("Arial", Font.BOLD, 15));
+            g2d.drawString("You have used", cardButton.getX(), cardButton.getY() + 15);
+            g2d.drawString(itemMenu.getLastItem().name + "!", cardButton.getX(), cardButton.getY() + 2 * 15 + 10);
         } else if (turn == 0) {
             drawActionBox(g2d);
         } else if (turn == 1) {
@@ -492,6 +516,8 @@ public class BattleState implements IState, GameEvent {
             actionScroller.draw(g2d);
         } else if (turnState == 1) {
             cardScroller.draw(g2d);
+        } else if (turnState == 2) {
+            itemMenu.draw(g2d);
         } else if (turnState == 3) {
             deckScroller.draw(g2d);
         }

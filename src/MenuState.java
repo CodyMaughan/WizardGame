@@ -94,7 +94,7 @@ public class MenuState implements IState {
         leftScroller.setHeight(maxButtonHeight);
         state = 0;
         cardsMenu = new CardsMenu(character, framework);
-        itemsMenu = new ItemsMenu(character, framework);
+        itemsMenu = new ItemsMenu(framework);
         equipmentMenu = new EquipmentMenu(character, framework);
         statusMenu = new StatusMenu(character, framework);
         journalMenu = new JournalMenu(character, framework);
