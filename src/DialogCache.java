@@ -38,6 +38,8 @@ public class DialogCache {
             put("Mage3_MageCity_2_Branch1", "Well it's a long road to start without being completely sure about it. \nMaybe you should consider it more before deciding...");
             put("Mage3_MageCity_2_Branch2", "Hey, are you making fun of my profession? \nWhy I oughta...");
             put("Pervert1_MageCity_0", "Mmm... The innkeeper's daughter is so pretty... \nHey, what are you doing snoopin' around kid! \nScram, go on, get out of here!");
+            put("PalaceGuard1_MageCity_0", "Hey, no one is allowed into the palace garden without special permission!");
+            put("PalaceGuard2_MageCity_0", "Hey, no one is allowed into the palace garden without special permission!");
             put("Necromancer_0", "You fool, I will crush you!");
         }
     };
@@ -75,6 +77,8 @@ public class DialogCache {
                     "ScrollDialogBox_ScrollDialogBox_ScrollDialogBox"
             });
             put("Pervert1_MageCity", new String[]{"ScrollDialogBox"});
+            put("PalaceGuard1_MageCity", new String[]{"ScrollDialogBox"});
+            put("PalaceGuard2_MageCity", new String[]{"ScrollDialogBox"});
             put("Necromancer", new String[] {"ScrollDialogBox"});
         }
     };

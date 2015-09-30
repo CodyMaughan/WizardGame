@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="81" height="66" tilewidth="32" tileheight="32" nextobjectid="126">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="81" height="66" tilewidth="32" tileheight="32" nextobjectid="130">
  <tileset firstgid="1" name="fat_magecity_0" tilewidth="32" tileheight="32" tilecount="720">
   <image source="../images/tileset/fat_magecity_0.png" width="512" height="1450"/>
  </tileset>
@@ -26868,12 +26868,16 @@
   <object id="114" name="Mage2_MageCity" x="811" y="722" width="32" height="32"/>
   <object id="119" name="Mage3_MageCity" x="602" y="478" width="32" height="32"/>
   <object id="121" name="Pervert1_MageCity" x="877" y="1444" width="32" height="32"/>
+  <object id="126" name="PalaceGuard2_MageCity" x="1252" y="328" width="32" height="32"/>
+  <object id="127" name="PalaceGuard1_MageCity" x="1309" y="328" width="32" height="32"/>
  </objectgroup>
- <objectgroup name="CharacterPaths">
+ <objectgroup name="CharacterPaths" visible="0">
   <object id="116" name="Mage1_MageCity" type="Random" x="350" y="643" width="99" height="93"/>
   <object id="117" name="Mage2_MageCity" type="Random" x="768" y="692" width="121" height="65"/>
   <object id="122" name="Pervert1_MageCity" type="FaceUp" x="875" y="1444" width="36" height="33"/>
   <object id="123" name="AlchemistVendor_MageCity" type="FaceRight" x="1036" y="1381" width="35" height="34"/>
   <object id="125" name="Mage3_MageCity" type="FaceDown" x="603" y="478" width="34" height="33"/>
+  <object id="128" name="PalaceGuard2_MageCity" type="FaceDown" x="1249" y="326" width="37" height="36"/>
+  <object id="129" name="PalaceGuard1_MageCity" type="FaceDown" x="1307" y="327" width="36" height="35"/>
  </objectgroup>
 </map>

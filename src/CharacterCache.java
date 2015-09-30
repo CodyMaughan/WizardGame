@@ -22,6 +22,10 @@ public class CharacterCache {
                     "", 64, 64));
             put("Pervert1_MageCity", new CharacterInfo("Pervert1_MageCity",
                     "/resources/images/Characters/rmvx___sprite_reqest_autolycus_by_leon_murayami-d7eze2n.png", "", 64, 64));
+            put("PalaceGuard1_MageCity", new CharacterInfo("PalaceGuard1_MageCity",
+                    "/resources/images/Characters/pack_knights_1_by_darklack-d90exuq-1-0.png", "", 64, 64));
+            put("PalaceGuard2_MageCity", new CharacterInfo("PalaceGuard2_MageCity",
+                    "/resources/images/Characters/pack_knights_1_by_darklack-d90exuq-1-0.png", "", 64, 64));
 
             put("Necromancer", new CharacterInfo("Necromancer", "/resources/images/Characters/necromancer__male__by_darklack-d92uqtq.png", "", 64, 64));
         }
