@@ -58,10 +58,14 @@ public class DialogSequenceBox implements DialogBox {
         count += lastBranchSize + DialogManager.getBranchCount();
         if (count >= dialogBoxes.size()) {
             endDialog();
+        } else if (dialogBoxes.get(count) == null) {
+            endDialog();
         } else {
             dialogBoxes.get(count).startDialog();
         }
         lastBranchSize = DialogManager.getBranchSize();
+
+        DialogManager.setBranch(0, lastBranchSize);
     }
 
     @Override
