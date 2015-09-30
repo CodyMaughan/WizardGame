@@ -37,7 +37,7 @@ public class DialogCache {
             put("Mage3_MageCity_2_Branch0", "It's a lot of work to become a mage, \nbut it is worth it in the end.");
             put("Mage3_MageCity_2_Branch1", "Well it's a long road to start without being completely sure about it. \nMaybe you should consider it more before deciding...");
             put("Mage3_MageCity_2_Branch2", "Hey, are you making fun of my profession? \nWhy I oughta...");
-            put("Pervert1_MageCity_0", "Mmm... The innkeeper's daughter is so pretty... \nHey, what are you doing snoopin kid! \nScram, go on, get out of here!");
+            put("Pervert1_MageCity_0", "Mmm... The innkeeper's daughter is so pretty... \nHey, what are you doing snoopin' around kid! \nScram, go on, get out of here!");
             put("Necromancer_0", "You fool, I will crush you!");
         }
     };
