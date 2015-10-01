@@ -9,16 +9,18 @@ public class DialogSequenceBox implements DialogBox {
 
     private String name;
     private ArrayList<DialogBox> dialogBoxes;
+    private Integer[][] dialogSequence;
     private int count;
     private boolean active;
     private int lastBranchSize;
 
     public DialogSequenceBox(String name, Font font, int bufferX, int bufferY, Graphics2D g2d) {
         this.name = name;
-        dialogBoxes = DialogCache.getDialogSequence(name, font, bufferX, bufferY, g2d);
+        dialogBoxes = DialogCache.getDialogBoxes(name, font, bufferX, bufferY, g2d);
         count = 0;
         active = false;
         lastBranchSize = 1;
+        dialogSequence = DialogCache.getDialogSequence(name);
     }
 
     @Override
@@ -55,17 +57,16 @@ public class DialogSequenceBox implements DialogBox {
 
     @Override
     public void progressDialog() {
-        count += lastBranchSize + DialogManager.getBranchCount();
-        if (count >= dialogBoxes.size()) {
+        int branch = DialogManager.getBranchCount();
+        if (dialogSequence == null) {
             endDialog();
-        } else if (dialogBoxes.get(count) == null) {
+        } else if (dialogSequence[count][branch] == null) {
             endDialog();
         } else {
+            count = dialogSequence[count][branch];
             dialogBoxes.get(count).startDialog();
         }
-        lastBranchSize = DialogManager.getBranchSize();
-
-        DialogManager.setBranch(0, lastBranchSize);
+        DialogManager.setBranch(0, 1);
     }
 
     @Override

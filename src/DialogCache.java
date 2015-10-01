@@ -1,6 +1,7 @@
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -30,14 +31,14 @@ public class DialogCache {
             put("Character4_0", "I would like to be a wizard too...");
             put("AlchemistVendor_MageCity_0", "I've got potions galore! Come take a look!");
             // Mage City
-            put("AlchemistVendor_MageCity_2_Branch0", "Come back again if you need anymore potions!");
-            put("AlchemistVendor_MageCity_2_Branch1", "You don't need any potions!? \nAlright then... Come back soon!");
+            put("AlchemistVendor_MageCity_2", "Come back again if you need anymore potions!");
+            put("AlchemistVendor_MageCity_3", "You don't need any potions!? \nAlright then... Come back soon!");
             put("Mage1_MageCity_0", "The wizard academy is older than dirt itself! \nThere are all types of magic to be learned there! ");
             put("Mage2_MageCity_0", "I used to be a traveler like you, \nbut then I took a fireball to the knee...");
             put("Mage3_MageCity_0", "This here is the wizard academy. \nMages from all over this country come here \nso that they can learn all types of arcane magic.");
-            put("Mage3_MageCity_2_Branch0", "It's a lot of work to become a mage, \nbut it is worth it in the end.");
-            put("Mage3_MageCity_2_Branch1", "Well it's a long road to start without being completely sure about it. \nMaybe you should consider it more before deciding...");
-            put("Mage3_MageCity_2_Branch2", "Hey, are you making fun of my profession? \nWhy I oughta...");
+            put("Mage3_MageCity_2", "It's a lot of work to become a mage, \nbut it is worth it in the end.");
+            put("Mage3_MageCity_3", "Well it's a long road to start without being completely sure about it. \nMaybe you should consider it more before deciding...");
+            put("Mage3_MageCity_4", "Hey, are you making fun of my profession? \nWhy I oughta...");
             put("Mage4_MageCity_0", "This town square is a great place to buy supplies! \nThere are potions galore, equipment a-plenty, and, if you are lucky... \nMagicians will sometimes be here, selling powerful magic cards!");
             put("Cleric1_MageCity_0", "I like to sit here on this bench and watch the people come and go. \nThe bench itself is a testament of my frequenting here. \nThe shape of my buttocks is engraven in the wood!");
             put("Annabelle_MageCity_0", "Oh, I'm so angry! My father won't let me enter the academy yet! \n Even though he's a wizard there, he thinks I'm too young! \nI need to prove to him that I know enough about magic.");
@@ -86,15 +87,19 @@ public class DialogCache {
             put("AlchemistVendor_MageCity", new String[] {
                     "ScrollDialogBox",
                     "ChoiceBox",
-                    "ScrollDialogBox_ScrollDialogBox"
+                    "ScrollDialogBox", // Yes/Choice 0
+                    "ScrollDialogBox"  // No/Choice 1
             });
             put("Mage1_MageCity", new String[] {"ScrollDialogBox"});
             put("Mage2_MageCity", new String[] {"ScrollDialogBox"});
             put("Mage3_MageCity", new String[] {
                     "ScrollDialogBox",
                     "ChoiceBox",
-                    "ScrollDialogBox_ScrollDialogBox_ScrollDialogBox"
+                    "ScrollDialogBox", // Of Course/Choice0
+                    "ScrollDialogBox", // I don't know/Choice1
+                    "ScrollDialogBox"  // No way/Choice2
             });
+            put("Mage4_MageCity", new String[]{"ScrollDialogBox"});
             put("Pervert1_MageCity", new String[]{"ScrollDialogBox"});
             put("PalaceGuard1_MageCity", new String[]{"ScrollDialogBox"});
             put("PalaceGuard2_MageCity", new String[]{"ScrollDialogBox"});
@@ -110,6 +115,24 @@ public class DialogCache {
         }
     };
 
+    private static final Map<String, Integer[][]> sequencePath = new HashMap<String, Integer[][]>() {
+        {
+            put("AlchemistVendor_MageCity", new Integer[][]{
+                    {1},
+                    {2, 3},
+                    {null},
+                    {null}
+            });
+            put("Mage3_MageCity", new Integer[][]{
+                    {1},
+                    {2,3,4},
+                    {null},
+                    {null},
+                    {null}
+            });
+        }
+    };
+
     public static String getInteractionDialog(String name) {
         return interactionDialog.get(name);
     }
@@ -118,46 +141,29 @@ public class DialogCache {
 
     public static String[] getChoices(String name) { return choices.get(name); }
 
-
-    public static ArrayList<DialogBox> getDialogSequence(String name, Font font, int bufferX, int bufferY, Graphics2D g2d) {
+    public static ArrayList<DialogBox> getDialogBoxes(String name, Font font, int bufferX, int bufferY, Graphics2D g2d) {
         ArrayList<DialogBox> boxes = new ArrayList<DialogBox>();
         String[] types = sequenceTypes.get(name);
         for (int i = 0; i < types.length; i++) {
-            String[] split = types[i].split("_");
-            if (split.length == 1) {
-                switch (split[0]) {
-                    case ("ScrollDialogBox"):
-                        boxes.add(new ScrollDialogBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
-                        break;
-                    case ("ChoiceBox"):
-                        boxes.add(new ChoiceBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
-                        break;
-                    case ("TimedDialogBox"):
-                        boxes.add(new TimedDialogBox(name + "_" + i, 3000000L, font, bufferX, bufferY, g2d, true));
-                        break;
-                    case ("InteractionDialogBox"):
-                        boxes.add(new InteractionDialogBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
-                        break;
-                }
-            } else {
-                for (int j = 0; j < Integer.valueOf(split.length); j++) {
-                    switch (split[j]) {
-                        case ("ScrollDialogBox"):
-                            boxes.add(new ScrollDialogBox(name + "_" + i + "_Branch" + j, font, bufferX, bufferY, g2d, true));
-                            break;
-                        case ("ChoiceBox"):
-                            boxes.add(new ChoiceBox(name + "_" + i + "_Branch" + j, font, bufferX, bufferY, g2d, true));
-                            break;
-                        case ("TimedDialogBox"):
-                            boxes.add(new TimedDialogBox(name + "_" + i + "_Branch" + j, 3000000L, font, bufferX, bufferY, g2d, true));
-                            break;
-                        case ("InteractionDialogBox"):
-                            boxes.add(new InteractionDialogBox(name + "_" + i + "_Branch" + j, font, bufferX, bufferY, g2d, true));
-                            break;
-                    }
-                }
+            switch (types[i]) {
+                case ("ScrollDialogBox"):
+                    boxes.add(new ScrollDialogBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
+                    break;
+                case ("ChoiceBox"):
+                    boxes.add(new ChoiceBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
+                    break;
+                case ("TimedDialogBox"):
+                    boxes.add(new TimedDialogBox(name + "_" + i, 3000000L, font, bufferX, bufferY, g2d, true));
+                    break;
+                case ("InteractionDialogBox"):
+                    boxes.add(new InteractionDialogBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
+                    break;
             }
         }
         return boxes;
+    }
+
+    public static Integer[][] getDialogSequence(String name) {
+        return sequencePath.get(name);
     }
 }

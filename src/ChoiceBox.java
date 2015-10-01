@@ -190,6 +190,7 @@ public class ChoiceBox implements DialogBox {
     @Override
     public void startDialog() {
         active = true;
+        scroller.setCount(1);
     }
 
     @Override
