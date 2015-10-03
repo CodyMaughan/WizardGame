@@ -108,6 +108,7 @@ public class TimedDialogBox implements DialogBox {
         g2d.fillRoundRect(x, y, width, height, textBufferX, textBufferY);
         g2d.setColor(Color.BLACK);
         g2d.drawRoundRect(x, y, width, height, textBufferX, textBufferY);
+        g2d.setFont(font);
         for (int i = 0; i < lines.size(); i++) {
             g2d.drawString(lines.get(i), x + textBufferX, y + textBufferY + textHeight + (textHeight + lineSpacing)*i);
         }

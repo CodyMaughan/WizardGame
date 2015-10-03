@@ -18,16 +18,19 @@ public class StartGameState implements IState {
     public StartGameState(Framework framework, String wizardName, BufferedImage characterImage) {
         //mapPath = "\\C:\\Users\\Cody\\IdeaProjects\\WizardGame\\WizardGame\\src\\resources\\tmxfiles\\testmap1.tmx";
         this.framework = framework;
+        character = new MainCharacter(wizardName, characterImage, 0, 0,
+                characterImage.getWidth()/3, characterImage.getHeight()/4);
         mapPath = "/resources/tmxfiles/testmap1.tmx";
         map = new TileMap(framework, mapPath, null);
-        character = new MainCharacter(wizardName, characterImage, map.getMainSpawnX(), map.getMainSpawnY(),
-                characterImage.getWidth()/3, characterImage.getHeight()/4);
+        character.setPosition(map.getMainSpawnX(), map.getMainSpawnY());
         nextMap = null;
         SoundManager.add("Woodland",
                 new Sound(this.getClass().getResource("/resources/sounds/Woodland_Fantasy_0.wav"), 0));
         entranceDialogBox = new TimedDialogBox("Start_Game_Menu_Instructions", 3500000,
                 new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics(), true);
         entranceDialogBox.startDialog();
+        //This is for testing purposes
+        QuestManager.addCompletedQuest(new Quest("Join_Wizard_Academy"));
     }
 
     @Override

@@ -16,6 +16,15 @@ public class EventCache {
             put("Mage3_MageCity_1", new GameEvent[]{
                    null, null, null
             });
+            put("Annabelle_MageCity_3", new GameEvent[] {
+                    null, null, null
+            });
+            put("Annabelle_MageCity_4", new GameEvent[] {
+                    null, null, null
+            });
+            put("Annabelle_MageCity_10", new GameEvent[] {
+                    null, null
+            });
         }
     };
 

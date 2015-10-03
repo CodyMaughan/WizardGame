@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="24" tilewidth="32" tileheight="32" nextobjectid="24">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="24" tilewidth="32" tileheight="32" nextobjectid="26">
  <tileset firstgid="1" name="Clowny Grass" tilewidth="32" tileheight="32" tilecount="72">
   <image source="../images/tileset/grass-tiles-2-small.png" width="384" height="192"/>
  </tileset>
@@ -2064,5 +2064,8 @@
  </objectgroup>
  <objectgroup name="Removables">
   <object id="20" name="Equipment_Novice Robes Chest" type="Interact_Facing" gid="180" x="32" y="64" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="CharacterSpawn">
+  <object id="25" name="Annabelle_MageCity" x="361" y="281" width="32" height="32"/>
  </objectgroup>
 </map>

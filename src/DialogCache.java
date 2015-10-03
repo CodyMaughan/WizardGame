@@ -1,8 +1,7 @@
 import java.awt.*;
-import java.util.HashMap;
+import java.lang.reflect.Method;
+import java.util.*;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Created by Cody on 9/18/2015.
@@ -41,9 +40,15 @@ public class DialogCache {
             put("Mage3_MageCity_4", "Hey, are you making fun of my profession? \nWhy I oughta...");
             put("Mage4_MageCity_0", "This town square is a great place to buy supplies! \nThere are potions galore, equipment a-plenty, and, if you are lucky... \nMagicians will sometimes be here, selling powerful magic cards!");
             put("Cleric1_MageCity_0", "I like to sit here on this bench and watch the people come and go. \nThe bench itself is a testament of my frequenting here. \nThe shape of my buttocks is engraven in the wood!");
-            put("Annabelle_MageCity_0", "Oh, I'm so angry! My father won't let me enter the academy yet! \n Even though he's a wizard there, he thinks I'm too young! \nI need to prove to him that I know enough about magic.");
-            put("Annabelle_MageCity_2_Branch1", "Well, you can't help me then...");
-            put("Annabelle_MageCity_2_Branch2", "Hmph, I'm not too young! I'm almost 11!");
+            put("Annabelle_MageCity_1", "Are you here to join the wizard academy? \nI want to join it sooooo badly! \nBut my father won't let me...");
+            put("Annabelle_MageCity_2", "You are part of the Academy now?! \nOh, I'm so angry! My father won't let me enter the academy yet! \nEven though he's a wizard there, he thinks I'm too young! \nI need to prove to him that I know enough about magic.");
+            put("Annabelle_MageCity_5", "Well, you can't help me then...");
+            put("Annabelle_MageCity_6", "Hmph, I'm not too young! I'm almost 11!");
+            put("Annabelle_MageCity_7", "Well " + MainCharacter.characterName + ", we should go talk to my father, Roldan!");
+            put("Annabelle_MageCity_8", "What, that's not even a real name! \nYou won't help me, will you...");
+            put("Annabelle_MageCity_9", "What, you don't want to help me? \nWhy not? What did I do?");
+            put("Annabelle_MageCity_11", "Alright, let's go!");
+            put("Annabelle_MageCity_12", "Okay, let me know when you are ready!");
             put("CityGuard1_MageCity_0", "While this city is generally pretty quite, some brawls have broken out in this square. \nWe guard it here now to prevent that from happening.");
             put("CityGuard2_MageCity_0", "It's so nice and peaceful in this ctiy. \nThat's why I love being a guard here!");
             put("CityGuard3_MageCity_0", "Guarding this city is easy! It's full of a bunch of magic geeks!");
@@ -63,8 +68,9 @@ public class DialogCache {
         {
             put("AlchemistVendor_MageCity_1", "Shop from the alchemy vendor?");
             put("Mage3_MageCity_1", "Are you here to learn magic too?");
-            put("Annabelle_MageCity_1", "Will you help me?");
-            put("Annabelle_MageCity_2_Branch0", "Great! I'm Annabelle! What's your name?");
+            put("Annabelle_MageCity_3", "Will you help me?");
+            put("Annabelle_MageCity_4", "Great! I'm Annabelle! What's your name?");
+            put("Annabelle_MageCity_10", "Are you ready to go talk to my father?");
         }
     };
 
@@ -72,8 +78,9 @@ public class DialogCache {
         {
             put("AlchemistVendor_MageCity_1", new String[]{"Yes", "No"});
             put("Mage3_MageCity_1", new String[]{"Of course!", "I'm not sure...", "No way!"});
-            put("Annabelle_MageCity_1", new String[]{"Sure will!", "I don't know magic though.", "You look too young to me..."});
-            put("Annabelle_MageCity_2_Branch0", new String[]{MainCharacter.characterName, "Jar Jar Binks", "Nevermind, I don't want to help you"});
+            put("Annabelle_MageCity_3", new String[]{"Sure will!", "I don't know magic though.", "You look too young to me..."});
+            put("Annabelle_MageCity_4", new String[]{MainCharacter.characterName, "Jar Jar Binks", "Nevermind..."});
+            put("Annabelle_MageCity_10", new String[]{"Let's go!", "I'm not ready yet..."});
         }
     };
 
@@ -100,6 +107,21 @@ public class DialogCache {
                     "ScrollDialogBox"  // No way/Choice2
             });
             put("Mage4_MageCity", new String[]{"ScrollDialogBox"});
+            put("Annabelle_MageCity", new String[] {
+                    "DialogConditionBox",
+                    "ScrollDialogBox",
+                    "ScrollDialogBox",
+                    "ChoiceBox",
+                    "ChoiceBox",
+                    "ScrollDialogBox",
+                    "ScrollDialogBox",
+                    "ScrollDialogBox",
+                    "ScrollDialogBox",
+                    "ScrollDialogBox",
+                    "ChoiceBox",
+                    "ScrollDialogBox",
+                    "ScrollDialogBox"
+            });
             put("Pervert1_MageCity", new String[]{"ScrollDialogBox"});
             put("PalaceGuard1_MageCity", new String[]{"ScrollDialogBox"});
             put("PalaceGuard2_MageCity", new String[]{"ScrollDialogBox"});
@@ -130,8 +152,52 @@ public class DialogCache {
                     {null},
                     {null}
             });
+            put("Annabelle_MageCity", new Integer[][]{
+                    {null}, //Dialog Condition Box, will be handled by the various condition statements
+                    {null}, //Not able to start the quest (not part of the wizard academy yet)
+                    {3},    //Dialog that allows the code to start the quest
+                    {4,5,6},
+                    {7,8,9},
+                    {null},
+                    {null},
+                    {10},
+                    {null},
+                    {null},
+                    {11,12},
+                    {null},
+                    {null}
+            });
         }
     };
+
+    private static final HashMap<String, IndexedLinkedHashMap<Method, Object[]>> conditionMethods = new HashMap<String, IndexedLinkedHashMap<Method, Object[]>>() {
+        {
+            put("Annabelle_MageCity_0", new IndexedLinkedHashMap<Method, Object[]>() {
+                {
+                    try {
+                        put(QuestManager.class.getMethod("questIsComplete", String.class), new Object[]{"Join_Wizard_Academy"});
+                        put(null, null);
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    };
+
+    private static final HashMap<String, Integer[]> conditionMaps = new HashMap<String, Integer[]>() {
+        {
+            put("Annabelle_MageCity_0", new Integer[] { 2,1 });
+        }
+    };
+
+    public static IndexedLinkedHashMap<Method, Object[]> getConditionMethods(String name) {
+        return conditionMethods.get(name);
+    }
+
+    public static Integer[] getConditionMap(String name) {
+        return conditionMaps.get(name);
+    }
 
     public static String getInteractionDialog(String name) {
         return interactionDialog.get(name);
@@ -142,7 +208,7 @@ public class DialogCache {
     public static String[] getChoices(String name) { return choices.get(name); }
 
     public static ArrayList<DialogBox> getDialogBoxes(String name, Font font, int bufferX, int bufferY, Graphics2D g2d) {
-        ArrayList<DialogBox> boxes = new ArrayList<DialogBox>();
+        ArrayList<DialogBox> boxes = new ArrayList<>();
         String[] types = sequenceTypes.get(name);
         for (int i = 0; i < types.length; i++) {
             switch (types[i]) {
@@ -157,6 +223,9 @@ public class DialogCache {
                     break;
                 case ("InteractionDialogBox"):
                     boxes.add(new InteractionDialogBox(name + "_" + i, font, bufferX, bufferY, g2d, true));
+                    break;
+                case ("DialogConditionBox"):
+                    boxes.add(new DialogConditionBox(name + "_" + i));
                     break;
             }
         }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="81" height="66" tilewidth="32" tileheight="32" nextobjectid="149">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="81" height="66" tilewidth="32" tileheight="32" nextobjectid="152">
  <tileset firstgid="1" name="fat_magecity_0" tilewidth="32" tileheight="32" tilecount="720">
   <image source="../images/tileset/fat_magecity_0.png" width="512" height="1450"/>
  </tileset>
@@ -26879,6 +26879,7 @@
   <object id="145" name="CityGuard7_MageCity" x="789" y="1872" width="32" height="32"/>
   <object id="146" name="CityGuard8_MageCity" x="1768" y="1885" width="32" height="32"/>
   <object id="147" name="Mage4_MageCity" x="1148" y="1305" width="32" height="32"/>
+  <object id="149" name="Annabelle_MageCity" x="1290" y="1175" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="CharacterPaths">
   <object id="116" name="Mage1_MageCity" type="Random" x="350" y="643" width="99" height="93"/>
@@ -26897,5 +26898,6 @@
   <object id="143" name="CityGuard7_MageCity" type="FaceLeft" x="789" y="1871" width="32" height="32"/>
   <object id="144" name="CityGuard8_MageCity" type="FaceRight" x="1767" y="1884" width="32" height="32"/>
   <object id="148" name="Mage4_MageCity" type="Random" x="1130" y="1281" width="80" height="79"/>
+  <object id="150" name="Annabelle_MageCity" type="Box_Edge_Clockwise" x="1269" y="1161" width="105" height="98"/>
  </objectgroup>
 </map>

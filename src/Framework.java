@@ -77,6 +77,7 @@ public class Framework extends MyCanvas {
         SoundManager.getInstance();
         MapManager.getInstance();
         DialogManager.getInstance(this);
+        QuestManager.getInstance(this);
         gameStateMachine = StateMachine.getInstance(this);
         gameStateMachine.Add("MainMenu", new MainMenuState(this));
         gameStateMachine.Change("MainMenu");

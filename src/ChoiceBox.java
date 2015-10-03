@@ -28,8 +28,7 @@ public class ChoiceBox implements DialogBox {
     private int count;
     private MenuPointer scroller;
     private int scrollerWidth;
-
-    private final int lineLength = 100;
+    private int lineLength;
 
     public ChoiceBox(String name, Font font, int bufferX, int bufferY, Graphics2D g2d, boolean useCache) {
         if (useCache) {
@@ -40,6 +39,7 @@ public class ChoiceBox implements DialogBox {
         choices = DialogCache.getChoices(name);
         choiceEvents = EventCache.getEvents(name);
         this.font = font;
+        lineLength = 100;
         fitRect2Text(g2d, bufferX, bufferY);
         active = false;
         scrollerWidth = textHeight;
@@ -70,8 +70,24 @@ public class ChoiceBox implements DialogBox {
         int maxHeight = 0;
         lines = new ArrayList<>();
         // Determines width and height of only the text
-        width = (int)(font.getStringBounds(dialog,g2d.getFontRenderContext()).getWidth());
+        for (int i = 0; i < choices.length; i++) {
+            tempHeight = (int)(font.getStringBounds(choices[i],g2d.getFontRenderContext()).getHeight());
+            tempWidth = (int)(font.getStringBounds(choices[i],g2d.getFontRenderContext()).getWidth()) + textBufferX + tempHeight;
+            if (tempWidth > maxWidth) {
+                maxWidth = tempWidth;
+            }
+            if (tempHeight > maxHeight) {
+                maxHeight = tempHeight;
+            }
+        }
+        width = maxWidth;
+        height = maxHeight;
         if (width > lineLength) {
+            lineLength = width;
+        }
+        textWidth = (int)(font.getStringBounds(dialog,g2d.getFontRenderContext()).getWidth());
+        tempWidth = 0;
+        if (textWidth > lineLength) {
             String[] split = dialog.split("\\s+");
             String line = "";
             for (int i = 0; i < split.length; i++) {
@@ -92,26 +108,12 @@ public class ChoiceBox implements DialogBox {
         } else {
             lines.add(dialog);
         }
-        maxHeight = (int)(font.getStringBounds(dialog,g2d.getFontRenderContext()).getHeight());
-
-        for (int i = 0; i < choices.length; i++) {
-            tempWidth = (int)(font.getStringBounds(choices[i],g2d.getFontRenderContext()).getWidth()) + textBufferX + maxHeight;
-            tempHeight = (int)(font.getStringBounds(choices[i],g2d.getFontRenderContext()).getHeight());
-            if (tempWidth > maxWidth) {
-                maxWidth = tempWidth;
-            }
-            if (tempHeight > maxHeight) {
-                maxHeight = tempHeight;
-            }
-        }
-        width = maxWidth;
-        height = maxHeight;
         textHeight = height;
         textWidth = width;
         lineSpacing = height/3;
         height = height*choices.length + height*lines.size() + lineSpacing*(lines.size() + choices.length - 1);
         // Adds the buffer settings to the width and height
-        width += 3*bufferX + scrollerWidth;
+        width += 2*bufferX;
         height += 2*bufferY;
         size[0] = width;
         size[1] = height;
@@ -172,10 +174,12 @@ public class ChoiceBox implements DialogBox {
         g2d.fillRoundRect(x, y, width, height, textBufferX, textBufferY);
         g2d.setColor(Color.BLACK);
         g2d.drawRoundRect(x, y, width, height, textBufferX, textBufferY);
+        g2d.setFont(font);
         for (int i = 0; i < lines.size(); i++) {
             g2d.drawString(lines.get(i), x + textBufferX, y + textBufferY + textHeight + (textHeight + lineSpacing)*i);
         }
         for (int i = 0; i < choices.length; i++) {
+            int test = (int)(font.getStringBounds(choices[i] + "_",g2d.getFontRenderContext()).getWidth());
             g2d.drawString(choices[i], x + 2*textBufferX + scrollerWidth, y + textBufferY + textHeight + (textHeight + lineSpacing)*(lines.size() + i));
         }
         scroller.setPosition(x + textBufferX, y + textBufferY + (textHeight + lineSpacing)*lines.size());

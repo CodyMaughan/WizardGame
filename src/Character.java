@@ -83,7 +83,7 @@ public class Character {
         walkingTimer = 0;
         collisionBox = new Rectangle(x + characterWidth/6, y + characterHeight/2, 2*characterWidth/3, characterHeight/2);
         interactionBox = new Rectangle (x - characterWidth/6, y + characterHeight/4, 4*characterWidth/3, characterHeight);
-        dialogBox = new DialogSequenceBox(name, new Font("Arial", Font.PLAIN, 10), 5, 5, (Graphics2D)framework.getGraphics());
+        dialogBox = new DialogSequenceBox(name, new Font("Arial", Font.PLAIN, 11), 5, 5, (Graphics2D)framework.getGraphics());
         DialogManager.addDialogBox(name, dialogBox);
         vX = 0;
         vY = 0;

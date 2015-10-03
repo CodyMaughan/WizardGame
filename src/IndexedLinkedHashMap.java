@@ -51,7 +51,7 @@ public class IndexedLinkedHashMap<V, K> extends LinkedHashMap<V, K> {
         return val;
     }
 
-    public V getIndexedKey(V ind) {
+    public V getIndexedKey(int ind) {
         return index.get(ind);
     }
 }

@@ -58,7 +58,10 @@ public class DialogSequenceBox implements DialogBox {
     @Override
     public void progressDialog() {
         int branch = DialogManager.getBranchCount();
-        if (dialogSequence == null) {
+        if(dialogBoxes.get(count).getClass().equals(DialogConditionBox.class)) {
+            count = ((DialogConditionBox) dialogBoxes.get(count)).nextBox;
+            dialogBoxes.get(count).startDialog();
+        } else if (dialogSequence == null) {
             endDialog();
         } else if (dialogSequence[count][branch] == null) {
             endDialog();
