@@ -175,6 +175,7 @@ public class DialogCache {
             put("Annabelle_MageCity_0", new IndexedLinkedHashMap<Method, Object[]>() {
                 {
                     try {
+                        put(QuestManager.class.getMethod("questIsActive", String.class), new Object[]{"Annabelle's Quest"});
                         put(QuestManager.class.getMethod("questIsComplete", String.class), new Object[]{"Join_Wizard_Academy"});
                         put(null, null);
                     } catch (NoSuchMethodException e) {
@@ -187,7 +188,7 @@ public class DialogCache {
 
     private static final HashMap<String, Integer[]> conditionMaps = new HashMap<String, Integer[]>() {
         {
-            put("Annabelle_MageCity_0", new Integer[] { 2,1 });
+            put("Annabelle_MageCity_0", new Integer[] { 10,2,1 });
         }
     };
 

@@ -20,7 +20,8 @@ public class EventCache {
                     null, null, null
             });
             put("Annabelle_MageCity_4", new GameEvent[] {
-                    null, null, null
+                    new Quest("Annabelle's Quest"),
+                    null, null
             });
             put("Annabelle_MageCity_10", new GameEvent[] {
                     null, null

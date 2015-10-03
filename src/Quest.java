@@ -24,7 +24,7 @@ public class Quest implements GameEvent {
 
     @Override
     public void startEvent() {
-
+        QuestManager.addActiveQuest(this);
     }
 
     @Override
@@ -34,7 +34,8 @@ public class Quest implements GameEvent {
 
     @Override
     public void endEvent() {
-
+        QuestManager.removeActiveQuest(this.name);
+        QuestManager.addCompletedQuest(this);
     }
 
     public String getName() {

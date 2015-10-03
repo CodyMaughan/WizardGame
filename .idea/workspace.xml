@@ -2,22 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/DialogConditionBox.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Quest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/QuestManager.java" />
-      <change type="DELETED" beforePath="C:\Users\Cody\IdeaProjects\WizardGame\src\TreeUtility.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Character.java" afterPath="$PROJECT_DIR$/src/Character.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ChoiceBox.java" afterPath="$PROJECT_DIR$/src/ChoiceBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DialogCache.java" afterPath="$PROJECT_DIR$/src/DialogCache.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DialogSequenceBox.java" afterPath="$PROJECT_DIR$/src/DialogSequenceBox.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EventCache.java" afterPath="$PROJECT_DIR$/src/EventCache.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Framework.java" afterPath="$PROJECT_DIR$/src/Framework.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IndexedLinkedHashMap.java" afterPath="$PROJECT_DIR$/src/IndexedLinkedHashMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/InteractionDialogBox.java" afterPath="$PROJECT_DIR$/src/InteractionDialogBox.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StartGameState.java" afterPath="$PROJECT_DIR$/src/StartGameState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TimedDialogBox.java" afterPath="$PROJECT_DIR$/src/TimedDialogBox.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/magecity.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/magecity.tmx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/testmap2.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/testmap2.tmx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Quest.java" afterPath="$PROJECT_DIR$/src/Quest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestRecovery.iws" />
@@ -40,56 +28,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DialogCache.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
+      <file leaf-file-name="Quest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Quest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="42" column="84" selection-start-line="42" selection-start-column="84" selection-end-line="42" selection-end-column="84" />
+              <caret line="36" column="48" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#11765#11766#0" expanded="true" />
-                <element signature="e#11811#11812#0" expanded="true" />
-                <element signature="e#11873#11874#0" expanded="true" />
-                <element signature="e#11923#11924#0" expanded="true" />
-                <element signature="e#13358#13359#0" expanded="true" />
-                <element signature="e#13403#13404#0" expanded="true" />
+                <element signature="e#412#413#0" expanded="true" />
+                <element signature="e#461#462#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Character.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Character.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5">
-              <caret line="85" column="80" selection-start-line="85" selection-start-column="80" selection-end-line="85" selection-end-column="80" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DialogConditionBox.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DialogConditionBox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2086#2087#0" expanded="true" />
-                <element signature="e#2132#2133#0" expanded="true" />
-                <element signature="e#2179#2180#0" expanded="true" />
-                <element signature="e#2207#2208#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DialogSequenceBox.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DialogSequenceBox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -115,7 +62,17 @@
         <entry file="file://$PROJECT_DIR$/src/EventCache.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+              <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VendorState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/VendorState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="94" column="102" selection-start-line="94" selection-start-column="102" selection-end-line="97" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -126,42 +83,19 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="74" column="61" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DialogCache.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.13451776">
+              <caret line="176" column="25" selection-start-line="176" selection-start-column="25" selection-end-line="176" selection-end-column="25" />
               <folding>
-                <element signature="e#8593#8594#0" expanded="true" />
-                <element signature="e#8618#8619#0" expanded="true" />
-                <element signature="e#9115#9116#0" expanded="true" />
-                <element signature="e#9144#9145#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TimedDialogBox.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TimedDialogBox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="110" column="26" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InteractionDialogBox.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/InteractionDialogBox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="108" column="26" selection-start-line="108" selection-start-column="26" selection-end-line="108" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ScrollDialogBox.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ScrollDialogBox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -225,19 +159,19 @@
         <option value="$PROJECT_DIR$/src/Node.java" />
         <option value="$PROJECT_DIR$/src/HelloWorld.java" />
         <option value="$PROJECT_DIR$/src/TreeUtility.java" />
-        <option value="$PROJECT_DIR$/src/Quest.java" />
         <option value="$PROJECT_DIR$/src/DialogSequenceBox.java" />
         <option value="$PROJECT_DIR$/src/StartGameState.java" />
         <option value="$PROJECT_DIR$/src/QuestManager.java" />
         <option value="$PROJECT_DIR$/src/Framework.java" />
         <option value="$PROJECT_DIR$/src/IndexedLinkedHashMap.java" />
         <option value="$PROJECT_DIR$/src/DialogConditionBox.java" />
-        <option value="$PROJECT_DIR$/src/EventCache.java" />
-        <option value="$PROJECT_DIR$/src/DialogCache.java" />
         <option value="$PROJECT_DIR$/src/InteractionDialogBox.java" />
         <option value="$PROJECT_DIR$/src/TimedDialogBox.java" />
         <option value="$PROJECT_DIR$/src/ChoiceBox.java" />
         <option value="$PROJECT_DIR$/src/Character.java" />
+        <option value="$PROJECT_DIR$/src/EventCache.java" />
+        <option value="$PROJECT_DIR$/src/Quest.java" />
+        <option value="$PROJECT_DIR$/src/DialogCache.java" />
       </list>
     </option>
   </component>
@@ -649,12 +583,6 @@
       <option name="number" value="Default" />
       <updated>1442080840086</updated>
     </task>
-    <task id="LOCAL-00007" summary="Check out the new tile map!!!! On the new game screen choose the start your adventure option to see the map load!">
-      <created>1442191313197</created>
-      <option name="number" value="00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1442191313197</updated>
-    </task>
     <task id="LOCAL-00008" summary="Added the main character class with animation and movement!!!!!&#10;No collision detection yet.">
       <created>1442196928522</created>
       <option name="number" value="00008" />
@@ -943,7 +871,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443728808185</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Fixed some dialog issues">
+      <created>1443848857107</created>
+      <option name="number" value="00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1443848857107</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1012,7 +946,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="The Game now has a character selection screen, as well as being able to change from map to map." />
     <MESSAGE value="Added the Battle State as well as a replacement image for one that didn't upload properly before" />
     <MESSAGE value="Added a Sound Manager and Sound Class. There is currently a menu scroller sound and background music for the menu selections and the in-game mode. A selection sound needs to be added." />
     <MESSAGE value="Oops, I didn't add the sound files to the last push. This should make the game fully functional." />
@@ -1037,7 +970,8 @@
     <MESSAGE value="Added health and mana to the status menu" />
     <MESSAGE value="The status menu is done besides explanations of each thing (same goes for the item menu and equipment menu)." />
     <MESSAGE value="Added the battle state, press SHIFT in game to enter it" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the battle state, press SHIFT in game to enter it" />
+    <MESSAGE value="Fixed some dialog issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some dialog issues" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1186,16 +1120,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/VendorState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="102" selection-start-line="94" selection-start-column="102" selection-end-line="97" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1457,19 +1381,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Quest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#180#181#0" expanded="true" />
-            <element signature="e#212#213#0" expanded="true" />
-            <element signature="e#557#558#0" expanded="true" />
-            <element signature="e#584#585#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DialogConditionBox.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1480,45 +1391,6 @@
             <element signature="e#2132#2133#0" expanded="true" />
             <element signature="e#2179#2180#0" expanded="true" />
             <element signature="e#2207#2208#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/EventCache.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/QuestManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="e#892#893#0" expanded="true" />
-            <element signature="e#948#949#0" expanded="true" />
-            <element signature="e#1005#1006#0" expanded="true" />
-            <element signature="e#1046#1047#0" expanded="true" />
-            <element signature="e#1293#1294#0" expanded="true" />
-            <element signature="e#1351#1352#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="84" selection-start-line="42" selection-start-column="84" selection-end-line="42" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#11765#11766#0" expanded="true" />
-            <element signature="e#11811#11812#0" expanded="true" />
-            <element signature="e#11873#11874#0" expanded="true" />
-            <element signature="e#11923#11924#0" expanded="true" />
-            <element signature="e#13358#13359#0" expanded="true" />
-            <element signature="e#13403#13404#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1555,24 +1427,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ChoiceBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="61" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
-          <folding>
-            <element signature="e#8593#8594#0" expanded="true" />
-            <element signature="e#8618#8619#0" expanded="true" />
-            <element signature="e#9115#9116#0" expanded="true" />
-            <element signature="e#9144#9145#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Character.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5">
           <caret line="85" column="80" selection-start-line="85" selection-start-column="80" selection-end-line="85" selection-end-column="80" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/QuestManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <element signature="e#892#893#0" expanded="true" />
+            <element signature="e#948#949#0" expanded="true" />
+            <element signature="e#1005#1006#0" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
+            <element signature="e#1293#1294#0" expanded="true" />
+            <element signature="e#1351#1352#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/EventCache.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/VendorState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="94" column="102" selection-start-line="94" selection-start-column="102" selection-end-line="97" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ChoiceBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="74" column="61" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Quest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="48" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
+          <folding>
+            <element signature="e#412#413#0" expanded="true" />
+            <element signature="e#461#462#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13451776">
+          <caret line="176" column="25" selection-start-line="176" selection-start-column="25" selection-end-line="176" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
