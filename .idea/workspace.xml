@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="Fixed some dialog issues">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/free_radical_game_sprites__attempt__by_demonhuntrpg-d5tbcs4-0-0.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/tileset/indoor_fat_1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Characters/rmvx___mystic_quest___kaeli_by_leon_murayami-d8knd49.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ScriptInterpreter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/Framework.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Character.java" afterPath="$PROJECT_DIR$/src/Character.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CharacterCache.java" afterPath="$PROJECT_DIR$/src/CharacterCache.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CharacterInfo.java" afterPath="$PROJECT_DIR$/src/CharacterInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DialogCache.java" afterPath="$PROJECT_DIR$/src/DialogCache.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Framework.java" afterPath="$PROJECT_DIR$/src/Framework.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/magecity.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/magecity.tmx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/testmap2.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/testmap2.tmx" />
+    <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/MageCityInn.tmx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestRecovery.iws" />
@@ -279,26 +268,8 @@
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="WizardGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WizardGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
+              <option name="myItemId" value="tmxfiles" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -317,14 +288,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tileset" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -662,12 +625,6 @@
       <option name="number" value="Default" />
       <updated>1442080840086</updated>
     </task>
-    <task id="LOCAL-00009" summary="For some reason I can't upload the images that I've added to the project but I'll try to figure it out.">
-      <created>1442211535654</created>
-      <option name="number" value="00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1442211535654</updated>
-    </task>
     <task id="LOCAL-00010" summary="I figured out the issue with the images. You have to add the any new file of your project to the repository officially before it can be committed and pushed. Intellij was automatically asking me if I wanted to add any new source code to the repository project, but I had to add all the other files (images, tmx files, ect.) using the tortoisegit tool before they can be commited and pushed.&#10;&#10;As for this push, the game currently supports object collision between the map objects and the main character, as well as an initial spawn point. I'm still testing out ideas with spawn points and entrance/exit points for the maps.">
       <created>1442247181047</created>
       <option name="number" value="00010" />
@@ -956,7 +913,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443851428175</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Fixed some dialog issues">
+      <created>1443896611544</created>
+      <option name="number" value="00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1443896611545</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="ToolWindowManager">
