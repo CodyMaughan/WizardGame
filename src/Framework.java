@@ -78,6 +78,7 @@ public class Framework extends MyCanvas {
         MapManager.getInstance();
         DialogManager.getInstance(this);
         QuestManager.getInstance(this);
+        ScriptInterpreter.getInstance();
         gameStateMachine = StateMachine.getInstance(this);
         gameStateMachine.Add("MainMenu", new MainMenuState(this));
         gameStateMachine.Change("MainMenu");

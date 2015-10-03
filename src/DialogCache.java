@@ -28,10 +28,12 @@ public class DialogCache {
                     " \nThey also can be used to make potions. \nBut I prefer to just eat them.");
             put("Character3_0", "Hey, get out of the way! Can't you see I'm walking here?");
             put("Character4_0", "I would like to be a wizard too...");
-            put("AlchemistVendor_MageCity_0", "I've got potions galore! Come take a look!");
             // Mage City
+            put("AlchemistVendor_MageCity_0", "I've got potions galore! Come take a look!");
             put("AlchemistVendor_MageCity_2", "Come back again if you need anymore potions!");
             put("AlchemistVendor_MageCity_3", "You don't need any potions!? \nAlright then... Come back soon!");
+            put("Innkeeper_MageCity_0", "Welcome to Burner's Inn, the finest inn in the entire town! \nHehe, it's also the only inn in the entire town. \nIt's nice to have no competition.");
+            put("InnkeeperDaughter_MageCity_0", "It's just my father and I who run this inn. \nWe mostly get wizards who are traveling here to visit the academy.");
             put("Mage1_MageCity_0", "The wizard academy is older than dirt itself! \nThere are all types of magic to be learned there! ");
             put("Mage2_MageCity_0", "I used to be a traveler like you, \nbut then I took a fireball to the knee...");
             put("Mage3_MageCity_0", "This here is the wizard academy. \nMages from all over this country come here \nso that they can learn all types of arcane magic.");
@@ -97,6 +99,8 @@ public class DialogCache {
                     "ScrollDialogBox", // Yes/Choice 0
                     "ScrollDialogBox"  // No/Choice 1
             });
+            put("Innkeeper_MageCity", new String[] {"ScrollDialogBox"});
+            put("InnkeeperDaughter_MageCity", new String[] {"ScrollDialogBox"});
             put("Mage1_MageCity", new String[] {"ScrollDialogBox"});
             put("Mage2_MageCity", new String[] {"ScrollDialogBox"});
             put("Mage3_MageCity", new String[] {

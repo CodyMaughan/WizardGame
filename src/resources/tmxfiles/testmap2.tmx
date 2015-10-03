@@ -2066,6 +2066,6 @@
   <object id="20" name="Equipment_Novice Robes Chest" type="Interact_Facing" gid="180" x="32" y="64" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="CharacterSpawn">
-  <object id="25" name="Annabelle_MageCity" x="361" y="281" width="32" height="32"/>
+  <object id="25" name="Annabelle_MageCity" x="362" y="281" width="32" height="32"/>
  </objectgroup>
 </map>

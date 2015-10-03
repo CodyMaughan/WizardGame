@@ -16,6 +16,10 @@ public class CharacterCache {
             // Mage City Characters
             put("AlchemistVendor_MageCity", new CharacterInfo("AlchemistVendor_MageCity",
                     "/resources/images/Characters/male_blue_chemist_merchant_by_leon_murayami-d96zlqr.png", "", 64, 64));
+            put("Innkeeper_MageCity", new CharacterInfo("Innkeeper_MageCity",
+                    "/resources/images/Characters/free_radical_game_sprites__attempt__by_demonhuntrpg-d5tbcs4-0-0.png", "increaseInteractionBoxHeight", 64, 64));
+            put("InnkeeperDaughter_MageCity", new CharacterInfo("InnkeeperDaughter_MageCity",
+                    "/resources/images/Characters/rmvx___mystic_quest___kaeli_by_leon_murayami-d8knd49.png", "", 64, 64));
             put("Mage1_MageCity", new CharacterInfo("Mage1_MageCity",
                     "/resources/images/Characters/mage__male__by_darklack-d90t7qq.png", "", 64, 64));
             put("Mage2_MageCity", new CharacterInfo("Mage2_MageCity",

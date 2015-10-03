@@ -5,14 +5,14 @@ public class CharacterInfo {
 
     private String name;
     private String path;
-    private String dialog;
+    private String script;
     private int width;
     private int height;
 
-    public CharacterInfo(String name, String path, String dialog, int width, int height) {
+    public CharacterInfo(String name, String path, String script, int width, int height) {
         this.name = name;
         this.path = path;
-        this.dialog = dialog;
+        this.script = script;
         this.width = width;
         this.height = height;
     }
@@ -21,8 +21,8 @@ public class CharacterInfo {
         return path;
     }
 
-    public String getDialog() {
-        return dialog;
+    public String getScript() {
+        return script;
     }
 
     public int getWidth() {

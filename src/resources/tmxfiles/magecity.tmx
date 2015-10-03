@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="81" height="66" tilewidth="32" tileheight="32" nextobjectid="152">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="81" height="66" tilewidth="32" tileheight="32" nextobjectid="153">
  <tileset firstgid="1" name="fat_magecity_0" tilewidth="32" tileheight="32" tilecount="720">
   <image source="../images/tileset/fat_magecity_0.png" width="512" height="1450"/>
  </tileset>
@@ -26861,6 +26861,9 @@
  </objectgroup>
  <objectgroup name="Connection_town1">
   <object id="111" name="Connection1" type="Down_Right" x="1759" y="2077" width="192" height="35"/>
+ </objectgroup>
+ <objectgroup name="Connection_MageCityInn">
+  <object id="152" name="Connection1" type="Up_Up" x="736" y="1420" width="64" height="11"/>
  </objectgroup>
  <objectgroup name="CharacterSpawn">
   <object id="112" name="AlchemistVendor_MageCity" x="1037" y="1382" width="32" height="32"/>

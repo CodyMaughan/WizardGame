@@ -112,6 +112,9 @@ public class Character {
         stop = false;
         travelState = "Walk";
         randomTimer = 0;
+        if (info.getScript().contains("increaseInteractionBoxHeight")) {
+            interactionBox.height += characterHeight/2;
+        }
     }
 
     public void draw(Graphics2D g2d, int xOffset, int yOffset) {
