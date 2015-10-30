@@ -655,13 +655,13 @@ public class TileMap {
                             break;
                         case("Left"):
                             character.direction = 1;
-                            xCorrection = 0;
-                            yCorrection = -character.characterHeight/2;
+                            xCorrection = -character.characterWidth;
+                            yCorrection = -character.characterHeight + character.collisionBox.height/2;
                             break;
                         case("Right"):
                             character.direction = 2;
                             xCorrection = 0;
-                            yCorrection = -character.characterHeight/2;
+                            yCorrection = -character.characterHeight + character.collisionBox.height/2;
                             break;
                         case("Up"):
                             character.direction = 3;
