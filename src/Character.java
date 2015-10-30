@@ -12,9 +12,8 @@ import java.util.logging.Logger;
 /**
  * Created by Cody on 9/19/2015.
  */
-public class Character {
+public class Character extends BattleEnemy {
 
-    public String characterName;
     public int x;
     public int y;
     public int vX;
@@ -40,10 +39,6 @@ public class Character {
     public int experience;
     public IndexedLinkedHashMap<String, Integer> stats;
     public IndexedLinkedHashMap<String, Integer> skills;
-    public int health;
-    public int maxHealth;
-    public int mana;
-    public int maxMana;
     public int money;
     private static String travelState;
     private boolean canSwim;
@@ -61,7 +56,7 @@ public class Character {
     private final int moveSpeed = 4;
 
     public Character(String name, int posX, int posY, Framework framework){
-        this.characterName = name;
+        this.name = name;
         info = CharacterCache.getCharacterInfo(name);
         try {
             image = ImageIO.read(this.getClass().getResource(info.getPath()));
@@ -426,6 +421,10 @@ public class Character {
         this.pathRect = pathRect;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public BufferedImage getBattleImage() {
         BufferedImage temp = new BufferedImage(imageWidth/maxAnimationFrames, imageHeight/4, image.getType());
         Graphics2D gr = temp.createGraphics();
@@ -465,7 +464,7 @@ public class Character {
     public void startDiaolog(int dir) {
         direction = dir;
         stop = true;
-        DialogManager.startDialog(characterName);
+        DialogManager.startDialog(name);
         //dialogBox.setActive(true);
     }
 

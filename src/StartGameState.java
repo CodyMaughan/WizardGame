@@ -101,4 +101,10 @@ public class StartGameState implements IState {
         nextMap = new TileMap(framework, mapPath, connection);
         MainCharacter.setPosition(nextMap.getMainSpawnX(), nextMap.getMainSpawnY());
     }
+
+    public static void startBattleState(Creature creature) {
+        StateMachine.Add("BattleState", new BattleState(framework, creature));
+        StateMachine.Change("BattleState");
+        SoundManager.getInstance().stopSound("Woodland");
+    }
 }

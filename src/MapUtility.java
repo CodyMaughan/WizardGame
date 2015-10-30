@@ -23,7 +23,7 @@ public class MapUtility {
             temp.put(character.y, character);
         }
         for (Character character : temp.values()) {
-            newMap.put(character.characterName, character);
+            newMap.put(character.getName(), character);
         }
         return newMap;
     }

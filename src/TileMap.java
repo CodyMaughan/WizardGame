@@ -56,6 +56,8 @@ public class TileMap {
     protected ArrayList<TerrainChange> mapTerrainChanges;
     protected Map<String, InteractionDialogBox> interactionDialogBoxes;
     protected IndexedLinkedHashMap<String, Character> mapCharacters;
+    protected HashMap<String, Creature> mapCreatures;
+    protected HashMap<String, CreatureSpawnBox> mapCreatureSpawnBoxes;
 
     public TileMap(Framework framework, String tmxFilePath, MapConnection connection) {
         this.framework = framework;
@@ -69,6 +71,8 @@ public class TileMap {
         mapRemovables = new ArrayList<>();
         mapTerrainChanges = new ArrayList<>();
         mapCharacters = new IndexedLinkedHashMap<>();
+        mapCreatures = new HashMap<>();
+        mapCreatureSpawnBoxes = new HashMap<>();
         interactionDialogBoxes = new HashMap<>();
         System.out.println(tmxFilePath);
         readtmxFile(tmxFilePath);
@@ -427,6 +431,25 @@ public class TileMap {
                             mapCharacters.get(name).setWalkPath(type, rect);
                         }
                         break;
+                    case ("CreatureSpawnBoxes"):
+                        for (int j = 0; j < objectDataLength; j++) {
+                            objectElement = (Element) objectData.item(j);
+                            String name = objectElement.getAttribute("name");
+                            String type = objectElement.getAttribute("type");
+                            String[] creatures = type.split(",");
+                            Rectangle rect = new Rectangle(Integer.parseInt(objectElement.getAttribute("x")), Integer.parseInt(objectElement.getAttribute("y")),
+                                    Integer.parseInt(objectElement.getAttribute("width")), Integer.parseInt(objectElement.getAttribute("height")));
+                            LinkedHashMap<String, Double> temp = new LinkedHashMap<>();
+                            for (String creature: creatures) {
+                                String[] values = creature.split("_");
+                                if (!mapCreatures.containsKey(values[0])) {
+                                    mapCreatures.put(values[0], new Creature(values[0], 0, 0, framework));
+                                }
+                                temp.put(values[0], Double.valueOf(values[1]));
+                            }
+                            mapCreatureSpawnBoxes.put(name, new CreatureSpawnBox(name, rect, temp));
+                        }
+                        break;
                 }
             }
 
@@ -602,6 +625,19 @@ public class TileMap {
                 }
                 actionRect.translate(xOffset, yOffset);
             }
+        }
+
+        // Resolve interactions with CreatureSpawnBoxes
+        for (CreatureSpawnBox box: mapCreatureSpawnBoxes.values()) {
+            Rectangle rect = box.getRect();
+            rect.translate(-xOffset, -yOffset);
+            if ((character.vX != 0 || character.vY != 0) && rect.intersects(character.collisionBox)) {
+                String creature = box.spawnCreature();
+                if (creature != null) {
+                    StartGameState.startBattleState(mapCreatures.get(creature));
+                }
+            }
+            rect.translate(xOffset, yOffset);
         }
 
         // Resolve interactions with mapConnections
@@ -1135,6 +1171,14 @@ public class TileMap {
             rect.translate(xOffset, yOffset);
         }
 
+        // This code draws map creature spawn boxes dark gray, it is for testing purposes only
+        g2d.setColor(Color.darkGray);
+        for (CreatureSpawnBox box: mapCreatureSpawnBoxes.values()) {
+            Rectangle rect = box.getRect();
+            rect.translate(-xOffset, -yOffset);
+            g2d.draw(rect);
+            rect.translate(xOffset, yOffset);
+        }
     }
 
     public TileSet getTileSet(int gid) {

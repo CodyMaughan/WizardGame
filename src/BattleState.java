@@ -26,7 +26,7 @@ public class BattleState implements IState, GameEvent {
                            // 5 = play card,
     private BufferedImage enemyImage;
     private BufferedImage mainCharacterImage;
-    private Character enemy;
+    private BattleEnemy enemy;
     private IndexedLinkedHashMap<Integer, Card> hand;
     private int deckCount;
     private MenuScroller2D cardScroller;
@@ -41,10 +41,10 @@ public class BattleState implements IState, GameEvent {
     private boolean drawItemUsed;
 
     // Initialization of the Battle State
-    public BattleState(Framework framework, Character character) {
+    public BattleState(Framework framework, BattleEnemy enemy) {
         windowWidth = framework.getWidth();
         windowHeight = framework.getHeight();
-        enemy = character;
+        this.enemy = enemy;
         turn = 0;
         turnState = 0;
         Font buttonFont = new Font("Arial", Font.BOLD, 15);
@@ -79,7 +79,7 @@ public class BattleState implements IState, GameEvent {
         actionScroller.setWidth(cardButton.getHeight());
         actionScroller.setHeight(cardButton.getHeight());
         actionScroller.setPosition(cardButton.getX() - actionScroller.getWidth() - scrollerBuffer, cardButton.getY());
-        enemyImage = character.getBattleImage();
+        enemyImage = enemy.getBattleImage();
         mainCharacterImage = MainCharacter.getBattleImage();
         SoundManager.add("BattleMusic",
                 new Sound(this.getClass().getResource("/resources/sounds/Woodland_Fantasy_0.wav"), 0));
@@ -366,8 +366,7 @@ public class BattleState implements IState, GameEvent {
                 // Waits a little on the enemy turn, this is just for testing and will be removed when AI is written
                 Thread.sleep(2000);
             } catch (InterruptedException ex) { }
-            StateMachine.Change("StartGame");
-            StateMachine.Remove("BattleState");
+            endEvent();
         }
     }
 
@@ -397,8 +396,10 @@ public class BattleState implements IState, GameEvent {
         g2d.drawString(text, 60 + mainCharacterImage.getWidth() * 2 + 45, 3 * windowHeight / 4 - 30 - 15 - 20);
         text = "Mana:  " + String.valueOf(MainCharacter.mana) + "/" + String.valueOf(MainCharacter.maxMana);
         g2d.drawString(text, 60 + mainCharacterImage.getWidth() * 2 + 45, 3 * windowHeight / 4 - 30);
+        text = MainCharacter.characterName;
+        g2d.drawString(text, 60 + mainCharacterImage.getWidth() * 2 + 45, 3 * windowHeight / 4 - 30 - 2*15 - 2*20);
         g2d.setColor(Color.GRAY);
-        g2d.fillRoundRect(60 + mainCharacterImage.getWidth()*2 + 45 + textWidth + 20, 3*windowHeight/4 - 45 - 15 - 20, 100, 15, 3, 3);
+        g2d.fillRoundRect(60 + mainCharacterImage.getWidth() * 2 + 45 + textWidth + 20, 3 * windowHeight / 4 - 45 - 15 - 20, 100, 15, 3, 3);
         g2d.fillRoundRect(60 + mainCharacterImage.getWidth() * 2 + 45 + textWidth + 20, 3 * windowHeight / 4 - 45, 100, 15, 3, 3);
         g2d.setColor(Color.GREEN);
         g2d.fillRoundRect(60 + mainCharacterImage.getWidth() * 2 + 45 + textWidth + 20, 3 * windowHeight / 4 - 45 - 15 - 20,
@@ -415,6 +416,8 @@ public class BattleState implements IState, GameEvent {
         g2d.drawString(text, windowWidth - 60 - enemyImage.getWidth() - 45 - 100 - 20 - textWidth, 60 + 15);
         text = "Mana:  " + String.valueOf(enemy.mana) + "/" + String.valueOf(enemy.maxMana);
         g2d.drawString(text, windowWidth - 60 - enemyImage.getWidth() - 45 - 100 - 20 - textWidth, 60 + 2*15 + 20);
+        text = enemy.getName();
+        g2d.drawString(text, windowWidth - 60 - enemyImage.getWidth() - 45 - 100 - 20 - textWidth, 60 - 20);
         g2d.setColor(Color.GRAY);
         g2d.fillRoundRect(windowWidth - 60 - enemyImage.getWidth() - 45 - 100, 60, 100, 15, 3, 3);
         g2d.fillRoundRect(windowWidth - 60 - enemyImage.getWidth() - 45 - 100, 60 + 15 + 20, 100, 15, 3, 3);
@@ -549,7 +552,8 @@ public class BattleState implements IState, GameEvent {
 
     @Override
     public void endEvent() {
-
+        StateMachine.Change("StartGame");
+        StateMachine.Remove("BattleState");
     }
 
     @Override

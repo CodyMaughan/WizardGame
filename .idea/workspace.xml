@@ -2,10 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca7a644-4240-4946-8492-0ce3f1e92b18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/MageCityBarracks.tmx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/MageCityInnBasement.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/MageCityInnBasement.tmx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/firelion_down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/firelion_left.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/firelion_right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/firelion_up.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/iceshield.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/icetacle.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/lightningclaw.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/snakebite_down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/snakebite_side.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/snakebite_up.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Creatures/LPC_Spiders/spider01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Creatures/LPC_Spiders/spider01_battle.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/Creatures/LPC_Spiders/spider02_battle.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/spikes.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/tornado.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/torrentacle.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/turtleshell_front.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/resources/images/magic_pack/sheets/turtleshell_side.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/BattleEnemy.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Creature.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CreatureCache.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CreatureSpawnBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/WizardGame/TileMap.class" afterPath="$PROJECT_DIR$/out/production/WizardGame/TileMap.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BattleState.java" afterPath="$PROJECT_DIR$/src/BattleState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Character.java" afterPath="$PROJECT_DIR$/src/Character.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MapUtility.java" afterPath="$PROJECT_DIR$/src/MapUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StartGameState.java" afterPath="$PROJECT_DIR$/src/StartGameState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TileMap.java" afterPath="$PROJECT_DIR$/src/TileMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/magecity.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/magecity.tmx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/tmxfiles/testmap1.tmx" afterPath="$PROJECT_DIR$/src/resources/tmxfiles/testmap1.tmx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestRecovery.iws" />
@@ -28,73 +53,72 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Quest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Quest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="48" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
-              <folding>
-                <element signature="e#180#181#0" expanded="false" />
-                <element signature="e#212#213#0" expanded="false" />
-                <element signature="e#695#696#0" expanded="false" />
-                <element signature="e#722#723#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Character.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Character.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="116" column="9" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ScriptInterpreter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ScriptInterpreter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DialogCache.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="102" column="34" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+            <state vertical-scroll-proportion="-5.7586207">
+              <caret line="424" column="20" selection-start-line="424" selection-start-column="20" selection-end-line="424" selection-end-column="20" />
               <folding>
-                <element signature="e#12403#12404#0" expanded="false" />
-                <element signature="e#12449#12450#0" expanded="false" />
-                <element signature="e#12511#12512#0" expanded="false" />
-                <element signature="e#12561#12562#0" expanded="false" />
-                <element signature="e#13996#13997#0" expanded="false" />
-                <element signature="e#14041#14042#0" expanded="false" />
+                <element signature="e#15770#15771#0" expanded="true" />
+                <element signature="e#15807#15808#0" expanded="true" />
+                <element signature="e#16163#16164#0" expanded="true" />
+                <element signature="e#16190#16191#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Framework.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Framework.java">
+      <file leaf-file-name="CreatureCache.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CreatureCache.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="80" column="40" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
-              <folding />
+              <caret line="11" column="155" selection-start-line="11" selection-start-column="155" selection-end-line="11" selection-end-column="155" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TileMap.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CreatureInfo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CreatureInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="60" column="29" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="29" />
+              <folding>
+                <element signature="e#859#860#0" expanded="true" />
+                <element signature="e#886#887#0" expanded="true" />
+                <element signature="e#1159#1160#0" expanded="true" />
+                <element signature="e#1188#1189#0" expanded="true" />
+                <element signature="e#1221#1222#0" expanded="true" />
+                <element signature="e#1253#1254#0" expanded="true" />
+                <element signature="e#1281#1282#0" expanded="true" />
+                <element signature="e#1308#1309#0" expanded="true" />
+                <element signature="e#1369#1370#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Creature.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Creature.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="67" column="20" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2271#2272#0" expanded="true" />
+                <element signature="e#2298#2299#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TileMap.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TileMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4111675">
-              <caret line="657" column="67" selection-start-line="657" selection-start-column="67" selection-end-line="657" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1179" column="45" selection-start-line="1179" selection-start-column="45" selection-end-line="1179" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -104,41 +128,52 @@
         <entry file="file://$PROJECT_DIR$/src/StartGameState.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="69" />
+              <caret line="105" column="77" selection-start-line="105" selection-start-column="77" selection-end-line="105" selection-end-column="77" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CharacterCache.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CharacterCache.java">
+      <file leaf-file-name="CreatureSpawnBox.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CreatureSpawnBox.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="110" selection-start-line="10" selection-start-column="110" selection-end-line="10" selection-end-column="110" />
+              <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#4792#4793#0" expanded="false" />
-                <element signature="e#4835#4836#0" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#580#581#0" expanded="true" />
+                <element signature="e#606#607#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CharacterInfo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CharacterInfo.java">
+      <file leaf-file-name="BattleState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BattleState.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-              <folding>
-                <element signature="e#462#463#0" expanded="false" />
-                <element signature="e#489#490#0" expanded="false" />
-                <element signature="e#522#523#0" expanded="false" />
-                <element signature="e#551#552#0" expanded="false" />
-                <element signature="e#580#581#0" expanded="false" />
-                <element signature="e#608#609#0" expanded="false" />
-                <element signature="e#638#639#0" expanded="false" />
-                <element signature="e#667#668#0" expanded="false" />
-              </folding>
+              <caret line="397" column="101" selection-start-line="397" selection-start-column="101" selection-end-line="397" selection-end-column="101" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapUtility.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/MapUtility.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.1116751">
+              <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BattleEnemy.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BattleEnemy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -164,13 +199,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Equipment.java" />
-        <option value="$PROJECT_DIR$/src/Vendable.java" />
-        <option value="$PROJECT_DIR$/src/VendorCache.java" />
-        <option value="$PROJECT_DIR$/src/MenuPointer.java" />
-        <option value="$PROJECT_DIR$/src/VendorState.java" />
-        <option value="$PROJECT_DIR$/src/DrawableObject.java" />
-        <option value="$PROJECT_DIR$/src/Menu.java" />
         <option value="$PROJECT_DIR$/src/CardsMenu.java" />
         <option value="$PROJECT_DIR$/src/ExitMenu.java" />
         <option value="$PROJECT_DIR$/src/JournalMenu.java" />
@@ -193,13 +221,11 @@
         <option value="$PROJECT_DIR$/src/ItemCache.java" />
         <option value="$PROJECT_DIR$/src/MainCharacter.java" />
         <option value="$PROJECT_DIR$/src/MenuState.java" />
-        <option value="$PROJECT_DIR$/src/BattleState.java" />
         <option value="$PROJECT_DIR$/src/ItemsMenu.java" />
         <option value="$PROJECT_DIR$/src/Node.java" />
         <option value="$PROJECT_DIR$/src/HelloWorld.java" />
         <option value="$PROJECT_DIR$/src/TreeUtility.java" />
         <option value="$PROJECT_DIR$/src/DialogSequenceBox.java" />
-        <option value="$PROJECT_DIR$/src/StartGameState.java" />
         <option value="$PROJECT_DIR$/src/QuestManager.java" />
         <option value="$PROJECT_DIR$/src/IndexedLinkedHashMap.java" />
         <option value="$PROJECT_DIR$/src/DialogConditionBox.java" />
@@ -212,9 +238,18 @@
         <option value="$PROJECT_DIR$/src/CharacterInfo.java" />
         <option value="$PROJECT_DIR$/src/Framework.java" />
         <option value="$PROJECT_DIR$/src/ScriptInterpreter.java" />
-        <option value="$PROJECT_DIR$/src/Character.java" />
         <option value="$PROJECT_DIR$/src/CharacterCache.java" />
+        <option value="$PROJECT_DIR$/src/CreatureINfo.java" />
+        <option value="$PROJECT_DIR$/src/CreatureSpawnBox.java" />
         <option value="$PROJECT_DIR$/src/TileMap.java" />
+        <option value="$PROJECT_DIR$/src/StartGameState.java" />
+        <option value="$PROJECT_DIR$/src/CreatureCache.java" />
+        <option value="$PROJECT_DIR$/src/CreatureInfo.java" />
+        <option value="$PROJECT_DIR$/src/BattleEnemy.java" />
+        <option value="$PROJECT_DIR$/src/Creature.java" />
+        <option value="$PROJECT_DIR$/src/Character.java" />
+        <option value="$PROJECT_DIR$/src/BattleState.java" />
+        <option value="$PROJECT_DIR$/src/MapUtility.java" />
       </list>
     </option>
   </component>
@@ -287,46 +322,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WizardGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WizardGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tmxfiles" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WizardGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WizardGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -552,12 +547,6 @@
       <created>1442080840086</created>
       <option name="number" value="Default" />
       <updated>1442080840086</updated>
-    </task>
-    <task id="LOCAL-00013" summary="The Game now has a character selection screen, as well as being able to change from map to map.">
-      <created>1442357352549</created>
-      <option name="number" value="00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1442357352549</updated>
     </task>
     <task id="LOCAL-00014" summary="Added the Battle State as well as a replacement image for one that didn't upload properly before">
       <created>1442460932895</created>
@@ -847,7 +836,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443992808499</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Added some more to Mage City">
+      <created>1446227907365</created>
+      <option name="number" value="00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1446227907368</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -947,12 +942,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/BattleState.java</url>
-          <line>107</line>
-          <properties />
-          <option name="timeStamp" value="143" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/DialogConditionBox.java</url>
           <line>55</line>
           <properties />
@@ -975,78 +964,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/CardsMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
-          <folding>
-            <element signature="e#1493#1494#0" expanded="false" />
-            <element signature="e#1522#1523#0" expanded="false" />
-            <element signature="e#1569#1570#0" expanded="false" />
-            <element signature="e#1598#1599#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ExitMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60285133">
-          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
-          <folding>
-            <element signature="e#1494#1495#0" expanded="false" />
-            <element signature="e#1523#1524#0" expanded="false" />
-            <element signature="e#1570#1571#0" expanded="false" />
-            <element signature="e#1599#1600#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JournalMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4215886">
-          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
-          <folding>
-            <element signature="e#1499#1500#0" expanded="false" />
-            <element signature="e#1528#1529#0" expanded="false" />
-            <element signature="e#1575#1576#0" expanded="false" />
-            <element signature="e#1604#1605#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OptionsMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70672095">
-          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
-          <folding>
-            <element signature="e#1499#1500#0" expanded="false" />
-            <element signature="e#1528#1529#0" expanded="false" />
-            <element signature="e#1575#1576#0" expanded="false" />
-            <element signature="e#1604#1605#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WorldMapMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77800405">
-          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
-          <folding>
-            <element signature="e#1503#1504#0" expanded="false" />
-            <element signature="e#1532#1533#0" expanded="false" />
-            <element signature="e#1579#1580#0" expanded="false" />
-            <element signature="e#1608#1609#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SaveMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66191447">
-          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Menu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1110,6 +1027,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <element signature="e#841#842#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1162,16 +1082,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="102" selection-start-line="11" selection-start-column="102" selection-end-line="11" selection-end-column="102" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BattleState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="301" column="29" selection-start-line="301" selection-start-column="29" selection-end-line="301" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1307,6 +1217,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="110" column="26" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1352,12 +1263,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding>
-            <element signature="e#892#893#0" expanded="true" />
-            <element signature="e#948#949#0" expanded="true" />
-            <element signature="e#1005#1006#0" expanded="true" />
-            <element signature="e#1046#1047#0" expanded="true" />
-            <element signature="e#1293#1294#0" expanded="true" />
-            <element signature="e#1351#1352#0" expanded="true" />
+            <element signature="e#892#893#0" expanded="false" />
+            <element signature="e#948#949#0" expanded="false" />
+            <element signature="e#1005#1006#0" expanded="false" />
+            <element signature="e#1046#1047#0" expanded="false" />
+            <element signature="e#1293#1294#0" expanded="false" />
+            <element signature="e#1351#1352#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1367,50 +1278,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="80" column="40" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="102" column="34" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
-          <folding>
-            <element signature="e#12403#12404#0" expanded="false" />
-            <element signature="e#12449#12450#0" expanded="false" />
-            <element signature="e#12511#12512#0" expanded="false" />
-            <element signature="e#12561#12562#0" expanded="false" />
-            <element signature="e#13996#13997#0" expanded="false" />
-            <element signature="e#14041#14042#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CharacterInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding>
-            <element signature="e#462#463#0" expanded="false" />
-            <element signature="e#489#490#0" expanded="false" />
-            <element signature="e#522#523#0" expanded="false" />
-            <element signature="e#551#552#0" expanded="false" />
-            <element signature="e#580#581#0" expanded="false" />
-            <element signature="e#608#609#0" expanded="false" />
-            <element signature="e#638#639#0" expanded="false" />
-            <element signature="e#667#668#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CharacterCache.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="110" selection-start-line="10" selection-start-column="110" selection-end-line="10" selection-end-column="110" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#4792#4793#0" expanded="false" />
-            <element signature="e#4835#4836#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1438,14 +1305,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Character.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="116" column="9" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/StateMachine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1454,18 +1313,131 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/StartGameState.java">
+    <entry file="file://$PROJECT_DIR$/src/DialogCache.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.5786803">
+          <caret line="102" column="34" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CharacterCache.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="69" />
+          <caret line="63" column="5" selection-start-line="8" selection-start-column="4" selection-end-line="63" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CharacterInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="33" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CreatureSpawnBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#580#581#0" expanded="true" />
+            <element signature="e#606#607#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TileMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4111675">
-          <caret line="657" column="67" selection-start-line="657" selection-start-column="67" selection-end-line="657" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1179" column="45" selection-start-line="1179" selection-start-column="45" selection-end-line="1179" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/StartGameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="105" column="77" selection-start-line="105" selection-start-column="77" selection-end-line="105" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CreatureCache.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="155" selection-start-line="11" selection-start-column="155" selection-end-line="11" selection-end-column="155" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CreatureInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="60" column="29" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="29" />
+          <folding>
+            <element signature="e#859#860#0" expanded="true" />
+            <element signature="e#886#887#0" expanded="true" />
+            <element signature="e#1159#1160#0" expanded="true" />
+            <element signature="e#1188#1189#0" expanded="true" />
+            <element signature="e#1221#1222#0" expanded="true" />
+            <element signature="e#1253#1254#0" expanded="true" />
+            <element signature="e#1281#1282#0" expanded="true" />
+            <element signature="e#1308#1309#0" expanded="true" />
+            <element signature="e#1369#1370#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BattleEnemy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Creature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="20" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2271#2272#0" expanded="true" />
+            <element signature="e#2298#2299#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Character.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.7586207">
+          <caret line="424" column="20" selection-start-line="424" selection-start-column="20" selection-end-line="424" selection-end-column="20" />
+          <folding>
+            <element signature="e#15770#15771#0" expanded="true" />
+            <element signature="e#15807#15808#0" expanded="true" />
+            <element signature="e#16163#16164#0" expanded="true" />
+            <element signature="e#16190#16191#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BattleState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="397" column="101" selection-start-line="397" selection-start-column="101" selection-end-line="397" selection-end-column="101" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MapUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1116751">
+          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
           <folding />
         </state>
       </provider>
