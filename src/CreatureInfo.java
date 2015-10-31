@@ -13,6 +13,7 @@ public class CreatureInfo {
     private int maxHealth;
     private int mana;
     private int maxMana;
+    private String[] moves;
 
     public CreatureInfo(String name, String path, String script, int width, int height, int animationFrames,
                         int health, int maxHealth, int mana, int maxMana) {
@@ -26,6 +27,10 @@ public class CreatureInfo {
         this.maxHealth = maxHealth;
         this.mana = mana;
         this.maxMana = maxMana;
+        if (script.contains("<Moves>")) {
+            String move = script.split("<Moves>")[1];
+            moves = move.split(",");
+        }
     }
 
     public String getPath() {
