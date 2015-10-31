@@ -14,7 +14,7 @@ public class Creature extends BattleEnemy {
     public int creatureWidth;
     public int creatureHeight;
     public BufferedImage image;
-    private CreatureInfoTest2 info;
+    private CreatureInfoTest info;
     private int imageWidth;
     private int imageHeight;
     public int direction; // Down = 0, Left = 1, Right = 2, Up = 3

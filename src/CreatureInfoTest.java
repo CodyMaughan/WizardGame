@@ -1,7 +1,7 @@
 /**
  * Created by Cody on 10/30/2015.
  */
-public class CreatureInfoTest2 {
+public class CreatureInfoTest {
 
     private String name;
     private String path;
@@ -13,10 +13,9 @@ public class CreatureInfoTest2 {
     private int maxHealth;
     private int mana;
     private int maxMana;
-    private int test;
 
-    public CreatureInfoTest2(String name, String path, String script, int width, int height, int animationFrames,
-                             int health, int maxHealth, int mana, int maxMana) {
+    public CreatureInfoTest(String name, String path, String script, int width, int height, int animationFrames,
+                            int health, int maxHealth, int mana, int maxMana) {
         this.name = name;
         this.path = path;
         this.script = script;
