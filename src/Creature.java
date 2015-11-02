@@ -22,11 +22,8 @@ public class Creature extends BattleEnemy {
     public Map<String, Integer> itemCount;
     public IndexedTreeMap<String, Equipment> equipment;
     public Map<String, Integer> equipmentCount;
-    public int level;
-    public int experience;
-    public IndexedLinkedHashMap<String, Integer> stats;
-    public IndexedLinkedHashMap<String, Integer> skills;
     public int maxAnimationFrames;
+    public String[] battleMoves;
 
     public Creature(String name, int posX, int posY, Framework framework) {
         this.name = name;
@@ -42,9 +39,11 @@ public class Creature extends BattleEnemy {
         this.creatureWidth = info.getWidth();
         this.creatureHeight = info.getHeight();
         maxAnimationFrames = info.getAnimationFrames();
+        battleMoves = info.getMoves();
         items = new IndexedTreeMap<>();
         equipment = new IndexedTreeMap<>();
         stats = new IndexedLinkedHashMap<>();
+        stats.put("Attack", 3);
         stats.put("Wisdom", 3);
         stats.put("Strength", 3);
         stats.put("Intelligence", 3);
@@ -53,9 +52,6 @@ public class Creature extends BattleEnemy {
         stats.put("Agility", 3);
         stats.put("Luck", 3);
         skills = new IndexedLinkedHashMap<>();
-        skills.put("Fire", 1);
-        skills.put("Ice", 1);
-        skills.put("Earth", 1);
         level = 1;
         experience = 0;
         health = info.getHealth();

@@ -2764,6 +2764,6 @@
   <object id="49" name="Item_Mushroom" type="Interact_On" gid="2147483787" x="736" y="352" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="CreatureSpawnBoxes">
-  <object id="60" name="Spawn1" type="GiantSpider1_0.02,GiantSpider2_0.02" x="350" y="64" width="193" height="128"/>
+  <object id="60" name="Spawn1" type="Giant Black Spider_0.02,Giant Navy Spider_0.02" x="350" y="64" width="193" height="128"/>
  </objectgroup>
 </map>

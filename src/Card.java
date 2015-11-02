@@ -8,25 +8,22 @@ import java.util.logging.Logger;
 /**
  * Created by Cody on 9/27/2015.
  */
-public class Card {
+public class Card extends BattleMove {
 
     private String id;
     private String cardName;
-    private int damage;
     private int magicCost;
-    private CardEffect effect;
     private String path;
     private BufferedImage image;
     private int width;
     private int height;
     private String explanation;
 
-    public Card(String id, String cardName, int damage, int magicCost, CardEffect effect, String path) {
+    public Card(String id, String cardName, int magicCost, BattleMoveEffect effect, String path) {
+        super(cardName, effect);
         this.id = id;
         this.cardName = cardName;
-        this.damage = damage;
         this.magicCost = magicCost;
-        this.effect = effect;
         this.path = path;
         try {
             image = ImageIO.read(this.getClass().getResource(path));
@@ -38,10 +35,6 @@ public class Card {
         this.height = image.getHeight();
         disposeImage();
         explanation = CardCache.getCardExplanation(id);
-    }
-
-    public void activateEffect() {
-        effect.activate();
     }
 
     public void draw(Graphics2D g2d, int x, int y, int width, int height) {
@@ -62,6 +55,12 @@ public class Card {
         g2d.drawImage(image, x, y, width, height, null);
     }
 
+    @Override
+    public String applyEffect(BattleEnemy attacker, BattleEnemy defender) {
+        StartGameState.character.mana -= magicCost;
+        return effect.applyEffect(attacker, defender, this);
+    }
+
     public String getName() {
         return cardName;
     }
@@ -78,15 +77,15 @@ public class Card {
         return height;
     }
 
-    public int getDamage() {
-        return damage;
-    }
-
     public int getManaCost() {
         return magicCost;
     }
 
     public String getExplanation() {
         return explanation;
+    }
+
+    public String[] getEffectStrings() {
+        return effect.getEffectStrings();
     }
 }

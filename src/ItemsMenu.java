@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +23,9 @@ public class ItemsMenu implements Menu {
     private boolean active;
     private MenuPointer scroller;
     private Item lastItem;
+    private int state;
+    private String status;
+    private ArrayList<String> statusLines;
 
     public ItemsMenu(Framework framework) {
         windowWidth = framework.getWidth();
@@ -48,6 +52,8 @@ public class ItemsMenu implements Menu {
         if (MainCharacter.items.size() == 0) {
             scroller.setMenuCount(1);
         }
+        status = "";
+        state = 0;
     }
 
     @Override
@@ -75,7 +81,76 @@ public class ItemsMenu implements Menu {
             i++;
         }
         if (active) {
-            scroller.draw(g2d);
+            g2d.setColor(Color.BLACK);
+            g2d.drawRect(menuX, 3*menuY/4, 2 * windowWidth / 3 - 1, 3*windowHeight/4 - 1);
+            int maxMessageWidth = 2*windowWidth/3 - 40;
+            Font messageFont = new Font("Arial", Font.BOLD, 15);
+            g2d.setFont(messageFont);
+            ArrayList<String> lines = new ArrayList<>();
+            if (MainCharacter.items.size() > 0) {
+                String text = ItemCache.getExplanation((MainCharacter.items.getIndexed(scroller.getCount() - 1).name));
+                textWidth = (int) (messageFont.getStringBounds(text, g2d.getFontRenderContext()).getWidth());
+                if (textWidth > maxMessageWidth) {
+                    String[] split = text.split("\\s+");
+                    int tempWidth = 0;
+                    int maxWidth = 0;
+                    String line = "";
+                    for (i = 0; i < split.length; i++) {
+                        tempWidth += (int) (messageFont.getStringBounds(split[i] + "_", g2d.getFontRenderContext()).getWidth());
+                        if (tempWidth > maxMessageWidth) {
+                            tempWidth = (int) (messageFont.getStringBounds(split[i] + "_", g2d.getFontRenderContext()).getWidth());
+                            lines.add(line);
+                            line = split[i] + " ";
+                        } else {
+                            line = line + split[i] + " ";
+                        }
+                        if (tempWidth > maxWidth) {
+                            maxWidth = tempWidth;
+                        }
+                    }
+                    lines.add(line);
+                } else {
+                    lines.add(text);
+                }
+                for (i = 0; i < lines.size(); i++) {
+                    g2d.drawString(lines.get(i), menuX + 20, 3 * windowHeight / 4 + 18 + 25 + i * (18 + 10));
+                }
+            }
+            if (state == 0) {
+                scroller.draw(g2d);
+            } else if (state == 1) {
+                g2d.setColor(Color.BLACK);
+                g2d.fillRoundRect(menuX + 20, windowHeight / 2 - 100, 2 * windowWidth / 3 - 40, 200, 10, 10);
+                statusLines  = new ArrayList<>();
+                textWidth = (int)(messageFont.getStringBounds(status, g2d.getFontRenderContext()).getWidth());
+                maxMessageWidth = 2*windowWidth/3 - 80;
+                if (textWidth > maxMessageWidth) {
+                    String[] split = status.split("\\s+");
+                    int tempWidth = 0;
+                    int maxWidth = 0;
+                    String line = "";
+                    for (i = 0; i < split.length; i++) {
+                        tempWidth += (int)(messageFont.getStringBounds(split[i] + "_",g2d.getFontRenderContext()).getWidth());
+                        if (tempWidth > maxMessageWidth) {
+                            tempWidth = (int) (messageFont.getStringBounds(split[i] + "_", g2d.getFontRenderContext()).getWidth());
+                            statusLines.add(line);
+                            line = split[i] + " ";
+                        } else {
+                            line = line + split[i] + " ";
+                        }
+                        if (tempWidth > maxWidth) {
+                            maxWidth = tempWidth;
+                        }
+                    }
+                    statusLines.add(line);
+                } else {
+                    statusLines.add(status);
+                }
+                g2d.setColor(Color.WHITE);
+                for (i = 0; i < statusLines.size(); i++) {
+                    g2d.drawString(statusLines.get(i), menuX + 40, windowHeight/2 - 100 + 15 + 20 + i*(15 + 10));
+                }
+            }
         }
         lastItem = null;
     }
@@ -83,12 +158,20 @@ public class ItemsMenu implements Menu {
     @Override
     public void update(float elapsedTime, boolean[][] keyboardstate) {
         if (keyboardstate[KeyEvent.VK_ENTER][1]) {
-            if (MainCharacter.items.getIndexed(scroller.getCount() - 1).use()) {
-                String name = MainCharacter.items.getIndexed(scroller.getCount() - 1).name;
-                lastItem = MainCharacter.items.getIndexed(scroller.getCount() - 1);
-                MainCharacter.removeItem(name);
+            status = MainCharacter.items.getIndexed(scroller.getCount() - 1).use();
+            if (state == 0) {
+                if (status.contains("<>")) {
+                    status = status.substring(0, status.length() - 2);
+                } else {
+                    String name = MainCharacter.items.getIndexed(scroller.getCount() - 1).name;
+                    lastItem = MainCharacter.items.getIndexed(scroller.getCount() - 1);
+                    MainCharacter.removeItem(name);
+                }
+                state = 1;
+            } else if (state == 1) {
+                state = 0;
             }
-        } else {
+        } else if (state == 0){
             if (keyboardstate[KeyEvent.VK_S][0]) { // Handle the S Key is down
                 // Decide whether to scroll down or not
                 if (scroller.scrollDirection == 1) {                 // If the scroller was already scrolling down...

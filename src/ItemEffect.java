@@ -3,44 +3,55 @@
  */
 public class ItemEffect {
 
-    private String type;
-    private int amount;
+    private String[] types;
+    private int[] values;
 
-    public ItemEffect(String type, int amount) {
-        this.type = type;
-        this.amount = amount;
+    public ItemEffect(String[] types, int[] values) {
+        this.types = types;
+        this.values = values;
     }
 
     public String activate() {
-        String string = "";
-        if (type.contains("Heal,")) {
-            if (MainCharacter.health != MainCharacter.maxHealth) {
-                MainCharacter.health += amount;
-                if (MainCharacter.health > MainCharacter.maxHealth) {
-                    MainCharacter.health = MainCharacter.maxHealth;
+        String errorString = "";
+        String status = "";
+        for (int i = 0; i < types.length; i++) {
+            if (types[i].equals("Heal")) {
+                if (StartGameState.character.health != StartGameState.character.maxHealth) {
+                    StartGameState.character.health += values[i];
+                    if (StartGameState.character.health > StartGameState.character.maxHealth) {
+                        StartGameState.character.health = StartGameState.character.maxHealth;
+                    }
+                    status += "You have been healed for " + String.valueOf(values[i]) + " health! ";
+                } else {
+                    errorString = errorString + "Heal,";
                 }
-            } else {
-                string = string + "Heal,";
-            }
-        } else if (type.contains("Restore Mana,")) {
-            if (MainCharacter.mana != MainCharacter.maxMana) {
-                MainCharacter.mana += amount;
-                if (MainCharacter.mana > MainCharacter.maxMana) {
-                    MainCharacter.mana = MainCharacter.maxMana;
+            } else if (types[i].equals("Restore Mana")) {
+                if (StartGameState.character.mana != StartGameState.character.maxMana) {
+                    StartGameState.character.mana += values[i];
+                    if (StartGameState.character.mana > StartGameState.character.maxMana) {
+                        StartGameState.character.mana = StartGameState.character.maxMana;
+                    }
+                    status += "You have been restored " + String.valueOf(values[i]) + " mana! ";
+                } else {
+                    errorString = errorString + "Restore Mana,";
                 }
-            } else {
-                string = string + "Restore Mana,";
             }
         }
-        return string;
+        if (status.equals("")) {
+            errorString += "<>";
+            return errorString;
+        } else {
+            return status;
+        }
     }
 
     public String getErrorMessage(String status) {
         if (status.contains("Heal,")) {
-            return "You are already at max health!";
+            return "You are already at max health!<>";
         } else if (status.contains("Restore Mana,")) {
-            return "You are already at max mana!";
+            return "You are already at max mana!<>";
         }
         return null;
     }
+
 }

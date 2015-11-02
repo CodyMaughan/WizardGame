@@ -16,10 +16,10 @@ public class CardCache {
 
     private static final HashMap<String, Card> cards = new HashMap<String, Card>() {
         {
-            put("Singe", new Card("Singe", "Singe", 10, 5, new CardEffect(), "/resources/images/Cards/40X56 Card Frames Revised/fire_test.png"));
-            put("Quake", new Card("Quake", "Quake", 10, 5, new CardEffect(), "/resources/images/Cards/40X56 Card Frames Revised/earth_test.png"));
-            put("Frost", new Card("Frost", "Frost", 10, 5, new CardEffect(), "/resources/images/Cards/40X56 Card Frames Revised/ice_test.png"));
-            put("Time Travel", new Card("Time Travel", "Time Travel", 0, 10, new CardEffect(), "/resources/images/Cards/40X56 Card Frames Revised/test.png"));
+            put("Singe", new Card("Singe", "Singe", 5, new BattleMoveEffect(new String[] {"Damage_Fire"}, new int[] {10}, new int[] {100}), "/resources/images/Cards/40X56 Card Frames Revised/fire_test.png"));
+            put("Quake", new Card("Quake", "Quake", 5, new BattleMoveEffect(new String[] {"Damage_Earth"}, new int[] {10}, new int[] {100}), "/resources/images/Cards/40X56 Card Frames Revised/earth_test.png"));
+            put("Frost", new Card("Frost", "Frost", 5, new BattleMoveEffect(new String[] {"Damage_Ice"}, new int[] {10}, new int[] {100}), "/resources/images/Cards/40X56 Card Frames Revised/ice_test.png"));
+            put("Time Travel", new Card("Time Travel", "Time Travel", 10, new BattleMoveEffect(new String[] {"Damage_Physical"}, new int[] {5}, new int[] {100}), "/resources/images/Cards/40X56 Card Frames Revised/test.png"));
         }
     };
 

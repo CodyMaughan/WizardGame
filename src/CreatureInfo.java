@@ -66,4 +66,8 @@ public class CreatureInfo {
     public int getMaxMana() {
         return maxMana;
     }
+
+    public String[] getMoves() {
+        return moves;
+    }
 }

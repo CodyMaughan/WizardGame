@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by Cody on 9/13/2015.
  */
-public class MainCharacter {
+public class MainCharacter extends BattleEnemy {
 
     public static String characterName;
     public static int x;
@@ -35,14 +35,6 @@ public class MainCharacter {
     public static Map<String, Integer> equipmentCount;
     public static IndexedTreeMap<String, Vendable> vendables;
     public static Map<String, Integer> vendableCount;
-    public static int level;
-    public static int experience;
-    public static IndexedLinkedHashMap<String, Integer> stats;
-    public static IndexedLinkedHashMap<String, Integer> skills;
-    public static int health;
-    public static int maxHealth;
-    public static int mana;
-    public static int maxMana;
     public static String battleStatus;
     private static String travelState;
     private static boolean canSwim;
@@ -257,12 +249,17 @@ public class MainCharacter {
         }
     }
 
-    public static BufferedImage getBattleImage() {
+    public BufferedImage getBattleImage() {
         BufferedImage temp = new BufferedImage(imageWidth/maxAnimationFrames, imageHeight/4, image.getType());
         Graphics2D gr = temp.createGraphics();
         gr.drawImage(image, 0, 0, temp.getWidth(), temp.getHeight(), 0, 3*imageHeight/4, temp.getWidth(), 3*imageHeight/4 + temp.getHeight(), null);
         gr.dispose();
         return temp;
+    }
+
+    @Override
+    public String getName() {
+        return characterName;
     }
 
     public static boolean isStop() {return stop; }

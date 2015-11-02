@@ -6,10 +6,18 @@ import java.util.Map;
  */
 public class ItemCache {
 
+    public static final Map<String, String> explanations = new HashMap<String, String>() {
+        {
+            put("Berries", "Tasty berries that grow on bushes in the wild. They restore 15 health eaten raw, or can be used to create potions.");
+            put("Mushroom", "Okay tasting mushrooms that can be found growing in the wild. They restore 10 mana eaten raw, or can be used to create potions.");
+            put("Novice Robes", "Clothing for novice mage. These robes provide minimal defense, but a slight increase to agility and wisdom.");
+        }
+    };
+
     public static final Map<String, Item> items = new HashMap<String, Item>() {
         {
-            put("Berries", new Item("Berries", 20, "Ingredient, Food", new ItemEffect("Heal,", 15)));
-            put("Mushroom", new Item("Mushroom", 30, "Ingredient, Food", new ItemEffect("Restore Mana,", 10)));
+            put("Berries", new Item("Berries", 20, "Ingredient, Food", new ItemEffect(new String[] {"Heal"}, new int[] {15})));
+            put("Mushroom", new Item("Mushroom", 30, "Ingredient, Food", new ItemEffect(new String[] {"Restore Mana"}, new int[]  {10})));
         }
     };
 
@@ -36,5 +44,9 @@ public class ItemCache {
         } else {
             return null;
         }
+    }
+
+    public static String getExplanation(String name) {
+        return explanations.get(name);
     }
 }

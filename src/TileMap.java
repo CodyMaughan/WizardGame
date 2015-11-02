@@ -634,7 +634,10 @@ public class TileMap {
             if ((character.vX != 0 || character.vY != 0) && rect.intersects(character.collisionBox)) {
                 String creature = box.spawnCreature();
                 if (creature != null) {
-                    StartGameState.startBattleState(mapCreatures.get(creature));
+                    Creature c = mapCreatures.get(creature);
+                    c.health = c.maxHealth;
+                    c.mana = c.maxMana;
+                    StartGameState.startBattleState(c);
                 }
             }
             rect.translate(xOffset, yOffset);

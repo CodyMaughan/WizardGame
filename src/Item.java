@@ -10,13 +10,14 @@ public class Item extends Vendable {
         this.effect = effect;
     }
 
-    public boolean use(){
+    public String use(){
         String status = effect.activate();
-        if (!status.equals("")) {
+        if (status.contains("<>")) {
             System.out.println(effect.getErrorMessage(status));
-            return false;
+            return effect.getErrorMessage(status);
+        } else {
+            return status;
         }
-        return true;
     }
 
 }

@@ -35,10 +35,6 @@ public class Character extends BattleEnemy {
     public Map<String, Integer> equipmentCount;
     public IndexedTreeMap<String, Vendable> vendables;
     public Map<String, Integer> vendableCount;
-    public int level;
-    public int experience;
-    public IndexedLinkedHashMap<String, Integer> stats;
-    public IndexedLinkedHashMap<String, Integer> skills;
     public int money;
     private static String travelState;
     private boolean canSwim;

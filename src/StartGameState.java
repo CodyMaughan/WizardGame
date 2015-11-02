@@ -10,7 +10,7 @@ public class StartGameState implements IState {
 
     protected static TileMap map;
     protected static String mapPath;
-    protected static MainCharacter character;
+    public static MainCharacter character;
     protected static TileMap nextMap;
     private static Framework framework;
     private static TimedDialogBox entranceDialogBox;

@@ -8,8 +8,8 @@ public class CreatureCache {
 
     private static Map<String, CreatureInfo> creatures = new HashMap<String, CreatureInfo>() {
         {
-            put("GiantSpider1", new CreatureInfo("GiantSpider1", "/resources/images/Creatures/LPC_Spiders/spider01_battle.png", "", 64, 64, 4, 15, 15, 5, 5));
-            put("GiantSpider2", new CreatureInfo("GiantSpider2", "/resources/images/Creatures/LPC_Spiders/spider02_battle.png", "", 64, 64, 4, 20, 20, 5, 5));
+            put("Giant Black Spider", new CreatureInfo("Giant Black Spider", "/resources/images/Creatures/LPC_Spiders/spider01_battle.png", " <Moves>Spider Bite,Shoot Web<Moves>", 64, 64, 4, 15, 15, 5, 5));
+            put("Giant Navy Spider", new CreatureInfo("Giant Navy Spider", "/resources/images/Creatures/LPC_Spiders/spider02_battle.png", " <Moves>Spider Bite,Shoot Web<Moves>", 64, 64, 4, 20, 20, 5, 5));
         }
     };
 
