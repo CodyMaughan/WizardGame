@@ -318,10 +318,23 @@ public class BattleState implements IState, GameEvent {
                     }
                 } else if (turnState == 2) {
                     if (shouldWait) {
-                        shouldWait = false;
-                        drawItemUsed = false;
-                        turnState = 0;
-                        turn = 1;
+                        if (itemMenu.isActive()) {
+                            itemMenu.update(elapsedTime, keyboardstate);
+                            if (keyboardstate[KeyEvent.VK_ENTER][1]) {
+                                itemMenu.setActive(false);
+                                drawItemUsed = true;
+                            }
+                        } else {
+                            shouldWait = false;
+                            drawItemUsed = false;
+                            try {
+                                // Waits a little on the enemy turn, this is just for testing and will be removed when AI is written
+                                Thread.sleep(1500);
+                            } catch (InterruptedException ex) {
+                            }
+                            turnState = 0;
+                            turn = 1;
+                        }
                     } else {
                         itemMenu.setActive(true);
                         if (keyboardstate[KeyEvent.VK_BACK_SPACE][1]) {
@@ -330,9 +343,9 @@ public class BattleState implements IState, GameEvent {
                         } else {
                             itemMenu.update(elapsedTime, keyboardstate);
                             if (keyboardstate[KeyEvent.VK_ENTER][1]) {
-                                shouldWait = true;
-                                drawItemUsed = true;
-                                itemMenu.setActive(false);
+                                if (itemMenu.state == 1 && itemMenu.error == false) {
+                                    shouldWait = true;
+                                }
                             }
                         }
                     }

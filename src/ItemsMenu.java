@@ -23,9 +23,10 @@ public class ItemsMenu implements Menu {
     private boolean active;
     private MenuPointer scroller;
     private Item lastItem;
-    private int state;
+    public int state;
     private String status;
     private ArrayList<String> statusLines;
+    public boolean error;
 
     public ItemsMenu(Framework framework) {
         windowWidth = framework.getWidth();
@@ -54,6 +55,7 @@ public class ItemsMenu implements Menu {
         }
         status = "";
         state = 0;
+        error = false;
     }
 
     @Override
@@ -152,7 +154,6 @@ public class ItemsMenu implements Menu {
                 }
             }
         }
-        lastItem = null;
     }
 
     @Override
@@ -162,10 +163,12 @@ public class ItemsMenu implements Menu {
             if (state == 0) {
                 if (status.contains("<>")) {
                     status = status.substring(0, status.length() - 2);
+                    error = true;
                 } else {
                     String name = MainCharacter.items.getIndexed(scroller.getCount() - 1).name;
                     lastItem = MainCharacter.items.getIndexed(scroller.getCount() - 1);
                     MainCharacter.removeItem(name);
+                    error = false;
                 }
                 state = 1;
             } else if (state == 1) {
