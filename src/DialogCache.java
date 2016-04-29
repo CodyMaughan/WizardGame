@@ -34,6 +34,9 @@ public class DialogCache {
             put("AlchemistVendor_MageCity_3", "You don't need any potions!? \nAlright then... Come back soon!");
             put("Innkeeper_MageCity_0", "Welcome to Burner's Inn, the finest inn in the entire town! \nHehe, it's also the only inn in the entire town. \nIt's nice to have no competition.");
             put("InnkeeperDaughter_MageCity_0", "It's just my father and I who run this inn. \nWe mostly get wizards who are traveling here to visit the academy.");
+            put("ItemShopKeeper_MageCity_0", "Welcome to Illidan's Items!");
+            put("ItemShopKeeper_MageCity_2", "Thank you for your consumerization! \nCome again anytime!");
+            put("ItemShopKeeper_MageCity_3", "Come back anytime you need to itemize!");
             put("Mage1_MageCity_0", "The wizard academy is older than dirt itself! \nThere are all types of magic to be learned there! ");
             put("Mage2_MageCity_0", "I used to be a traveler like you, \nbut then I took a fireball to the knee...");
             put("Mage3_MageCity_0", "This here is the wizard academy. \nMages from all over this country come here \nso that they can learn all types of arcane magic.");
@@ -69,6 +72,7 @@ public class DialogCache {
     private static final Map<String, String> choiceDialog = new HashMap<String, String>() {
         {
             put("AlchemistVendor_MageCity_1", "Shop from the alchemy vendor?");
+            put("ItemShopKeeper_MageCity_1", "Would you like to customize your itemization?");
             put("Mage3_MageCity_1", "Are you here to learn magic too?");
             put("Annabelle_MageCity_3", "Will you help me?");
             put("Annabelle_MageCity_4", "Great! I'm Annabelle! What's your name?");
@@ -79,6 +83,7 @@ public class DialogCache {
     private static final Map<String, String[]> choices = new HashMap<String, String[]>() {
         {
             put("AlchemistVendor_MageCity_1", new String[]{"Yes", "No"});
+            put("ItemShopKeeper_MageCity_1", new String[]{"Yes", "No"});
             put("Mage3_MageCity_1", new String[]{"Of course!", "I'm not sure...", "No way!"});
             put("Annabelle_MageCity_3", new String[]{"Sure will!", "I don't know magic though.", "You look too young to me..."});
             put("Annabelle_MageCity_4", new String[]{MainCharacter.characterName, "Jar Jar Binks", "Nevermind..."});
@@ -101,6 +106,12 @@ public class DialogCache {
             });
             put("Innkeeper_MageCity", new String[] {"ScrollDialogBox"});
             put("InnkeeperDaughter_MageCity", new String[] {"ScrollDialogBox"});
+            put("ItemShopKeeper_MageCity", new String[] {
+                    "ScrollDialogBox",
+                    "ChoiceBox",
+                    "ScrollDialogBox", // Yes/Choice 0
+                    "ScrollDialogBox"  // No/Choice 1
+            });
             put("Mage1_MageCity", new String[] {"ScrollDialogBox"});
             put("Mage2_MageCity", new String[] {"ScrollDialogBox"});
             put("Mage3_MageCity", new String[] {
@@ -144,6 +155,12 @@ public class DialogCache {
     private static final Map<String, Integer[][]> sequencePath = new HashMap<String, Integer[][]>() {
         {
             put("AlchemistVendor_MageCity", new Integer[][]{
+                    {1},
+                    {2, 3},
+                    {null},
+                    {null}
+            });
+            put("ItemShopKeeper_MageCity", new Integer[][]{
                     {1},
                     {2, 3},
                     {null},

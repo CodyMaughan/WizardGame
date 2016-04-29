@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="81" height="66" tilewidth="32" tileheight="32" nextobjectid="155">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="81" height="66" tilewidth="32" tileheight="32" nextobjectid="158">
  <tileset firstgid="1" name="fat_magecity_0" tilewidth="32" tileheight="32" tilecount="720">
   <image source="../images/tileset/fat_magecity_0.png" width="512" height="1450"/>
  </tileset>
@@ -26811,7 +26811,7 @@
   <object id="59" x="1728" y="1152" width="73" height="194"/>
   <object id="60" x="1567" y="1150" width="236" height="36"/>
   <object id="61" x="1792" y="1119" width="66" height="354"/>
-  <object id="63" x="1920" y="1119" width="96" height="355"/>
+  <object id="63" x="1920" y="1119" width="96" height="354"/>
   <object id="64" x="1793" y="1118" width="288" height="66"/>
   <object id="65" x="2013" y="1180" width="100" height="102"/>
   <object id="66" x="2240" y="1179" width="132" height="103"/>
@@ -26865,9 +26865,15 @@
  <objectgroup name="Connection_MageCityInn">
   <object id="152" name="Connection1" type="Up_Up" x="736" y="1420" width="64" height="11"/>
  </objectgroup>
+ <objectgroup name="Connection_ItemShopMageCity">
+  <object id="157" name="Connection1" type="Up_Up" x="1859" y="1456" width="61" height="12"/>
+ </objectgroup>
  <objectgroup name="Connection_MageCityBarracks">
   <object id="153" name="Connection1" type="Up_Up" x="798" y="994" width="65" height="24"/>
   <object id="154" name="Connection2" type="Up_Up" x="1727" y="994" width="65" height="24"/>
+ </objectgroup>
+ <objectgroup name="Connection_WizardAcademy">
+  <object id="155" name="Connection1" type="Up_Up" x="639" y="457" width="97" height="16"/>
  </objectgroup>
  <objectgroup name="CharacterSpawn">
   <object id="112" name="AlchemistVendor_MageCity" x="1037" y="1382" width="32" height="32"/>

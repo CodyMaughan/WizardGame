@@ -13,6 +13,11 @@ public class EventCache {
                             VendorCache.getVendableCount("AlchemistVendor_MageCity"), VendorCache.getMoney("AlchemistVendor_MageCity"), "Ingredients, Potions"),
                     null
             });
+            put("ItemShopKeeper_MageCity_1", new GameEvent[]{
+                   new VendorState("ItemShopKeeper_MageCity", "Illidan's Items", VendorCache.getVendables("ItemShopKeeper_MageCity"),
+                           VendorCache.getVendableCount("ItemShopKeeper_MageCity"), VendorCache.getMoney("ItemShopKeeper_MageCity"), "Ingredients, Potions"),
+                    null
+            });
             put("Mage3_MageCity_1", new GameEvent[]{
                    null, null, null
             });
