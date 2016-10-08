@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="54" height="45" tilewidth="32" tileheight="32" nextobjectid="86">
- <tileset firstgid="1" name="indoor_fat_1" tilewidth="32" tileheight="32" tilecount="432">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="54" height="45" tilewidth="32" tileheight="32" nextobjectid="98">
+ <tileset firstgid="1" name="indoor_fat_1" tilewidth="32" tileheight="32" tilecount="432" columns="36">
   <image source="../images/tileset/indoor_fat_1.png" width="1152" height="384"/>
  </tileset>
  <layer name="Background" width="54" height="45">
@@ -2437,7 +2437,7 @@
    <tile gid="329"/>
   </data>
  </layer>
- <layer name="Foreground" width="54" height="45" visible="0">
+ <layer name="Foreground" width="54" height="45">
   <data>
    <tile gid="15"/>
    <tile gid="20"/>
@@ -4871,7 +4871,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Foreground2" width="54" height="45" visible="0">
+ <layer name="Foreground2" width="54" height="45">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -7305,7 +7305,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Top" width="54" height="45" visible="0">
+ <layer name="Top" width="54" height="45">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -9739,7 +9739,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Top2" width="54" height="45" visible="0">
+ <layer name="Top2" width="54" height="45">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -12173,7 +12173,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="Collision" visible="0">
+ <objectgroup name="Collision">
   <object id="2" x="741" y="96" width="48" height="25"/>
   <object id="3" x="710" y="127" width="116" height="32"/>
   <object id="4" x="706" y="383" width="121" height="32"/>
@@ -12260,5 +12260,21 @@
  </objectgroup>
  <objectgroup name="Connection_magecity" visible="0">
   <object id="1" name="Connection1" type="Down_Down" x="1439" y="232" width="97" height="22"/>
+ </objectgroup>
+ <objectgroup name="CharacterSpawn" visible="0">
+  <object id="86" name="StudyingMage1_WizardAcademy" x="238" y="538" width="32" height="32"/>
+  <object id="87" name="StudyingMage2_WizardAcademy" x="494" y="539" width="32" height="32"/>
+  <object id="88" name="StudyingMage3_WizardAcademy" x="493" y="856" width="32" height="32"/>
+  <object id="89" name="StudyingMage5_WizardAcademy" x="750" y="1306" width="32" height="32"/>
+  <object id="90" name="StudyingMage4_WizardAcademy" x="750" y="860" width="32" height="32"/>
+  <object id="91" name="StudyingMage6_WizardAcademy" x="750" y="342" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="CharacterPath">
+  <object id="92" name="StudyingMage6_WizardAcademy" type="FaceDown" x="750" y="341" width="32" height="32"/>
+  <object id="93" name="StudyingMage2_WizardAcademy" type="FaceDown" x="494" y="538" width="32" height="32"/>
+  <object id="94" name="StudyingMage3_WizardAcademy" type="FaceDown" x="493" y="855" width="32" height="32"/>
+  <object id="95" name="StudyingMage1_WizardAcademy" type="FaceDown" x="238" y="537" width="32" height="32"/>
+  <object id="96" name="StudyingMage4_WizardAcademy" type="FaceDown" x="750" y="859" width="32" height="32"/>
+  <object id="97" name="StudyingMage5_WizardAcademy" type="FaceDown" x="750" y="1305" width="32" height="32"/>
  </objectgroup>
 </map>

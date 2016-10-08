@@ -57,6 +57,20 @@ public class CharacterCache {
             put("CityGuard8_MageCity", new CharacterInfo("CityGuard8_MageCity",
                     "/resources/images/Characters/pack_knights_1_by_darklack-d90exuq-1-0.png", "", 64, 64));
 
+            //Wizard Academy Characters
+            put("StudyingMage1_MageCity", new CharacterInfo("Mage1_MageCity",
+                    "/resources/images/Characters/summoner__female__by_darklack-d91k9rq.png", "", 64, 64));
+            put("StudyingMage2_MageCity", new CharacterInfo("Mage2_MageCity",
+                    "/resources/images/Characters/cleric__male__by_darklack-d95lbvu.png", "", 64, 64));
+            put("StudyingMage3_MageCity", new CharacterInfo("Mage3_MageCity",
+                    "/resources/images/Characters/cleric__female__by_darklack-d950jr1.png", "", 64, 64));
+            put("StudyingMage4_MageCity", new CharacterInfo("Mage4_MageCity",
+                    "/resources/images/Characters/mage__female__by_darklack-d90t8i1.png", "", 64, 64));
+            put("StudyingMage5_MageCity", new CharacterInfo("Mage1_MageCity",
+                    "/resources/images/Characters/mage__male__by_darklack-d90t7qq.png", "", 64, 64));
+            put("StudyingMage6_MageCity", new CharacterInfo("Mage2_MageCity",
+                    "/resources/images/Characters/cleric__male__by_darklack-d95lbvu.png", "", 64, 64));
+
             put("Necromancer", new CharacterInfo("Necromancer", "/resources/images/Characters/necromancer__male__by_darklack-d92uqtq.png", "", 64, 64));
         }
     };
